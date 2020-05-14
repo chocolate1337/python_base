@@ -11,12 +11,27 @@ sites = {
 
 # Составим словарь словарей расстояний между ними
 # расстояние на координатной сетке - ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+def distance_xy(x, y):
+    return ((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2) ** 0.5
 
-distances = {}
+moscow = sites['Moscow']
 
-# TODO здесь заполнение словаря
+london = sites['London']
 
-print(distances)
+paris = sites['Paris']
+
+distances = {
+'Moscow_to_Paris': (distance_xy(moscow, paris)),
+'Moscow_to_London': (distance_xy(moscow, london)),
+'Paris_to_Moscow': (distance_xy(paris, moscow)),
+'Paris_to_London': (distance_xy(paris, london)),
+'London_to_Paris': (distance_xy(london, paris)),
+'London_to_Moscow': (distance_xy(london, moscow)),
+}
+
+
+for key, value in distances.items():
+    print(key, ' : ', value, sep='')
 
 
 
