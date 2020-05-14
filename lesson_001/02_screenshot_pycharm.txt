@@ -5,6 +5,6 @@
 # В PyCharm должен быть открыт файл 01_os_info.py
 # а внизу виден результат выполнения этого файла.
 
-# http://joxi.ru/bmo3WORU9gPbDm
+# http://joxi.ru/LmGPE3gtJEaxP2
 
-# TODO установи пожалуйста рекомендованную версию python 3.7.х
+
