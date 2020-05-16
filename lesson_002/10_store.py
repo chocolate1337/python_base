@@ -52,13 +52,19 @@ print('Лампа -', lamps_quantity, 'шт, стоимость', lamps_cost, '�
 # WARNING для знающих циклы: БЕЗ циклов. Да, с переменными; да, неэффективно; да, копипаста.
 # Это задание на ручное вычисление - что бы потом понять как работают циклы и насколько с ними проще жить.
 
-#
-table_cost = store[goods['Стол']][1]['quantity'] * store[goods['Стол']][1]['price'] +store[goods['Стол']][0]['quantity'] * store[goods['Стол']][0]['price']
-chair_cost = store[goods['Стул']][0]['quantity'] * store[goods['Стул']][0]['price'] +store[goods['Стул']][1]['quantity'] * store[goods['Стул']][1]['price']+store[goods['Стул']][2]['quantity'] * store[goods['Стул']][2]['price']
-bed_cost = store[goods['Диван']][1]['quantity'] * store[goods['Диван']][1]['price'] + store[goods['Диван']][0]['quantity'] * store[goods['Диван']][0]['price']
+# TODO т.к. все равно на доработку отправляю, помести goods['Стол']
+#  в отдельную переменную, чтобы уменьшить вложенность, стул и диван - тоже.
+table_cost = store[goods['Стол']][1]['quantity'] * store[goods['Стол']][1]['price'] + store[goods['Стол']][0][
+    'quantity'] * store[goods['Стол']][0]['price']
+chair_cost = store[goods['Стул']][0]['quantity'] * store[goods['Стул']][0]['price'] + store[goods['Стул']][1][
+    'quantity'] * store[goods['Стул']][1]['price'] + store[goods['Стул']][2]['quantity'] * store[goods['Стул']][2][
+                 'price']
+bed_cost = store[goods['Диван']][1]['quantity'] * store[goods['Диван']][1]['price'] + store[goods['Диван']][0][
+    'quantity'] * store[goods['Диван']][0]['price']
 table_quant = store[goods['Стол']][1]['quantity'] + store[goods['Стол']][0]['quantity']
-chair_quant = store[goods['Стул']][0]['quantity']+store[goods['Стул']][1]['quantity']+store[goods['Стул']][2]['quantity']
-bed_quant = store[goods['Диван']][1]['quantity']+store[goods['Диван']][0]['quantity']
+chair_quant = store[goods['Стул']][0]['quantity'] + store[goods['Стул']][1]['quantity'] + store[goods['Стул']][2][
+    'quantity']
+bed_quant = store[goods['Диван']][1]['quantity'] + store[goods['Диван']][0]['quantity']
 print(f'Стол - {table_quant} шт, стоймость {table_cost} руб')
 print(f'Стул - {chair_quant} шт, стоймость {chair_cost} руб')
 print(f'Диван - {bed_quant} шт, стоймость {bed_cost} руб')
@@ -68,9 +74,3 @@ print(f'Диван - {bed_quant} шт, стоймость {bed_cost} руб')
 # и оформить попытку сдачи ДЗ! Без этого ДЗ не будет проверяться!                        #
 # Как оформить попытку сдачи смотрите видео - https://youtu.be/qVpN0L-C3LU               #
 ##########################################################################################
-
-
-
-
-
-

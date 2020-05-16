@@ -10,5 +10,7 @@
 result = (1 + 2) * 3
 print(result)
 
-result2 = (1*(2+3))*4+5
+result2 = (1 * (2 + 3)) * 4 + 5
 print(result2)
+
+# зачет!
