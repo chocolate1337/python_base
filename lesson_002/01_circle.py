@@ -31,15 +31,15 @@ point_1 = (23, 34)
 def distance_to_centre(x, y):
     return (x ** 2 + y ** 2) ** 0.5
 
-# TODO зачем 2 сравнения с радиусом? А во вторых, если точка попадает
-#  на окружность, то сичтатется, что она попала в круг
-print(radius > distance_to_centre(point_1[0], point_1[1]) < radius)
+
+
+print(distance_to_centre(point_1[0], point_1[1]) <= radius)
 # Аналогично для другой точки
 point_2 = (30, 30)
 # Если точка point_2 лежит внутри круга (radius = 42), то выведите на консоль True,
 # Или False, если точка лежит вовне круга.
 
-print(radius > distance_to_centre(point_2[0], point_2[1]) < radius)
+print(distance_to_centre(point_2[0], point_2[1]) <= radius)
 # Пример вывода на консоль:
 #
 # 77777.7777
