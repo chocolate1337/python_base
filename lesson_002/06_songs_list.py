@@ -21,7 +21,9 @@ violator_songs_list = [
 # Распечатайте общее время звучания трех песен: 'Halo', 'Enjoy the Silence' и 'Clean' в формате
 #   Три песни звучат ХХХ.XX минут
 
-time_song = violator_songs_list[3][1] + violator_songs_list[5][1] + violator_songs_list[-1][1]
+time_song = (violator_songs_list[3][1]
+             + violator_songs_list[5][1]
+             + violator_songs_list[-1][1])
 print(f'Три песни звучат {round(time_song, 2)} минут')
 
 # Есть словарь песен группы Depeche Mode
