@@ -8,7 +8,6 @@ goods = {
     'Диван': '34567',
     'Стул': '45678',
 }
-
 # Есть словарь списков количества товаров на складе.
 
 store = {
@@ -53,8 +52,40 @@ store = {
 #         подсчет количества товара
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
+countsname = []
+countsquantity = []
+countscost = []
+quantity = 0
+cost = 0
+for keys in goods.keys():       #список имен
+    countsname.append(keys)
 
-# TODO здесь ваш код
+for code, keys in store.items():
+    for values in keys:
+        quantity += values['quantity']      #количество предмета
+        priceq = values['quantity']         #количество прндметов для подсчета стоймости
+        price = values['price']             #цена предмета
+        cost += priceq * price              #общая цена
+
+    countsquantity.append(quantity)         #количество предметов посчитанные для каждого имени
+    countscost.append(cost)                 #цена посчитанные на каждый предмет
+    quantity=0                              #обнуляем счетчик для след предмета
+    cost = 0                                #аналогично
+#выводим
+for i in range(0,4,1):
+    print(f'{countsname[i]} - {countsquantity[i]} шт, стоймость {countscost[i]}')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
