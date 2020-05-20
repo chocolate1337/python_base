@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 
 # (if/elif/else)
 
@@ -21,6 +22,13 @@ paper_x, paper_y = 8, 9
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
 
+# т.к вставляем в условии паралельно то достаточно посчитать площадь конверта и листа и сравнить
+
+S_envelop = envelop_x * envelop_y
+if S_envelop >= (paper_x * paper_y):
+    print('ДА')
+else:
+    print('НЕТ')
 # TODO здесь ваш код
 
 # Усложненное задание, решать по желанию.
@@ -29,8 +37,11 @@ paper_x, paper_y = 8, 9
 #
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
-# hole_x, hole_y = 8, 9
-# brick_x, brick_y, brick_z = 11, 10, 2
+
+# т.к по условию грани опять паралельны то достаточно представить что кирпич не объемный и сравнивать две площади
+# сделал с рандомом наглядно всё видно
+
+
 # brick_x, brick_y, brick_z = 11, 2, 10
 # brick_x, brick_y, brick_z = 10, 11, 2
 # brick_x, brick_y, brick_z = 10, 2, 11
@@ -50,4 +61,17 @@ paper_x, paper_y = 8, 9
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-# TODO здесь ваш код
+hole_x, hole_y = 8, 9
+s_hole = hole_x * hole_y  # площадь дыры
+cnt = 0
+while cnt <= 10:
+    cnt += 1
+    brick_x = random.randint(1, 20)
+    brick_y = random.randint(1, 20)
+    brick_z = random.randint(1, 20)
+    if (s_hole >= brick_x * brick_y) or (s_hole >= brick_x * brick_z) or (s_hole >= brick_y * brick_z):
+        print('Влезет')
+        print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
+    else:
+        print('Не влезет')
+        print(brick_x, brick_y, brick_z, '- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
