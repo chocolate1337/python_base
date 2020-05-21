@@ -22,9 +22,6 @@ london = sites['London']
 
 paris = sites['Paris']
 
-# {'London': {'Moscow': 145.60219778561037, 'Paris': 42.42640687119285},
-#  'Moscow': {'London': 145.60219778561037, 'Paris': 130.38404810405297},
-#  'Paris': {'London': 42.42640687119285, 'Moscow': 130.38404810405297}}
 
 
 distances = {'London': {'Moscow': distance_xy(london, moscow), 'Paris': distance_xy(london, paris)},
@@ -32,3 +29,6 @@ distances = {'London': {'Moscow': distance_xy(london, moscow), 'Paris': distance
              'Paris':  {'London': distance_xy(paris, london), 'Moscow': distance_xy(paris, moscow)}}
 
 pprint.pprint(distances)
+
+# лучше конечно было по одному добавлять
+# зачет!
