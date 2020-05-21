@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+import math
+
 
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
@@ -36,7 +38,53 @@ import simple_draw as sd
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-# TODO здесь ваш код
+#ЗАКОМЕНТИЛ ФУНКЦИИ
+
+
+# def triangle(point, angle=0, length=100):
+#     point_1=point
+#     for count in range(0, 241, 120):
+#         v = sd.get_vector(point, angle + count, length=length)
+#         point = v.end_point
+#         v.draw()
+#     sd.line(point_1,point)
+#
+# triangle(sd.Point(100, 100), 30, 100)
+#
+#
+# def square(point, angle=0, length=100):
+#     point_1 = point
+#     for count in range(0, 360, 90):
+#         v = sd.get_vector(point, angle + count, length=length)
+#         point = v.end_point
+#         v.draw()
+#     sd.line(point_1, point)
+#
+#
+# square(sd.Point(400, 100), 30, 100)
+#
+#
+# def pentax(point, angle=0, length=100):
+#     point_1 = point
+#     for count in range(0, 289, 72):
+#         v = sd.get_vector(point, angle + count, length=length)
+#         point = v.end_point
+#         v.draw()
+#     sd.line(point_1,point)
+#
+# pentax(sd.Point(150, 350), 30, 100)
+#
+#
+# def pentax_1(point, angle=0, length=100):
+#     point_1 = point
+#     for count in range(0, 360, 60):
+#         v = sd.get_vector(point, angle + count, length=length)
+#         point = v.end_point
+#         v.draw()
+#     sd.line(point_1,point)
+#
+#
+# pentax_1(sd.Point(450, 350), 30, 100)
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
@@ -60,6 +108,27 @@ import simple_draw as sd
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
 # Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
 # Будьте ленивыми, не используйте копи-пасту!
+def geometry(point,angle,length,*args):
+    point_1 = point
+    for count in args[0]:
+         v = sd.get_vector(point, angle + count, length=length)
+         point = v.end_point
+         v.draw()
+    sd.line(point_1,point)
+geometry(sd.get_point(400,100),30,100,[0,90,180,270])
+geometry(sd.get_point(150,300),30,100,[0,72,144,216,288])
+geometry(sd.get_point(400,300),30,100,[0,60,120,180,240,300])
+geometry(sd.get_point(100,100),30,100,[0,120,240])
+
+
+
+
+
+
+
+
+
+
 
 
 sd.pause()
