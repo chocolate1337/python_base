@@ -12,7 +12,7 @@ import random
 # Использовать только операторы if/elif/else, можно вложенные
 
 envelop_x, envelop_y = 10, 7
-paper_x, paper_y = 8, 9
+paper_x, paper_y = 1, 20 # TODO то есть этот лист влезет?
 # проверить для
 # paper_x, paper_y = 9, 8
 # paper_x, paper_y = 6, 8
@@ -23,13 +23,12 @@ paper_x, paper_y = 8, 9
 # (просто раскоментировать нужную строку и проверить свой код)
 
 # т.к вставляем в условии паралельно то достаточно посчитать площадь конверта и листа и сравнить
-
+# TODO нейминг переменных в питоне - все строчные буквы, пожалуйста поправь
 S_envelop = envelop_x * envelop_y
 if S_envelop >= (paper_x * paper_y):
     print('ДА')
 else:
     print('НЕТ')
-# TODO здесь ваш код
 
 # Усложненное задание, решать по желанию.
 # Заданы размеры hole_x, hole_y прямоугольного отверстия и размеры brick_х, brick_у, brick_z кирпича (все размеры
@@ -66,9 +65,9 @@ s_hole = hole_x * hole_y  # площадь дыры
 cnt = 0
 while cnt <= 10:
     cnt += 1
-    brick_x = random.randint(1, 20)
-    brick_y = random.randint(1, 20)
-    brick_z = random.randint(1, 20)
+    brick_x = 1 # TODO при таких значениях не влезет
+    brick_y = 20
+    brick_z = 20
     if (s_hole >= brick_x * brick_y) or (s_hole >= brick_x * brick_z) or (s_hole >= brick_y * brick_z):
         print('Влезет')
         print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')

@@ -67,7 +67,6 @@ else:
     print('Тут слона нет...')
 print('Выход из цикла')
 
-
 # Изменять содержимое последовательности, по которой проходит цикл, небезопасно
 zoo_pets = [
     'lion', 'skunk',
@@ -77,7 +76,6 @@ for animal in zoo_pets:
     print(animal)
     del zoo_pets[0]
 print(zoo_pets)
-
 
 # автоматическая распаковка содержимого списка/тьюпла
 
@@ -89,12 +87,12 @@ for element in [(1, 2), (3, 4)]:
     print(a + b)
 
 for (a, b) in [(1, 2), (3, 4)]:
-    print(a+b)
+    print(a + b)
 
 pair_list = [(1, 2), (3, 4), (5, 6)]
 
 for a, b in pair_list:
-    print(a+b)
+    print(a + b)
 
 triple_list = [(1, 2, 3), (4, 5, 6)]
 for a, b, c in triple_list:
@@ -104,7 +102,6 @@ for a, b, c in triple_list:
 
 for a, b in [(1, 2), (3, 4), (5, 6, 7)]:
     print(a, b)
-
 
 # полезные функции
 
@@ -126,7 +123,6 @@ for i in range(len(zoo_pets)):
     animal = zoo_pets[i]
     print(i, animal)
 
-
 # вложенные циклы
 zoo_pets = [
     'lion', 'skunk',
@@ -136,7 +132,6 @@ for animal in zoo_pets:
     for char in animal:
         print(char)
     print(animal)
-
 
 # цикл по словарям
 zoo_pet_mass = {

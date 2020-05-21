@@ -15,20 +15,22 @@ y = 50
 end_x = 350
 end_y = 450
 
-# for s in rainbow_colors:
-#    sd.line(sd.Point(x,y), sd.Point(end_x,end_y), s, 4)
-#    x += 5
-#    end_x += 5
+for s in rainbow_colors:
+    # TODO помести 5-ку в переменную, тем более,
+    #  что 2 раза используешь, и также её можно
+    #  использовать как width в sd.line(). Если надо
+    #  будет изменить этот шаг, то придется менять во всех местах
+   sd.line(sd.Point(x, y), sd.Point(end_x, end_y), s, 4)
+   x += 5
+   end_x += 5
 
 # Усложненное задание, делать по желанию.
 # Нарисовать радугу дугами от окружности (cсм sd.circle) за нижним краем экрана,
 # поэкспериментировать с параметрами, что бы было красиво
 
-r=350
+r = 350
 for s in rainbow_colors:
-    sd.circle(sd.Point(300,50), r, s, 20)
-    r+=20
-
-
+    sd.circle(sd.Point(300, 50), r, s, 20)
+    r += 20
 
 sd.pause()

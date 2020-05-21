@@ -57,6 +57,7 @@ for element in my_list:
 def some_func():
     print("я ничего не верну")
 
+
 result = some_func()
 print(result)
 
@@ -120,4 +121,3 @@ print(zoo)
 zoo = ('lion', 'elephant', 'monkey', 'skunk', 'horse', 'elephant')
 elephant_to_free(zoo)
 print(zoo)
-

@@ -7,6 +7,7 @@ import simple_draw as sd
 # Использовать вложенные циклы for
 
 # TODO здесь ваш код
+# TODO удаляй пожалуйста тудушки
 # Подсказки:
 #  Для отрисовки кирпича использовать функцию rectangle
 #  Алгоритм должен получиться приблизительно такой:
@@ -16,19 +17,11 @@ import simple_draw as sd
 #       цикл координате X
 #           вычисляем правый нижний и левый верхний углы кирпича
 #           рисуем кирпич
-x=0
-y=0
-for y in range(0,700,100):
-    for x in range(0,700,100):
-        sd.rectangle(sd.Point(x-50,y),sd.Point(x+50, y+50) ,sd.COLOR_ORANGE,2)
-        sd.rectangle(sd.Point(x, y-50), sd.Point(x + 100, y), sd.COLOR_ORANGE, 2)
-
-
-
-
-
-
-
-
+x = 0
+y = 0
+for y in range(0, 700, 100):
+    for x in range(0, 700, 100):
+        sd.rectangle(sd.Point(x - 50, y), sd.Point(x + 50, y + 50), sd.COLOR_ORANGE, 2)
+        sd.rectangle(sd.Point(x, y - 50), sd.Point(x + 100, y), sd.COLOR_ORANGE, 2)
 
 sd.pause()
