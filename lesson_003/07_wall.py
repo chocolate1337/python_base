@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # (цикл for)
-import simple_draw
+import simple_draw as sd
 
 # Нарисовать стену из кирпичей. Размер кирпича - 100х50
 # Использовать вложенные циклы for
@@ -16,5 +16,19 @@ import simple_draw
 #       цикл координате X
 #           вычисляем правый нижний и левый верхний углы кирпича
 #           рисуем кирпич
+x=0
+y=0
+for y in range(0,700,100):
+    for x in range(0,700,100):
+        sd.rectangle(sd.Point(x-50,y),sd.Point(x+50, y+50) ,sd.COLOR_ORANGE,2)
+        sd.rectangle(sd.Point(x, y-50), sd.Point(x + 100, y), sd.COLOR_ORANGE, 2)
 
-simple_draw.pause()
+
+
+
+
+
+
+
+
+sd.pause()
