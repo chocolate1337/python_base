@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+import random
 
 # 1) Написать функцию draw_branches, которая должна рисовать две ветви дерева из начальной точки
 # Функция должна принимать параметры:
@@ -8,6 +9,30 @@ import simple_draw as sd
 # - угол рисования,
 # - длина ветвей,
 # Отклонение ветвей от угла рисования принять 30 градусов,
+
+sd.resolution = 1200,600
+
+root_point = sd.get_point(300,30)
+
+
+#
+# def branch(point,angle,length,delta):
+#     if length < 1:
+#         return
+#     v1 = sd.get_vector(start_point=point,angle=angle,length=length)
+#     v1.draw()
+#     v2 = sd.get_vector(start_point=point,angle=angle,length=length)
+#     v2.draw()
+#     next_point1 = v2.end_point
+#     next_point = v1.end_point
+#     next_angle = angle + delta
+#     next_angle1 = angle - delta
+#     next_length = length * .75
+#     branch(next_point, next_angle, next_length, 30)
+#     branch(next_point1, next_angle1, next_length, 30)
+#
+# branch(point=root_point,angle=90,length=100,delta=30)
+
 
 # 2) Сделать draw_branches рекурсивной
 # - добавить проверку на длину ветвей, если длина меньше 10 - не рисовать
@@ -26,7 +51,6 @@ import simple_draw as sd
 
 # можно поиграть -шрифтами- цветами и углами отклонения
 
-# TODO здесь ваш код
 
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
@@ -34,8 +58,36 @@ import simple_draw as sd
 # Возможный результат решения см lesson_004/results/exercise_04_fractal_02.jpg
 
 # Пригодятся функции
-# sd.random_number()
+
+def branch(point,angle,length,delta):
+    if length < 10:
+        return
+    v1 = sd.get_vector(start_point=point,angle=angle,length=length)
+    v1.draw()
+    v2 = sd.get_vector(start_point=point,angle=angle,length=length)
+    v2.draw()
+    next_point2 = v2.end_point
+    next_point1 = v1.end_point
+    delta1 = sd.random_number(1,12)
+    next_angle1 = angle + delta + delta1
+
+    next_angle2 = angle - delta1 - delta
+    coef = sd.random_number(1,14)
+    coef11 = sd.random_number(1,14)
+    coef1 = float(coef / 100)
+    coef22 = float(coef11 / 100)
+    coef2 = 0.75 + coef1
+    coef22 = 0.75 + coef22
+    next_length = length * coef2
+    next_length1 = length * coef22
+
+    def draw_branches():
+        branch(next_point1,next_angle1,next_length, delta=25)
+        branch(next_point2,next_angle2,next_length1,delta=25)
+
+    draw_branches()
+
+
+branch(sd.Point(600,30),90,100,delta=25)
 
 sd.pause()
-
-
