@@ -11,8 +11,8 @@ import random
 # Результат проверки вывести на консоль (ДА/НЕТ)
 # Использовать только операторы if/elif/else, можно вложенные
 
-envelop_x, envelop_y = 10, 7
-paper_x, paper_y = 1, 20 # TODO то есть этот лист влезет?
+envelop_x,envelop_y = 10,7
+paper_x,paper_y = 1,20
 # проверить для
 # paper_x, paper_y = 9, 8
 # paper_x, paper_y = 6, 8
@@ -23,9 +23,9 @@ paper_x, paper_y = 1, 20 # TODO то есть этот лист влезет?
 # (просто раскоментировать нужную строку и проверить свой код)
 
 # т.к вставляем в условии паралельно то достаточно посчитать площадь конверта и листа и сравнить
-# TODO нейминг переменных в питоне - все строчные буквы, пожалуйста поправь
-S_envelop = envelop_x * envelop_y
-if S_envelop >= (paper_x * paper_y):
+
+
+if envelop_x >= paper_x and envelop_y >= paper_y:
     print('ДА')
 else:
     print('НЕТ')
@@ -41,7 +41,7 @@ else:
 # сделал с рандомом наглядно всё видно
 
 
-# brick_x, brick_y, brick_z = 11, 2, 10
+brick_x, brick_y, brick_z = 11, 2, 10
 # brick_x, brick_y, brick_z = 10, 11, 2
 # brick_x, brick_y, brick_z = 10, 2, 11
 # brick_x, brick_y, brick_z = 2, 10, 11
@@ -60,17 +60,13 @@ else:
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-hole_x, hole_y = 8, 9
-s_hole = hole_x * hole_y  # площадь дыры
+hole_x,hole_y = 8,9
 cnt = 0
-while cnt <= 10:
-    cnt += 1
-    brick_x = 1 # TODO при таких значениях не влезет
-    brick_y = 20
-    brick_z = 20
-    if (s_hole >= brick_x * brick_y) or (s_hole >= brick_x * brick_z) or (s_hole >= brick_y * brick_z):
-        print('Влезет')
-        print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
-    else:
-        print('Не влезет')
-        print(brick_x, brick_y, brick_z, '- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
+
+if not (not (hole_x and hole_y >= brick_y and brick_z) or not (hole_y and hole_x >= brick_y and brick_x)) and (
+        hole_x and hole_y and hole_y >= brick_x and brick_z):
+    print('Влезет')
+    print(brick_x,brick_y,brick_z,'- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ','\n')
+else:
+    print('Не влезет')
+    print(brick_x,brick_y,brick_z,'- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
