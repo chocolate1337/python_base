@@ -12,7 +12,7 @@ import random
 
 sd.resolution = 1200,600
 
-root_point = sd.get_point(300,30)
+root_point = sd.get_point(500,30)
 
 
 #
@@ -88,6 +88,6 @@ def branch(point,angle,length,delta):
     draw_branches()
 
 
-branch(sd.Point(600,30),90,100,delta=25)
+branch(root_point,90,100,delta=25)
 
 sd.pause()

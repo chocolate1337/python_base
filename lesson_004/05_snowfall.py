@@ -1,15 +1,34 @@
-# -*- coding: utf-8 -*-
 
 import simple_draw as sd
-
 
 # На основе кода из практической части реализовать снегопад:
 # - создать списки данных для отрисовки N снежинок
 # - нарисовать падение этих N снежинок
 # - создать список рандомных длинн лучей снежинок (от 10 до 100) и пусть все снежинки будут разные
 
-N = 20
+N=20
 
+
+# def snowflake_fall(fall_y,x):
+#      y=600
+#      while True:
+#          sd.start_drawing()
+#          point = sd.Point(x,y)
+#          sd.snowflake(point, length=20,color=sd.background_color)
+#          y-=fall_y
+#          point1 = sd.Point(x,y)
+#          sd.snowflake(point1,length=20)
+#
+#          if y<10:
+#             sd.sleep(0.1)
+#             sd.snowflake(point1, length=20)
+#             y=600
+#             x= sd.random_number(0,600)
+#
+#          sd.sleep(0.1)
+#          sd.finish_drawing()
+#
+# snowflake_fall(30,300)
 # Пригодятся функции
 # sd.get_point()
 # sd.snowflake()
@@ -18,13 +37,6 @@ N = 20
 # sd.user_want_exit()
 
 
-while True:
-    sd.clear_screen()
-    # TODO здесь ваш код
-    sd.sleep(0.1)
-    if sd.user_want_exit():
-        break
-sd.pause()
 
 # Примерный алгоритм отрисовки снежинок
 #   навсегда
@@ -55,5 +67,58 @@ sd.pause()
 # - сделать рандомные отклонения вправо/влево при каждом шаге
 # - сделать сугоб внизу экрана - если снежинка долетает до низа, оставлять её там,
 #   и добавлять новую снежинку
-# Результат решения см https://youtu.be/XBx0JtxHiLg
+#Результат решения см https://youtu.be/XBx0JtxHiLg
 
+class Snowflake:
+
+
+  def __init__(self, x=None, y=None, length=None):
+    self.x = sd.random_number(0, sd.resolution[0]) if x is None else x
+    self.y = sd.random_number(300, sd.resolution[1]) if y is None else y
+    self.length = sd.random_number(10, 40) if length is None else length
+    self.delta_y = sd.random_number(10, 30)
+
+
+  def draw_snow(self, color):
+    if self.y > self.length:
+      sd.snowflake(center=sd.Point(self.x, self.y), length=self.length, color=color)
+
+
+  def save_low_snow(self, color):
+    if self.y < self.length:
+      sd.snowflake(center=sd.Point(self.x, self.y), length=self.length, color=color)
+
+  def move(self):
+    if self.y > self.length:
+      self.y -= self.delta_y
+      if self.y <= self.length:
+        return True
+      self.x += sd.random_number(-10, +10)
+    return False
+
+
+def snowfall():
+  flakes = [Snowflake() for _ in range(50)]
+  while True:
+
+    sd.start_drawing()
+    for flake in flakes:
+      flake.draw_snow(color=sd.background_color)
+    fallen_count = 0
+    for flake in flakes:
+      if flake.move():
+        fallen_count += 1
+    for flake in flakes:
+      flake.draw_snow(color=sd.COLOR_WHITE)
+    for flake in flakes:
+      flake.save_low_snow(color=sd.COLOR_WHITE)
+    for _ in range(fallen_count):
+      flakes.append(Snowflake())
+    sd.finish_drawing()
+    sd.sleep(0.1)
+
+    if sd.user_want_exit(sleep_time=0.1):
+      break
+
+
+snowfall()

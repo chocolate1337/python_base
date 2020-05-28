@@ -33,7 +33,7 @@ if cnt == 1:
 elif cnt==2: geometry(sd.get_point(250,250),0,100,[0,90,180,270])
 elif cnt==3: geometry(sd.get_point(250,250),0,100,[0,72,144,216,288])
 elif cnt==4: geometry(sd.get_point(250,250),0,100,[0,60,120,180,240,300])
-
+#
 
 
 sd.pause()

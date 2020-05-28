@@ -36,5 +36,5 @@ geometry(sd.get_point(400,100),30,100,[0,90,180,270])
 geometry(sd.get_point(150,300),30,100,[0,72,144,216,288])
 geometry(sd.get_point(400,300),30,100,[0,60,120,180,240,300])
 geometry(sd.get_point(100,100),30,100,[0,120,240])
-
+#
 sd.pause()
