@@ -9,14 +9,17 @@
 # Формат вывода:
 #   Студенту надо попросить ХХХ.ХХ рублей
 
-educational_grant,expenses = 10000,12000
+educational_grant, expenses = 10000, 12000
 
 money = educational_grant - expenses  # за первый безпроцентный месяц посчитали уже и будем считать за 9 месяцев
 month = 2
-while month <= 9:
-    expenses += 0.03 * expenses
+# на 1 месяц больше, т.к. у тебя начинается со второго месяца.
+while month <= 10:
+    expenses *= 1.03
     money = money + educational_grant - expenses
     month += 1
 
-money = -round(money,2)
+money = -round(money, 2)
 print(f'Студенту надо попросить {money} рублей')
+
+# зачет!

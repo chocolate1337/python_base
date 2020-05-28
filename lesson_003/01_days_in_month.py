@@ -10,7 +10,7 @@
 user_input = input("Введите, пожалуйста, номер месяца: ")
 month = int(user_input)
 print('Вы ввели', month)
-month30, month31, month28 = (4,6,9,11), (1,3,5,7,8,10,12), (0,2)
+month30, month31, month28 = (4, 6, 9, 11), (1, 3, 5, 7, 8, 10, 12), (0, 2)
 if month in month31:
     print('31 день')
 elif month in month30:
@@ -19,3 +19,5 @@ elif month in month28:
     print('28/29 дней')
 else:
     print('некорректно введен месяц')
+
+# зачет!

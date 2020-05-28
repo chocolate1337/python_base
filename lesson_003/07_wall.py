@@ -20,6 +20,9 @@ x = 0
 y = 0
 for y in range(0, 700, 100):
     for x in range(0, 700, 100):
+        # TODO сделай пожалуйста, чтобы рисовалась только одна кладка
+        #  (вдруг надо будет сделать нечетное гол-во кирпичей в высоту).
+        #  И тогда надо будет координаты кирпича вычислять в if-е.
         sd.rectangle(sd.Point(x - 50, y), sd.Point(x + 50, y + 50), sd.COLOR_ORANGE, 2)
         sd.rectangle(sd.Point(x, y - 50), sd.Point(x + 100, y), sd.COLOR_ORANGE, 2)
 

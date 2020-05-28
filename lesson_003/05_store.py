@@ -55,17 +55,16 @@ store = {
 #     вывод на консоль количества и стоимости товара на складе
 
 
-
-for key,code in goods.items():
+for key, code in goods.items():
     list_code = []
     quantitys = 0
     cost = 0
-    list_code.insert(0,store[code])
+    list_code.insert(0, store[code])
     for lists in list_code:
         for quantity in lists:
             quantitys += quantity['quantity']
             cost += quantity['quantity'] * quantity['price']
 
-
-
         print(f'{key} - {quantitys} шт, стоимость {cost} руб')
+
+# зачет!

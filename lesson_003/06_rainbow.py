@@ -16,9 +16,9 @@ end_x = 350
 end_y = 450
 iterable = 5
 for s in rainbow_colors:
-   sd.line(sd.Point(x, y), sd.Point(end_x, end_y), s, 4)
-   x += iterable
-   end_x += iterable
+    sd.line(sd.Point(x, y), sd.Point(end_x, end_y), s, 4)
+    x += iterable
+    end_x += iterable
 
 # Усложненное задание, делать по желанию.
 # Нарисовать радугу дугами от окружности (cсм sd.circle) за нижним краем экрана,
@@ -30,3 +30,5 @@ for s in rainbow_colors:
     r += 20
 
 sd.pause()
+
+# зачет!

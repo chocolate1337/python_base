@@ -11,8 +11,8 @@ import random
 # Результат проверки вывести на консоль (ДА/НЕТ)
 # Использовать только операторы if/elif/else, можно вложенные
 
-envelop_x,envelop_y = 10,7
-paper_x,paper_y = 1,20
+envelop_x, envelop_y = 10, 7
+paper_x, paper_y = 1, 20
 # проверить для
 # paper_x, paper_y = 9, 8
 # paper_x, paper_y = 6, 8
@@ -60,13 +60,13 @@ brick_x, brick_y, brick_z = 11, 2, 10
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-hole_x,hole_y = 8,9
+hole_x, hole_y = 8, 9
 cnt = 0
-
+# TODO очень сложное условие, разбей пожалуйста на несколько if...elif...elif...
 if not (not (hole_x and hole_y >= brick_y and brick_z) or not (hole_y and hole_x >= brick_y and brick_x)) and (
         hole_x and hole_y and hole_y >= brick_x and brick_z):
     print('Влезет')
-    print(brick_x,brick_y,brick_z,'- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ','\n')
+    print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
 else:
     print('Не влезет')
-    print(brick_x,brick_y,brick_z,'- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
+    print(brick_x, brick_y, brick_z, '- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
