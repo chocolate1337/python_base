@@ -4,7 +4,7 @@
 
 # Глобальное пространство имен
 a, b = 1, 2
-print('global:', a+b)
+print('global:', a + b)
 
 
 def simple():
@@ -13,10 +13,9 @@ def simple():
 
 simple()
 
-
 # Локальное пространство - имена локальных в функции переменных
 a, b = 1, 2
-print('global:', a+b)
+print('global:', a + b)
 
 
 def simple():
@@ -30,6 +29,7 @@ def simple_2():
     x, y = 3, 4
     print('simple_2:', x + y)
     # print('simple_2:', c + d)
+
 
 simple()
 simple_2()
@@ -50,10 +50,9 @@ print('global:', elem)
 print('global:', e + f)
 e, f = 0, 0
 
-
 # перекрытие глобальных переменных
 a, b = 1, 2
-print('global:', a+b)
+print('global:', a + b)
 
 
 def simple():
@@ -63,12 +62,12 @@ def simple():
 
 
 simple()
-print('global', a+b)
-
+print('global', a + b)
 
 # Если переменной нет в локальном namespace, то значение берется из глобального namespace
 a, b = 1, 2
-print('global:', a+b)
+print('global:', a + b)
+
 
 def simple():
     # Локальное пространство имен
@@ -77,7 +76,7 @@ def simple():
 
 
 simple()
-print('global', a+b)
+print('global', a + b)
 
 
 # если в функции есть присвоение - это будет локальная переменная
@@ -94,8 +93,7 @@ def simple_3(a, b):
 
 
 a, b = 2, 2
-print('global', a+b)
+print('global', a + b)
 simple_3(a=3, b=4)
-
 
 # будет целый урок посвященный пространствам имен и областям видимости

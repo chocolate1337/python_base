@@ -70,7 +70,6 @@ res = vector_module(*some_list)
 # vector_module(2, 3, 4)
 print(res)
 
-
 # распаковка именованных параметров
 some_dict = {'x': 2, 'y': 3, 'z': 4}
 res = vector_module(**some_dict)
@@ -115,6 +114,7 @@ def add_element_to_list(element, list_to_add=[]):
 my_list = [3, 4, 5]
 add_element_to_list(element=1, list_to_add=my_list)
 print(my_list)
+
 
 # new_list = add_element_to_list(element=1)
 # print(new_list)

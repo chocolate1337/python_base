@@ -57,6 +57,4 @@ for delta in range(0, 51, 10):
 for delta in range(-50, 1, 10):
     branch(point=point_0, angle=90, length=150, delta=delta)
 
-
 sd.pause()
-

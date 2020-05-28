@@ -2,7 +2,7 @@
 
 
 # Произвольное число параметров
-print(1, 2, 3, 4, 5, 56, 6,)
+print(1, 2, 3, 4, 5, 56, 6, )
 
 
 # Произвольное число позиционных параметров
@@ -36,7 +36,6 @@ print_them_all_v2(name='Вася', address='Moscow')
 # распаковка
 my_friend = {'name': 'Вася', 'address': 'Moscow', 'age': 25}
 print_them_all_v2(**my_friend)
-
 
 # неправильные вызовы
 print_them_all_v1(name='Вася', address='Moscow')
@@ -82,5 +81,3 @@ def print_them_all_v4(a, b=5, *args, **kwargs):
 print_them_all_v4(5, 6, 7, 8, cat='мяу!')
 print_them_all_v4(5, b=8, cat='мяу!')
 print_them_all_v4(5, cat='мяу!', address='Moscow')
-
-

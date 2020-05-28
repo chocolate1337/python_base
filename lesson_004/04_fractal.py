@@ -10,9 +10,9 @@ import random
 # - длина ветвей,
 # Отклонение ветвей от угла рисования принять 30 градусов,
 
-sd.resolution = 1200,600
+sd.resolution = 1200, 600
 
-root_point = sd.get_point(500,30)
+root_point = sd.get_point(500, 30)
 
 
 #
@@ -59,35 +59,36 @@ root_point = sd.get_point(500,30)
 
 # Пригодятся функции
 
-def branch(point,angle,length,delta):
-    if length < 10:
+def branch(point, angle, length, delta):
+    if length < 20:
         return
-    v1 = sd.get_vector(start_point=point,angle=angle,length=length)
+    # TODO тут все отлично, поправь только нейминг переменных, ветка, конечная точка ветки ...
+    v1 = sd.get_vector(start_point=point, angle=angle, length=length)
     v1.draw()
-    v2 = sd.get_vector(start_point=point,angle=angle,length=length)
+    v2 = sd.get_vector(start_point=point, angle=angle, length=length)
     v2.draw()
     next_point2 = v2.end_point
     next_point1 = v1.end_point
-    delta1 = sd.random_number(1,12)
+    delta1 = sd.random_number(1, 12)
     next_angle1 = angle + delta + delta1
 
     next_angle2 = angle - delta1 - delta
-    coef = sd.random_number(1,14)
-    coef11 = sd.random_number(1,14)
+    coef = sd.random_number(1, 14)
+    coef11 = sd.random_number(1, 14)
     coef1 = float(coef / 100)
     coef22 = float(coef11 / 100)
     coef2 = 0.75 + coef1
     coef22 = 0.75 + coef22
     next_length = length * coef2
     next_length1 = length * coef22
-
+    # TODO честно говоря не понял, зачет эта было помещать в ф-ию?
     def draw_branches():
-        branch(next_point1,next_angle1,next_length, delta=25)
-        branch(next_point2,next_angle2,next_length1,delta=25)
+        branch(next_point1, next_angle1, next_length, delta=25)
+        branch(next_point2, next_angle2, next_length1, delta=25)
 
     draw_branches()
 
 
-branch(root_point,90,100,delta=25)
+branch(root_point, 90, 100, delta=25)
 
 sd.pause()

@@ -8,6 +8,7 @@ import simple_draw as sd
 length = 200
 point = sd.get_point(300, 300)
 
+
 # v1 = sd.get_vector(start_point=point, angle=0, length=200, width=3)
 # v1.draw()
 #
@@ -35,4 +36,3 @@ for angle in range(0, 361, 30):
     triangle(point=point_0, angle=angle)
 
 sd.pause()
-

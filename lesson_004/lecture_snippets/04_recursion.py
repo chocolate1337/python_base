@@ -29,7 +29,6 @@ def factorial(n):
 
 print(factorial(9))
 
-
 # рекурсия часто используется для обхода деревьев
 html_dom = {
     'html': {

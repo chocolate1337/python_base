@@ -38,7 +38,7 @@ import math
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-#ЗАКОМЕНТИЛ ФУНКЦИИ
+# ЗАКОМЕНТИЛ ФУНКЦИИ
 
 
 # def triangle(point, angle=0, length=100):
@@ -108,27 +108,23 @@ import math
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
 # Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
 # Будьте ленивыми, не используйте копи-пасту!
-def geometry(point,angle,length,*args):
+# TODO сделай, чтобы у тебя фигура принимала кол-во углов и точку рисования и длину,
+#  а все остальные параметры высчитывала сама
+def geometry(point, angle, length, *args):
     point_1 = point
     for count in args[0]:
-         v = sd.get_vector(point, angle + count, length=length)
-         point = v.end_point
-         v.draw()
-    sd.line(point_1,point)
-geometry(sd.get_point(400,100),30,100,[0,90,180,270])
-geometry(sd.get_point(150,300),30,100,[0,72,144,216,288])
-geometry(sd.get_point(400,300),30,100,[0,60,120,180,240,300])
-geometry(sd.get_point(100,100),30,100,[0,120,240])
+        v = sd.get_vector(point, angle + count, length=length)
+        point = v.end_point
+        v.draw()
+    sd.line(point_1, point)
 
+
+geometry(sd.get_point(400, 100), 30, 100, [0, 90, 180, 270])
+geometry(sd.get_point(150, 300), 30, 100, [0, 72, 144, 216, 288])
+geometry(sd.get_point(400, 300), 30, 100, [0, 60, 120, 180, 240, 300])
+geometry(sd.get_point(100, 100), 30, 100, [0, 120, 240])
 
 #
-
-
-
-
-
-
-
 
 
 sd.pause()
