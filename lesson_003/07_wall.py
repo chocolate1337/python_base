@@ -16,14 +16,16 @@ import simple_draw as sd
 #       цикл координате X
 #           вычисляем правый нижний и левый верхний углы кирпича
 #           рисуем кирпич
-x = 0
-y = 0
-for y in range(0, 700, 100):
-    for x in range(0, 700, 100):
-        # TODO сделай пожалуйста, чтобы рисовалась только одна кладка
-        #  (вдруг надо будет сделать нечетное гол-во кирпичей в высоту).
-        #  И тогда надо будет координаты кирпича вычислять в if-е.
-        sd.rectangle(sd.Point(x - 50, y), sd.Point(x + 50, y + 50), sd.COLOR_ORANGE, 2)
-        sd.rectangle(sd.Point(x, y - 50), sd.Point(x + 100, y), sd.COLOR_ORANGE, 2)
+
+
+
+dx = 0
+for y in range (0,650,50):
+    dx+=50
+    for x in range(dx,650,100):
+        point = sd.Point(x,y)
+        point1 = sd.Point(x+100,y+50)
+        sd.rectangle(point, point1, sd.COLOR_ORANGE, 2)
+    dx-=100
 
 sd.pause()

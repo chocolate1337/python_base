@@ -22,7 +22,7 @@ paper_x, paper_y = 1, 20
 # paper_x, paper_y = 9, 11
 # (просто раскоментировать нужную строку и проверить свой код)
 
-# т.к вставляем в условии паралельно то достаточно посчитать площадь конверта и листа и сравнить
+
 
 
 if envelop_x >= paper_x and envelop_y >= paper_y:
@@ -37,16 +37,14 @@ else:
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
 
-# т.к по условию грани опять паралельны то достаточно представить что кирпич не объемный и сравнивать две площади
-# сделал с рандомом наглядно всё видно
 
 
-brick_x, brick_y, brick_z = 11, 2, 10
-# brick_x, brick_y, brick_z = 10, 11, 2
+
+brick_x, brick_y, brick_z = 8, 10, 8
 # brick_x, brick_y, brick_z = 10, 2, 11
 # brick_x, brick_y, brick_z = 2, 10, 11
 # brick_x, brick_y, brick_z = 2, 11, 10
-# brick_x, brick_y, brick_z = 3, 5, 6
+#brick_x, brick_y, brick_z = 3, 5, 6
 # brick_x, brick_y, brick_z = 3, 6, 5
 # brick_x, brick_y, brick_z = 6, 3, 5
 # brick_x, brick_y, brick_z = 6, 5, 3
@@ -61,12 +59,15 @@ brick_x, brick_y, brick_z = 11, 2, 10
 # (просто раскоментировать нужную строку и проверить свой код)
 
 hole_x, hole_y = 8, 9
-cnt = 0
-# TODO очень сложное условие, разбей пожалуйста на несколько if...elif...elif...
-if not (not (hole_x and hole_y >= brick_y and brick_z) or not (hole_y and hole_x >= brick_y and brick_x)) and (
-        hole_x and hole_y and hole_y >= brick_x and brick_z):
-    print('Влезет')
-    print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
+can = 0
+Brick = brick_y, brick_x, brick_z
+
+for brick in Brick:
+    if hole_x >= brick and  hole_y >= brick:
+        can+=1
+if can > 1:
+    print('влезет')
 else:
-    print('Не влезет')
-    print(brick_x, brick_y, brick_z, '- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
+    print('не влезет')
+
+

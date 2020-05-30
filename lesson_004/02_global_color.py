@@ -2,6 +2,31 @@
 import simple_draw as sd
 from simple_draw import COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_PURPLE
 
+def geometry(point, length,angle_cnt=3, colors=sd.COLOR_YELLOW):
+  points = {
+      angle_cnt==3:point,
+      angle_cnt==4:sd.Point(500,100),
+      angle_cnt==5:sd.Point(200,300),
+      angle_cnt==6:sd.Point(500,300),
+  }
+  point = points[True]
+  if colors not in sd.COLOR_YELLOW:
+      colors.__add__(colors)
+  angle = 0
+  for count in range(0,angle_cnt,1):
+    v = sd.Vector(start_point=point,length=length,direction=sd._to_radians(angle))
+    if count == angle_cnt-1:
+        point1 = sd.Point(point.x+length+1, point.y+1)
+        sd.line(point, point1,color=colors)
+        break
+    v.rotate(sd._to_radians(360 / angle_cnt + count * (360 / angle_cnt)))
+    point = v.end_point
+    v.draw(color=colors)
+  angle_cnt+=1
+  if angle_cnt>6:
+      return
+  geometry(point,angle_cnt=angle_cnt,length=length,colors=s)
+
 # Добавить цвет в функции рисования геом. фигур. из упр lesson_004/01_shapes.py
 # (код функций скопировать сюда и изменить)
 # Запросить у пользователя цвет фигуры посредством выбора из существующих:
@@ -18,33 +43,37 @@ from simple_draw import COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLO
 #  который бы содержал все необходимые данные, типа
 #  { 1: {'color_name': 'red', 'color_code': cd.COLOR_RED}, ...}
 #  Так ты сразу сможешь получить и номер и имя цвета и код
-color = [COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_PURPLE]
-color_text = ['RED', 'ORANGE', 'YELLOW', 'GREEN', 'CYAN', 'BLUE', 'PURPLE']
+
+
+color = {1 : {'color_name': 'red', 'color_code': COLOR_RED},
+        2: {'color_name': 'orange', 'color_code': COLOR_ORANGE},
+        3: {'color_name': 'yellow', 'color_code': COLOR_YELLOW},
+        4: {'color_name': 'green', 'color_code': COLOR_GREEN},
+        5: {'color_name': 'cyan', 'color_code': COLOR_CYAN},
+        6: {'color_name': 'blue', 'color_code': COLOR_BLUE},
+        7: {'color_name': 'purple', 'color_code': COLOR_PURPLE},
+}
 print('Возможные цвета:')
-for i in enumerate(color):
-    print(f'   {i[0] + 1}:{color_text[i[0]]}')
+for number,key in color.items():
+    print(f"{number} : {key['color_name']}")
 while True:
     cnt = input('Введите желаемый цвет > ')
-    cnt = int(cnt)
-    if (cnt > 7): # TODO тут скобки не нужны
+    try:
+      if int(cnt) > 7:
         print('Не верный цвет')
-    else:
+      else:
         break
+    except ValueError:
+      print('Не верный цвет')
+      continue
+
+
+print(f"{color[int(cnt)].__getitem__('color_code')}")
+s = color[int(cnt)].__getitem__('color_code')
+geometry(sd.Point(200,100),100,colors= s)
 
 # TODO по кодингстайлу ф-ии выносятся вверх файла под импорты, а основной код - вниз.
 #  Что у тебя за желтые точки в отрисовки фигуры?
-def geometry(point, angle, length, *args):
-    point_1 = point
-    for count in args[0]:
-        v = sd.get_vector(point, angle + count, length=length)
-        point = v.end_point
-        v.draw(color[cnt - 1], 4)
-    sd.line(point_1, point)
 
-
-geometry(sd.get_point(400, 100), 30, 100, [0, 90, 180, 270])
-geometry(sd.get_point(150, 300), 30, 100, [0, 72, 144, 216, 288])
-geometry(sd.get_point(400, 300), 30, 100, [0, 60, 120, 180, 240, 300])
-geometry(sd.get_point(100, 100), 30, 100, [0, 120, 240])
 #
 sd.pause()

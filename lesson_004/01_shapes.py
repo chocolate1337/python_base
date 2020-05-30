@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
-import math
-
-
+from simple_draw import vector
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
 # - треугольника
@@ -108,23 +106,35 @@ import math
 # А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
 # Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
 # Будьте ленивыми, не используйте копи-пасту!
+
 # TODO сделай, чтобы у тебя фигура принимала кол-во углов и точку рисования и длину,
 #  а все остальные параметры высчитывала сама
-def geometry(point, angle, length, *args):
-    point_1 = point
-    for count in args[0]:
-        v = sd.get_vector(point, angle + count, length=length)
-        point = v.end_point
-        v.draw()
-    sd.line(point_1, point)
 
+def geometry(point, length,angle_cnt=3, colors=sd.COLOR_YELLOW):
+  points = {
+      angle_cnt==3:point,
+      angle_cnt==4:sd.Point(500,100),
+      angle_cnt==5:sd.Point(200,300),
+      angle_cnt==6:sd.Point(500,300),
+  }
+  point = points[True]
+  if colors not in sd.COLOR_YELLOW:
+      colors.__add__(colors)
+  angle = 0
+  for count in range(0,angle_cnt,1):
+    v = sd.Vector(start_point=point,length=length,direction=sd._to_radians(angle))
+    if count == angle_cnt-1:
+        point1 = sd.Point(point.x+length+1, point.y+1)
+        sd.line(point, point1)
+        break
+    v.rotate(sd._to_radians(360 / angle_cnt + count * (360 / angle_cnt)))
+    point = v.end_point
+    v.draw(color=colors)
+  angle_cnt+=1
+  if angle_cnt>6:
+      return
+  geometry(point,angle_cnt=angle_cnt,length=length)
 
-geometry(sd.get_point(400, 100), 30, 100, [0, 90, 180, 270])
-geometry(sd.get_point(150, 300), 30, 100, [0, 72, 144, 216, 288])
-geometry(sd.get_point(400, 300), 30, 100, [0, 60, 120, 180, 240, 300])
-geometry(sd.get_point(100, 100), 30, 100, [0, 120, 240])
-
-#
-
+geometry(angle_cnt=3,point=sd.Point(200,100),length=100)
 
 sd.pause()
