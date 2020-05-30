@@ -62,29 +62,26 @@ root_point = sd.get_point(500, 30)
 def branch(point, angle, length, delta):
     if length < 10:
         return
+    # TODO назови пожалуйста тут переменные так, чтобы было понятно, что они содержат.
     delta1 = sd.random_number(-14, 14)
-
-
 
     v1 = sd.get_vector(start_point=point, angle=angle, length=length)
     v1.draw()
     next_point = v1.end_point
     angle1 = v1.angle + delta + delta1
 
-
-
-    v2 = sd.get_vector(point,angle,length=length)
+    v2 = sd.get_vector(point, angle, length=length)
     v2.draw()
     next_point1 = v2.end_point
     angle2 = v2.angle - delta - delta1
 
     coif = sd.random_number(1, 14)
+    # TODO не используй магические методы, для преобразования можешь использовать ф-ю float()
     coif.__float__()
-    coif = 0.75 + coif/100
+    coif = 0.75 + coif / 100
     next_length = length * coif
     branch(next_point, angle1, next_length, delta=30)
     branch(next_point1, angle2, next_length, delta=30)
-
 
 
 branch(root_point, 90, 100, delta=30)

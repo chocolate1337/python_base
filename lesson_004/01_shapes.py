@@ -2,6 +2,8 @@
 
 import simple_draw as sd
 from simple_draw import vector
+
+
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
 # - треугольника
@@ -110,31 +112,34 @@ from simple_draw import vector
 # TODO сделай, чтобы у тебя фигура принимала кол-во углов и точку рисования и длину,
 #  а все остальные параметры высчитывала сама
 
-def geometry(point, length,angle_cnt=3, colors=sd.COLOR_YELLOW):
-  points = {
-      angle_cnt==3:point,
-      angle_cnt==4:sd.Point(500,100),
-      angle_cnt==5:sd.Point(200,300),
-      angle_cnt==6:sd.Point(500,300),
-  }
-  point = points[True]
-  if colors not in sd.COLOR_YELLOW:
-      colors.__add__(colors)
-  angle = 0
-  for count in range(0,angle_cnt,1):
-    v = sd.Vector(start_point=point,length=length,direction=sd._to_radians(angle))
-    if count == angle_cnt-1:
-        point1 = sd.Point(point.x+length+1, point.y+1)
-        sd.line(point, point1)
-        break
-    v.rotate(sd._to_radians(360 / angle_cnt + count * (360 / angle_cnt)))
-    point = v.end_point
-    v.draw(color=colors)
-  angle_cnt+=1
-  if angle_cnt>6:
-      return
-  geometry(point,angle_cnt=angle_cnt,length=length)
+def geometry(point, length, angle_cnt=3, colors=sd.COLOR_YELLOW):
+    points = {
+        angle_cnt == 3: point,
+        # TODO зачем тут это? если у тебя ф-я принимает точку рисования уже.
+        angle_cnt == 4: sd.Point(500, 100),
+        angle_cnt == 5: sd.Point(200, 300),
+        angle_cnt == 6: sd.Point(500, 300),
+    }
+    point = points[True]
+    if colors not in sd.COLOR_YELLOW:
+        # TODO зачем тут это? Сделай простую ф-ию, которая по входным параметрам рисует фигуру, без всех этих проверок
+        colors.__add__(colors)
+    angle = 0
+    for count in range(0, angle_cnt, 1):
+        v = sd.Vector(start_point=point, length=length, direction=sd._to_radians(angle))
+        if count == angle_cnt - 1:
+            point1 = sd.Point(point.x + length + 1, point.y + 1)
+            sd.line(point, point1)
+            break
+        v.rotate(sd._to_radians(360 / angle_cnt + count * (360 / angle_cnt)))
+        point = v.end_point
+        v.draw(color=colors)
+    angle_cnt += 1
+    if angle_cnt > 6:
+        return
+    geometry(point, angle_cnt=angle_cnt, length=length)
 
-geometry(angle_cnt=3,point=sd.Point(200,100),length=100)
+
+geometry(angle_cnt=3, point=sd.Point(200, 100), length=100)
 
 sd.pause()
