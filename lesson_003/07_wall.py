@@ -18,14 +18,14 @@ import simple_draw as sd
 #           рисуем кирпич
 
 
-
-dx = 0
-for y in range (0,650,50):
-    dx+=50
-    for x in range(dx,650,100):
-        point = sd.Point(x,y)
-        point1 = sd.Point(x+100,y+50)
+delta = 0
+for y in range(0, 650, 50):
+    delta += 50
+    for x in range(delta, 650, 100):
+        point = sd.Point(x, y)
+        point1 = sd.Point(x + 100, y + 50)
         sd.rectangle(point, point1, sd.COLOR_ORANGE, 2)
-    dx-=100
+    delta -= 100
 
 sd.pause()
+

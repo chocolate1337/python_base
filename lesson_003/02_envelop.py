@@ -23,8 +23,6 @@ paper_x, paper_y = 1, 20
 # (просто раскоментировать нужную строку и проверить свой код)
 
 
-
-
 if envelop_x >= paper_x and envelop_y >= paper_y:
     print('ДА')
 else:
@@ -37,14 +35,11 @@ else:
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
 
-
-
-
 brick_x, brick_y, brick_z = 8, 10, 8
 # brick_x, brick_y, brick_z = 10, 2, 11
 # brick_x, brick_y, brick_z = 2, 10, 11
 # brick_x, brick_y, brick_z = 2, 11, 10
-#brick_x, brick_y, brick_z = 3, 5, 6
+# brick_x, brick_y, brick_z = 3, 5, 6
 # brick_x, brick_y, brick_z = 3, 6, 5
 # brick_x, brick_y, brick_z = 6, 3, 5
 # brick_x, brick_y, brick_z = 6, 5, 3
@@ -60,14 +55,14 @@ brick_x, brick_y, brick_z = 8, 10, 8
 
 hole_x, hole_y = 8, 9
 can = 0
-Brick = brick_y, brick_x, brick_z
 
-for brick in Brick:
-    if hole_x >= brick and  hole_y >= brick:
-        can+=1
+
+brick = brick_y, brick_x, brick_z
+
+for check in brick:
+    if hole_x >= check and hole_y >= check:
+        can += 1
 if can > 1:
     print('влезет')
 else:
     print('не влезет')
-
-
