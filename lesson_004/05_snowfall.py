@@ -93,26 +93,17 @@ class Snowflake:
 
 
 def snowfall():
-    flakes = [Snowflake() for _ in range(50)]
+    flakes = [Snowflake() for _ in range(25)]
     while True:
-
         sd.start_drawing()
-        # TODO попробуй все сделать в одном цикле
         for flake in flakes:
             flake.draw_snow(color=sd.background_color)
-        fallen_count = 0
-        for flake in flakes:
             if flake.move():
-                fallen_count += 1
-        for flake in flakes:
+                flakes.append(Snowflake())
             flake.draw_snow(color=sd.COLOR_WHITE)
-        for flake in flakes:
             flake.save_low_snow(color=sd.COLOR_WHITE)
-        for _ in range(fallen_count):
-            flakes.append(Snowflake())
         sd.finish_drawing()
         sd.sleep(0.1)
-
         if sd.user_want_exit(sleep_time=0.1):
             break
 
