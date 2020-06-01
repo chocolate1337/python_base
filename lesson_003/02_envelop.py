@@ -35,7 +35,7 @@ else:
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
 
-brick_x, brick_y, brick_z = 8, 10, 8
+brick_x, brick_y, brick_z = 8, 10, 9 # TODO хм, этот кирпич должен пролазить
 # brick_x, brick_y, brick_z = 10, 2, 11
 # brick_x, brick_y, brick_z = 2, 10, 11
 # brick_x, brick_y, brick_z = 2, 11, 10

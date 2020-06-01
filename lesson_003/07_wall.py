@@ -29,3 +29,4 @@ for y in range(0, 650, 50):
 
 sd.pause()
 
+# зачет!
