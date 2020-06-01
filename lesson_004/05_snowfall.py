@@ -93,6 +93,7 @@ class Snowflake:
 
 
 def snowfall():
+    # TODO range(N) наверное. Или можешь кол-во снежинок передавать в ф-ию.
     flakes = [Snowflake() for _ in range(25)]
     while True:
         sd.start_drawing()
@@ -101,6 +102,8 @@ def snowfall():
             if flake.move():
                 flakes.append(Snowflake())
             flake.draw_snow(color=sd.COLOR_WHITE)
+            # TODO упавшие снежинки не надо постоянно перерисовывать, их надо удалять,
+            #  иначе когда их накопится много, то все будет тупить.
             flake.save_low_snow(color=sd.COLOR_WHITE)
         sd.finish_drawing()
         sd.sleep(0.1)

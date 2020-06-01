@@ -67,11 +67,13 @@ def branch(point, angle, length):
     vector.draw()
     coif_length = sd.random_number(-12, 12)
     coif_length = 75 + coif_length
-    next_length = length * float(coif_length/100)
-    branch(vector.end_point, angle-30 -delta_random, next_length)
-    branch(vector.end_point, angle+30 + delta_random, next_length)
+    next_length = length * float(coif_length / 100)
+    branch(vector.end_point, angle - 30 - delta_random, next_length)
+    branch(vector.end_point, angle + 30 + delta_random, next_length)
 
 
 branch(root_point, 90, 100)
 
 sd.pause()
+
+# зачет!
