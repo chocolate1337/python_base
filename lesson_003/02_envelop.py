@@ -35,7 +35,7 @@ else:
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
 
-brick_x, brick_y, brick_z = 8,10, 9
+brick_x, brick_y, brick_z = 8, 8, 8 # TODO не влезет. На самом деле есть 6 вариантов, как может влезть кирпич, если не додумаешься, то я подскажу, попроси в след раз подсказку, чтобы я не забыл
 # brick_x, brick_y, brick_z = 10, 2, 11
 # brick_x, brick_y, brick_z = 2, 10, 11
 # brick_x, brick_y, brick_z = 2, 11, 10
@@ -53,22 +53,19 @@ brick_x, brick_y, brick_z = 8,10, 9
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-hole_x, hole_y = 8, 9
+hole_x, hole_y = 8, 7
 can = 0
-
 
 brick = brick_x, brick_y, brick_z
 
 for check in brick:
     if hole_x >= check:
-        can+=1
+        can += 1
 for check in brick:
     if hole_y > check:
-        can+=1
-
-if can>=2:
+        can += 1
+# TODO can >= 2 - можно уже в принт положить.
+if can >= 2:
     print('влезет')
 else:
     print('не влезет')
-
-
