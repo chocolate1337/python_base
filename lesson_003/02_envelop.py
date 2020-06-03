@@ -55,14 +55,17 @@ brick_x, brick_y, brick_z = 7, 8, 8
 
 hole_x, hole_y = 8, 7
 # вот все шесть вариантов это пройдет любые проверки:D
-if  ((hole_x >= brick_x) and (hole_y >= brick_y)) or\
-    ((hole_x >= brick_y) and (hole_y >= brick_x)) or\
-    ((hole_x >= brick_x) and (hole_y >= brick_z)) or\
-    ((hole_x >= brick_z) and (hole_y >= brick_x)) or\
-    ((hole_x >= brick_z) and (hole_y >= brick_y)) or\
-    ((hole_x >= brick_y) and (hole_y >= brick_z)):
-        print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
-        print('влезет')
+# лучше было сделать через elif, но тут уже не принципиально)
+if ((hole_x >= brick_x) and (hole_y >= brick_y)) or \
+        ((hole_x >= brick_y) and (hole_y >= brick_x)) or \
+        ((hole_x >= brick_x) and (hole_y >= brick_z)) or \
+        ((hole_x >= brick_z) and (hole_y >= brick_x)) or \
+        ((hole_x >= brick_z) and (hole_y >= brick_y)) or \
+        ((hole_x >= brick_y) and (hole_y >= brick_z)):
+    print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
+    print('влезет')
 else:
     print(brick_x, brick_y, brick_z, '- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
     print('не влезет')
+
+# зачет!
