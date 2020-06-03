@@ -35,7 +35,7 @@ else:
 # Определить, пройдет ли кирпич через отверстие (грани кирпича параллельны сторонам отверстия)
 
 
-brick_x, brick_y, brick_z = 8,10, 9
+brick_x, brick_y, brick_z = 7, 8, 8
 # brick_x, brick_y, brick_z = 10, 2, 11
 # brick_x, brick_y, brick_z = 2, 10, 11
 # brick_x, brick_y, brick_z = 2, 11, 10
@@ -53,22 +53,16 @@ brick_x, brick_y, brick_z = 8,10, 9
 # brick_x, brick_y, brick_z = 3, 11, 6
 # (просто раскоментировать нужную строку и проверить свой код)
 
-hole_x, hole_y = 8, 9
-can = 0
-
-
-brick = brick_x, brick_y, brick_z
-
-for check in brick:
-    if hole_x >= check:
-        can+=1
-for check in brick:
-    if hole_y > check:
-        can+=1
-
-if can>=2:
-    print('влезет')
+hole_x, hole_y = 8, 7
+# вот все шесть вариантов это пройдет любые проверки:D
+if  ((hole_x >= brick_x) and (hole_y >= brick_y)) or\
+    ((hole_x >= brick_y) and (hole_y >= brick_x)) or\
+    ((hole_x >= brick_x) and (hole_y >= brick_z)) or\
+    ((hole_x >= brick_z) and (hole_y >= brick_x)) or\
+    ((hole_x >= brick_z) and (hole_y >= brick_y)) or\
+    ((hole_x >= brick_y) and (hole_y >= brick_z)):
+        print(brick_x, brick_y, brick_z, '- ВЛЕЗАЕТ ПРИ ТАКИХ ЗНАЧЕНИЯХ', '\n')
+        print('влезет')
 else:
+    print(brick_x, brick_y, brick_z, '- НИКАК ПРИ ТАКИХ ЗНАЧЕНИЯХ \n')
     print('не влезет')
-
-
