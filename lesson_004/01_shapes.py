@@ -109,21 +109,17 @@ import simple_draw as sd
 # Будьте ленивыми, не используйте копи-пасту!
 
 def geometry(point, angles=3, length=100):
-    # TODO у тебя не сходятся фигуры, особенно многоугольные,
-    #  чтобы сходилась, надо сохранять первую точку
-    #  и когда будешь чертить последнюю сторону,
-    #  соедини первую и последнюю точки
     point_1 = point
-    for angle in range(0, angles, 1):
+    for angle in range(0, angles-1, 1):
         v = sd.get_vector(point, angle=angle * (360 // angles), length=length)
         point = v.end_point
         v.draw()
     sd.line(point_1, point)
 
-# TODO очень странно, ты кладешь в список ф-ии одновременно их вызывая...
-figures = [geometry(sd.Point(100, 100), 3),
-           geometry(sd.Point(400, 100), 4),
-           geometry(sd.Point(100, 300), 5),
-           geometry(sd.Point(400, 300), 6), ]
+
+geometry(sd.Point(100, 100), 3)
+geometry(sd.Point(400, 100), 4)
+geometry(sd.Point(100, 300), 5)
+geometry(sd.Point(400, 300), 6)
 
 sd.pause()

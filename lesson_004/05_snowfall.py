@@ -5,7 +5,7 @@ import simple_draw as sd
 # - нарисовать падение этих N снежинок
 # - создать список рандомных длинн лучей снежинок (от 10 до 100) и пусть все снежинки будут разные
 
-N = 20
+
 
 
 # def snowflake_fall(fall_y,x):
@@ -92,23 +92,24 @@ class Snowflake:
         return False
 
 
-def snowfall():
-    # TODO range(N) наверное. Или можешь кол-во снежинок передавать в ф-ию.
-    flakes = [Snowflake() for _ in range(25)]
+def snowfall(N):
+    flakes = [Snowflake() for _ in range(N)]
     while True:
         sd.start_drawing()
         for flake in flakes:
             flake.draw_snow(color=sd.background_color)
             if flake.move():
                 flakes.append(Snowflake())
-            flake.draw_snow(color=sd.COLOR_WHITE)
-            # TODO упавшие снежинки не надо постоянно перерисовывать, их надо удалять,
-            #  иначе когда их накопится много, то все будет тупить.
             flake.save_low_snow(color=sd.COLOR_WHITE)
+            flake.draw_snow(color=sd.COLOR_WHITE)
         sd.finish_drawing()
         sd.sleep(0.1)
+        if len(flakes)> 100:
+            sd.clear_screen()
+            flakes.clear()
+            flakes = [Snowflake() for _ in range(N)]
         if sd.user_want_exit(sleep_time=0.1):
             break
 
 
-snowfall()
+snowfall(25)

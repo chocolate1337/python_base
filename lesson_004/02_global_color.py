@@ -5,7 +5,7 @@ from simple_draw import COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLO
 
 def geometry(point, angles=3, length=100, color=COLOR_YELLOW):
     point_1 = point
-    for angle in range(0, angles, 1):
+    for angle in range(0, angles-1, 1):
         v = sd.get_vector(point, angle=angle * (360 // angles), length=length)
         point = v.end_point
         v.draw(color)
@@ -39,22 +39,16 @@ for number, key in color_dict.items():
     print(f"{number} : {key['color_name']}")
 while True:
     cnt = input('Введите желаемый цвет > ')
-    # TODO тут лучше сделать проверку на то, что цвет верный, тогда не понадобится else.
-    if int(cnt) not in color_dict:
-        print('Не верный цвет')
-        continue
-    else:
-        break
-# TODO зачем тут использование магического метода __getitem__, если можно с помощью []
-#  вытащить значение, так сказать по человечески). Кстати номера в словаре color_dict
-#  можно сделать строками, тогда не придется делать преобразования.
-colors = color_dict[int(cnt)].__getitem__('color_code')
-# TODO тут опять таки кладешь в список и сразу вызываешь, если ты пишешь после названия ф-ии скобки
-#  с параметрами или без, если их нет, то это и есть вызов ф-ии.
-figures = [geometry(sd.Point(100, 100), 3, color=colors),
-           geometry(sd.Point(400, 100), 4, color=colors),
-           geometry(sd.Point(100, 300), 5, color=colors),
-           geometry(sd.Point(400, 300), 6, color=colors), ]
+    if int(cnt) in color_dict:
+      colors = color_dict[int(cnt)]['color_code']
+      break
+    print('не верный номер')
+
+
+geometry(sd.Point(100, 100), 3, color=colors)
+geometry(sd.Point(400, 100), 4, color=colors)
+geometry(sd.Point(100, 300), 5, color=colors)
+geometry(sd.Point(400, 300), 6, color=colors)
 
 #
 sd.pause()
