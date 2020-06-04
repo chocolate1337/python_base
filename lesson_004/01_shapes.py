@@ -123,3 +123,5 @@ geometry(sd.Point(100, 300), 5)
 geometry(sd.Point(400, 300), 6)
 
 sd.pause()
+
+# зачет!

@@ -104,7 +104,8 @@ def snowfall(N):
             flake.draw_snow(color=sd.COLOR_WHITE)
         sd.finish_drawing()
         sd.sleep(0.1)
-        if len(flakes)> 100:
+        # TODO лучше просто упавшие снежинки поднимай наверх, внизу последний раз отрисовать как сугроб и поднять наверх
+        if len(flakes) > 100:
             sd.clear_screen()
             flakes.clear()
             flakes = [Snowflake() for _ in range(N)]

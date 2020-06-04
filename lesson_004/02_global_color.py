@@ -40,15 +40,17 @@ for number, key in color_dict.items():
 while True:
     cnt = input('Введите желаемый цвет > ')
     if int(cnt) in color_dict:
-      colors = color_dict[int(cnt)]['color_code']
+      color = color_dict[int(cnt)]['color_code']
       break
     print('не верный номер')
 
 
-geometry(sd.Point(100, 100), 3, color=colors)
-geometry(sd.Point(400, 100), 4, color=colors)
-geometry(sd.Point(100, 300), 5, color=colors)
-geometry(sd.Point(400, 300), 6, color=colors)
+geometry(sd.Point(100, 100), 3, color=color)
+geometry(sd.Point(400, 100), 4, color=color)
+geometry(sd.Point(100, 300), 5, color=color)
+geometry(sd.Point(400, 300), 6, color=color)
 
 #
 sd.pause()
+
+# зачет!
