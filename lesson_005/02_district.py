@@ -4,10 +4,18 @@
 # Формат вывода: На районе живут ...
 # подсказка: для вывода элементов списка через запятую можно использовать функцию строки .join()
 # https://docs.python.org/3/library/stdtypes.html#str.join
+from lesson_005.district.central_street.house1 import room1 as central_h1_r1, room2 as central_h1_r2
+from lesson_005.district.central_street.house2 import room1 as central_h2_r1, room2 as central_h2_r2
+from lesson_005.district.soviet_street.house1 import room1 as soviet_h1_r1, room2 as soviet_h1_r2
+from lesson_005.district.soviet_street.house2 import room1 as soviet_h2_r1, room2 as soviet_h2_r2
 
-from lesson_005 import room_1 as r1,room_2 as r2
+districts = [*central_h1_r1.folks,
+             *central_h1_r2.folks,
+            *central_h2_r1.folks,
+             *central_h2_r2.folks,
+             *soviet_h1_r1.folks,
+             *soviet_h1_r2.folks,
+             *soviet_h2_r1.folks,
+             *soviet_h2_r2.folks]
 
-print(f"На районе живут {','.join(r1.folks)},{','.join(r2.folks)}")
-
-
-
+print(f"На районе живут: {', '.join(districts)}")
