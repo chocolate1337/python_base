@@ -99,16 +99,13 @@ def snowfall(N):
         for flake in flakes:
             flake.draw_snow(color=sd.background_color)
             if flake.move():
-                flakes.append(Snowflake())
-            flake.save_low_snow(color=sd.COLOR_WHITE)
+                flakes.insert(0,Snowflake())
+                flake.save_low_snow(color=sd.COLOR_WHITE)
+                flakes.remove(flake)
             flake.draw_snow(color=sd.COLOR_WHITE)
+        print(len(flakes))   # просто для теста чтобы понять что список бесконечно не растет
         sd.finish_drawing()
         sd.sleep(0.1)
-        # TODO лучше просто упавшие снежинки поднимай наверх, внизу последний раз отрисовать как сугроб и поднять наверх
-        if len(flakes) > 100:
-            sd.clear_screen()
-            flakes.clear()
-            flakes = [Snowflake() for _ in range(N)]
         if sd.user_want_exit(sleep_time=0.1):
             break
 
