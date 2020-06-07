@@ -87,9 +87,10 @@ class Snowflake:
         if self.y > self.length:
             self.y -= self.delta_y
             if self.y <= self.length:
-                return True
+                # странно, что true - это если не сдвинулась, я поменял
+                return False
             self.x += sd.random_number(-10, +10)
-        return False
+        return True
 
 
 def snowfall(N):
@@ -98,8 +99,8 @@ def snowfall(N):
         sd.start_drawing()
         for flake in flakes:
             flake.draw_snow(color=sd.background_color)
-            if flake.move():
-                flakes.insert(0,Snowflake())
+            if not flake.move():
+                flakes.insert(0, Snowflake())
                 flake.save_low_snow(color=sd.COLOR_WHITE)
                 flakes.remove(flake)
             flake.draw_snow(color=sd.COLOR_WHITE)
@@ -111,3 +112,5 @@ def snowfall(N):
 
 
 snowfall(25)
+
+# зачет!
