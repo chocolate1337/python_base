@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
 import simple_draw as sd
-
+import lesson_006.snowfall as snow
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
 #  создать_снежинки(N) - создает N снежинок
@@ -13,17 +12,25 @@ import simple_draw as sd
 #
 # В текущем модуле реализовать главный цикл падения снежинок,
 # обращаясь ТОЛЬКО к функциям модуля snowfall
+N = 5
+flakes = {
 
-# создать_снежинки(N)
+}
+for k in range(1,N):
+    flakes[k]=snow.Snowflake()
 while True:
-    #  нарисовать_снежинки_цветом(color=sd.background_color)
-    #  сдвинуть_снежинки()
-    #  нарисовать_снежинки_цветом(color)
-    #  если есть номера_достигших_низа_экрана() то
-    #       удалить_снежинки(номера)
-    #       создать_снежинки(count)
+    sd.start_drawing()
+    for keys,flake in flakes.items():
+        flake.draw_snow(color=sd.background_color)
+
+        if flake.move():
+            print(f'Снежинка под номером {keys} упала')
+            flakes.__delitem__(keys)
+            flakes[keys] = snow.Snowflake()
+        flake.draw_snow(color=sd.COLOR_WHITE)
+    sd.finish_drawing()
     sd.sleep(0.1)
-    if sd.user_want_exit():
+    if sd.user_want_exit(sleep_time=0.1):
         break
 
 sd.pause()

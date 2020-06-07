@@ -11,17 +11,17 @@ _bull_cows = {'Быков': cntBulls,'Коров': cntCows}
 
 
 
-a = []
+a_rand_number = []
 def random_number():
   n = random.randint(1000,9999)
   n = str(n)
-  a.extend(n)
-  if len(a) != len(set(a)):
-    a.clear()
+  a_rand_number.extend(n)
+  if len(a_rand_number) != len(set(a_rand_number)):
+    a_rand_number.clear()
     random_number()
-  return a
+  else:
+    return a_rand_number, print('Компьютер загадал число! Начинаем игру!', '\n')
 
-random_number()
 global N
 check = []
 
@@ -43,9 +43,9 @@ def check_number(N):
   cntBulls = 0
   cntCows = 0
   for i in range(4):
-    if check[i] == a[i]:
+    if check[i] == a_rand_number[i]:
       cntBulls+=1
-    if check[i] in a and check[i]!=a[i]:
+    if check[i] in a_rand_number and check[i]!=a_rand_number[i]:
       cntCows+=1
   _bull_cows['Быков']=cntBulls
   _bull_cows['Коров'] = cntCows

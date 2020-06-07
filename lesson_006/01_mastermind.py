@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from lesson_006.mastermind_engine import random_number,check_number,game_over,check_input,check
+from lesson_006.mastermind_engine import random_number,check_number,game_over,check_input,a_rand_number
 # Игра «Быки и коровы»
 # https://goo.gl/Go2mb9
 #
@@ -46,9 +46,12 @@ from lesson_006.mastermind_engine import random_number,check_number,game_over,ch
 
 random_number()
 step = 0
-print('Компьютер загадал число! Начинаем игру!')
 while True:
   N = input('Введите любое 4-х значное число 1000-9999, числа которого не должны повторяться! ->')
+  if N == 'hack':
+    print('Не честная игра + 99 шагов:', *a_rand_number)
+    step=99
+    continue
   print('############################################')
   if not check_input(N):
     print('Число не правильное! и ещё раз..')
@@ -62,7 +65,13 @@ while True:
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     print(f'Поздравляем вы отгадали число {N} за {step} попыток')
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    break
+    again = input('Сыграем еще раз? 1 = Да, 2 = Нет ''\n')
+    if again == '1':
+      random_number()
+      step=0
+      continue
+    else:
+      break
 
 
 
