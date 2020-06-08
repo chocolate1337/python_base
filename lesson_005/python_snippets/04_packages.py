@@ -8,30 +8,37 @@
 
 # рассмотрим package_1
 from package_1 import module_1
+
 module_1.function1()
 
 from package_1.module_1 import function1
+
 function1()
 
 import package_1.module_1
+
 package_1.module_1.function1()  # тут нужно полное имя модуля
 
 # подпакеты
 from package_1.subpackage import module_2
+
 module_2.function2()
 
 from package_1.subpackage.module_2 import function2
+
 function2()
 
 import package_1.subpackage.module_2
+
 package_1.subpackage.module_2.function2()
 
 import package_1
+
 package_1.subpackage.module_2.function2()
 
 from package_1.subpackage import module_2
-module_2.function2()
 
+module_2.function2()
 
 ###
 # наиболее общеупотребительные способы
@@ -41,18 +48,20 @@ from package_1.subpackage import module_2
 ###
 # Если есть код в __init__.py, то он импортируется напрямую
 from package_1 import function3
+
 function3()
 # но обычно __init__.py или пустой, или содержит код инициализации пакета
 
 ###
 # Внутри модулей пакета можно делать т.н. относительные импорты (см package_1.module_3)
 from package_1.module_3 import function4
+
 function4()
 
 # см package_1.subpackage.module_4
 from package_1.subpackage.module_4 import function5
-function5()
 
+function5()
 
 ###
 # Вот пример большой библиотеки - пакет фреймворка Django (немного урезанный, только пакеты)

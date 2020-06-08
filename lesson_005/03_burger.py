@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from lesson_005 import  my_burger as food
+import my_burger as food
+
 # Создать модуль my_burger. В нем определить функции добавления инградиентов:
 #  - булочки
 #  - котлеты
@@ -20,13 +21,15 @@ food.tomato()
 food.cheese()
 food.mayo()
 
-
 # Создать рецепт своего бургера, по вашему вкусу.
 # Если не хватает инградиентов - создать соответствующие функции в модуле my_burger
-print('\n','А вот рецепт моего личного бургера...')
+print('А вот рецепт моего личного бургера...')
 food.bun()
 food.chick()
 food.tomato()
 food.pickle()
 food.mayo()
 food.ketchup()
+
+
+# зачет!
