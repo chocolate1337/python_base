@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import simple_draw as sd
-from lesson_005.forpaint import branch,home,sun
+from forpaint import branch, home, sun
+
 # Создать пакет, в который скопировать функции отрисовки из предыдущего урока
 #  - радуги
 #  - стены
@@ -19,12 +20,12 @@ from lesson_005.forpaint import branch,home,sun
 # пример см. lesson_005/results/04_painting.jpg
 # Приправить своей фантазией по вкусу (коты? коровы? люди? трактор? что придумается)
 
-sd.resolution = [1200,600]
+sd.resolution = [1200, 600]
 
 home.house()
-branch.branch(sd.Point(900,50),90,80)
-branch.branch(sd.Point(800,50),90,30)
-branch.branch(sd.Point(1000,50),90,30)
+branch.branch(sd.Point(900, 50), 90, 80)
+branch.branch(sd.Point(800, 50), 90, 30)
+branch.branch(sd.Point(1000, 50), 90, 30)
 sun.snowfall(25)
 sd.sleep(0.01)
 sd.pause()
