@@ -19,3 +19,5 @@ districts = [*central_h1_r1.folks,
              *soviet_h2_r2.folks]
 
 print(f"На районе живут: {', '.join(districts)}")
+
+# зачет!
