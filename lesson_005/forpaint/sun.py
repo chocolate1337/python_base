@@ -1,7 +1,7 @@
 import simple_draw as sd
-
+from forpaint import smile
 sd.resolution = 1200, 600
-import simple_draw as sd
+
 
 
 class Snowflake_Sun:
@@ -33,7 +33,25 @@ class Snowflake_Sun:
                 return True
             self.x += sd.random_number(-10, +10)
         return False
+vectors = [Snowflake_Sun().vector(angles=angles) for angles in range(0, 361, 30)]
+flakes = [Snowflake_Sun() for _ in range(10)]
+def snowflake():
+    for flake in flakes:
+        flake.draw_snow(color=sd.background_color)
+        if flake.move():
+            sd.rectangle(sd.Point(500, 110), sd.Point(600, 210), width=0)
+            smile.smile1(550, 150, sd.COLOR_BLACK)
+            flakes.insert(0, Snowflake_Sun())
+            flake.save_low_snow(color=sd.COLOR_WHITE)
+            flakes.remove(flake)
+        flake.draw_snow(color=sd.COLOR_WHITE)
 
 
-
-
+def sun_anim():
+    smile.smile(550, 150, sd.COLOR_BLACK)
+    Snowflake_Sun().sun()
+    for v in vectors:
+        v.draw(sd.background_color, width=3)
+        Snowflake_Sun().sun()
+        v.rotate(0.01)
+        v.draw(width=3)
