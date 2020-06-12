@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import simple_draw as sd
-import lesson_006.snowfall as snow
+import snowfall as snow
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
 #  создать_снежинки(N) - создает N снежинок

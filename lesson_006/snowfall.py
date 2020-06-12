@@ -21,7 +21,6 @@ class Snowflake:
     if self.y > self.length:
       self.y -= self.delta_y
       if self.y <= self.length:
-        # странно, что true - это если не сдвинулась, я поменял
         return True
       self.x += sd.random_number(-10, +10)
     return False

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from lesson_006.mastermind_engine import random_number,check_number,game_over,check_input,a_rand_number
+from mastermind_engine import random_number,check_number,game_over,check_input,a_rand_number
 # Игра «Быки и коровы»
 # https://goo.gl/Go2mb9
 #
