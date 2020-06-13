@@ -30,10 +30,14 @@ def paint():
     branch.branch(sd.Point(900, 50), 90, 80)
     branch.branch(sd.Point(800, 50), 90, 30)
     branch.branch(sd.Point(1000, 50), 90, 30)
+    flakes = [sun.Snowflake_Sun() for _ in range(10)]
+    vectors = [sun.Snowflake_Sun().vector(angles=angles) for angles in range(0, 361, 30)]
     while True:
         sd.start_drawing()
-        sun.sun_anim()
-        sun.snowflake()
+        smile.smile(550, 150, sd.COLOR_BLACK)
+        sun.sun_anim(vectors)
+        sun.snowflake(flakes)
+        smile.smile1(550, 150, sd.COLOR_BLACK)
         rainbow.rainbow()
         sd.finish_drawing()
         sd.sleep(0.05)
