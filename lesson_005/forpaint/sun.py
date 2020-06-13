@@ -1,7 +1,7 @@
 import simple_draw as sd
 from forpaint import smile
+# TODO почему ты тут это объявляешь?, это надо в главном модуле только
 sd.resolution = 1200, 600
-
 
 
 class Snowflake_Sun:
@@ -20,11 +20,11 @@ class Snowflake_Sun:
         if self.y < self.length:
             sd.snowflake(center=sd.Point(self.x, self.y), length=self.length, color=color)
 
-    def vector(self,angles):
-        return sd.get_vector(sd.Point(500, 500), angle=angles,width=3)
+    def vector(self, angles):
+        return sd.get_vector(sd.Point(500, 500), angle=angles, width=3)
+
     def sun(self):
         sd.circle(sd.Point(500, 500), 40, width=0)
-
 
     def move(self):
         if self.y > self.length:
@@ -33,8 +33,12 @@ class Snowflake_Sun:
                 return True
             self.x += sd.random_number(-10, +10)
         return False
+
+# TODO это надо обернуть в ф-ию. У тебя этот код отрабатывает во время импорта модуля, что очень не очевидно
 vectors = [Snowflake_Sun().vector(angles=angles) for angles in range(0, 361, 30)]
 flakes = [Snowflake_Sun() for _ in range(10)]
+
+
 def snowflake():
     for flake in flakes:
         flake.draw_snow(color=sd.background_color)

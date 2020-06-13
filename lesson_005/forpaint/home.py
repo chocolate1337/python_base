@@ -16,10 +16,6 @@ def house():
         delta -= 50
 
 
-
-
-
-
 def window_and_roof():
 
 
