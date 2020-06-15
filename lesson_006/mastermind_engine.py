@@ -2,11 +2,12 @@ import random
 
 
 
-
+# TODO мб не хранить эти глобальные переменные, а пусть ф-ия check_number
+#  возвращает в главный модуль словарь с этими ключами?
 cntBulls=0
 cntCows =0
 
-
+# TODO хм, то есть у тебя и переменные отдельно и словарь... зачем?
 _bull_cows = {'Быков': cntBulls,'Коров': cntCows}
 
 
@@ -25,11 +26,12 @@ def random_number():
 global N
 check = []
 
-
+# TODO мб ф-ию назвать валидация_...
 def check_input(N):
   global check
   check.clear()
   check.extend(N)
+  # TODO пробелы по кодингстайлу тут и во всем файле, поправь пожалуйста.
   if len(check) == len(set(check)) and check[0]!=0 and len(check)==4:
     check.clear()
     return True
@@ -45,12 +47,14 @@ def check_number(N):
   for i in range(4):
     if check[i] == a_rand_number[i]:
       cntBulls+=1
+    # TODO сделай через elif, и составное условие не надо будет делать.
     if check[i] in a_rand_number and check[i]!=a_rand_number[i]:
       cntCows+=1
   _bull_cows['Быков']=cntBulls
   _bull_cows['Коров'] = cntCows
   return _bull_cows
 
+# TODO а этот метод не нужен будет, если в главный модуль возвращать словарь с коровами и быками
 def game_over():
   if cntBulls==4:
     return True
