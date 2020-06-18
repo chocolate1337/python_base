@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from mastermind_engine import random_number,check_number,game_over,check_input,a_rand_number
+from mastermind_engine import random_number, check_number, play_again, valid_number, a_rand_number
+
 # Игра «Быки и коровы»
 # https://goo.gl/Go2mb9
 #
@@ -43,41 +44,28 @@ from mastermind_engine import random_number,check_number,game_over,check_input,a
 # только с загаданным числом, а 01_mastermind - с пользователем и просто передает числа на проверку движку.
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
-
+step=0
 random_number()
-step = 0
-# TODO у тебя табы сломались?, отступы в 2 раза меньше, чем должны быть.
 while True:
-  # TODO почему N - большая? Переменные в python называют строчными буквами, исключение - глобальныек переменные.
-  #  Ну и нейминг, название переменной должно отражать содержимое.
-  N = input('Введите любое 4-х значное число 1000-9999, числа которого не должны повторяться! ->')
-  if N == 'hack':
-    print('Не честная игра + 99 шагов:', *a_rand_number)
-    # TODO кроме табов по кодлингстайлу надо писать так step = 99. У тебя pycharm это все не подчеркивает?
-    step=99
-    continue
-  print('############################################')
-  if not check_input(N):
-    print('Число не правильное! и ещё раз..')
-    continue
-  else:
-    game = check_number(N)
-    step += 1
-    print(f"шаг номер - {step}, посмотрим...\nБыков - {game['Быков']}, а Коров -{game['Коров']}")
+    my_number = input('Введите любое 4-х значное число 1000-9999, числа которого не должны повторяться! ->')
+    if my_number == 'hack':
+        print('Не честная игра + 99 шагов:', *a_rand_number)
+        step = 99
+        continue
     print('############################################')
-  if game_over():
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    print(f'Поздравляем вы отгадали число {N} за {step} попыток')
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    again = input('Сыграем еще раз? 1 = Да, 2 = Нет ''\n')
-    if again == '1':
-      random_number()
-      step=0
-      continue
+    if not valid_number(my_number):
+        print('Число не правильное! и ещё раз..')
+        continue
     else:
-      break
-# TODO подумай, что можно тут вынести в отдельные ф-ии, например предложение сыграть ещё раз и получение ответа.
-
-
-
-
+        game = check_number(my_number)
+        step += 1
+        print(f"шаг номер - {step}, посмотрим...\nБыков - {game['Быков']}, а Коров -{game['Коров']}")
+        print('############################################')
+    if game['Быков']==4:
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print(f'Поздравляем вы отгадали число {my_number} за {step} попыток')
+        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        if play_again():
+            step=0
+            continue
+        break
