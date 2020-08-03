@@ -9,27 +9,17 @@ def random_number():
     n = random.randint(1000, 9999)
     n = str(n)
     a_rand_number.extend(n)
-    if len(a_rand_number) != len(set(a_rand_number)):
+    while len(a_rand_number) != len(set(a_rand_number)):
         a_rand_number.clear()
-        # TODO не делай пожалуйста через рекурсию, сделай через цикл,
-        #  использование рекурсии вообще не рекомендуется.
-        random_number()
-    else:
-        # TODO зачем возвращаешь print?
-        return a_rand_number, print('Компьютер загадал число! Начинаем игру!', '\n')
+        n = random.randint(1000, 9999)
+        n = str(n)
+        a_rand_number.extend(n)
+    return a_rand_number
 
-# TODO глобальные переменные объявляются в начале файла, и зачем тут писать global? Она и так глобал.
-global my_number
-check = []
 
 
 def valid_number(my_number):
-    global check
-    # TODO не понял, зачем ты экстендишь переменную в список, ты же можешь все проверки делать со строкой my_number
-    check.clear()
-    check.extend(my_number)
-    if len(check) == len(set(check)) and check[0] != 0 and len(check) == 4:
-        check.clear()
+    if len(my_number) == len(set(my_number)) and my_number[0] != 0 and len(my_number) == 4:
         return True
 
 
@@ -37,25 +27,14 @@ def check_number(my_number):
     global cntBulls, cntCows
     cntBulls = 0
     cntCows = 0
-    # TODO судя по тому, для чего ты используешь глобальный список check? он вообще не нужен.
-    check.clear()
-    check.extend(my_number)
-    cntBulls = 0
-    cntCows = 0
-    # TODO не i, а idx, было бы понятнее.
-    for i in range(4):
-        if check[i] == a_rand_number[i]:
+    for idx in range(4):
+        if my_number[idx] == a_rand_number[idx]:
             cntBulls += 1
-        elif check[i] in a_rand_number:
+        elif my_number[idx] in a_rand_number:
             cntCows += 1
     _bull_cows['Быков'] = cntBulls
     _bull_cows['Коров'] = cntCows
     return _bull_cows
 
 
-def play_again():
-    # TODO все принты, то есть все общение с юзером должно быть в главном модуле, перенеси пожалуйста.
-    play = input('Сыграем еще раз? 1 = Да, 2 = Нет ''\n')
-    if play == '1':
-        # TODO зачем тут возвращаешь 2 переменные? Вызов генерации нового числа делай из главного модуля.
-        return True, random_number()
+

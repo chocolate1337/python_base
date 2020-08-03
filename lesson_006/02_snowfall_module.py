@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import simple_draw as sd
-from snowfall import color_flake, move, point_xy, points
+from snowfall import create_snowflake,draw_snowflake,move_snowflake,number_low_snowflake,delete_snowflake
 
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
@@ -9,17 +9,15 @@ from snowfall import color_flake, move, point_xy, points
 # В текущем модуле реализовать главный цикл падения снежинок,
 # обращаясь ТОЛЬКО к функциям модуля snowfall
 
-number_flakes = 5
-point_xy(number_flakes)
+create_snowflake(10)
 while True:
     sd.start_drawing()
-    color_flake(points, sd.background_color)
-    move(points, number_flakes)
-    color_flake(points, sd.COLOR_WHITE)
-    # TODO тут надо вызывать ф-ию, которая вернет список индексов упавших снежинок.
-    #  И потом его передать в ф-ию, которая удалит из списка снежинок эти снежинки.
-    #  Ну и потом в ф-ию создания новых снежинок передаешь кол-во упавших снежинок и создаешь новые снежинки на место упавших.
+    draw_snowflake(sd.background_color)
+    move_snowflake()
+    draw_snowflake(sd.COLOR_WHITE)
     sd.finish_drawing()
+    number_low_snowflake()
+    delete_snowflake()
     sd.sleep(0.01)
     if sd.user_want_exit(sleep_time=0.1):
         break

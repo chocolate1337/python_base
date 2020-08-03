@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from mastermind_engine import random_number, check_number, play_again, valid_number, a_rand_number
+from mastermind_engine import random_number, check_number, valid_number, a_rand_number
 
 # Игра «Быки и коровы»
 # https://goo.gl/Go2mb9
@@ -44,28 +44,37 @@ from mastermind_engine import random_number, check_number, play_again, valid_num
 # только с загаданным числом, а 01_mastermind - с пользователем и просто передает числа на проверку движку.
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
-step = 0
-random_number()
-while True:
-    my_number = input('Введите любое 4-х значное число 1000-9999, числа которого не должны повторяться! ->')
-    if my_number == 'hack':
-        print('Не честная игра + 99 шагов:', *a_rand_number)
-        step = 99
-        continue
-    print('############################################')
-    if not valid_number(my_number):
-        print('Число не правильное! и ещё раз..')
-        continue
+def play_again():
+    again = input('Хотите еще партию? 1 - Да, 2 - Нет ->')
+    if again == '1':
+        game()
     else:
-        game = check_number(my_number)
-        step += 1
-        print(f"шаг номер - {step}, посмотрим...\nБыков - {game['Быков']}, а Коров -{game['Коров']}")
-        print('############################################')
-    if game['Быков'] == 4:
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        print(f'Поздравляем вы отгадали число {my_number} за {step} попыток')
-        print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        if play_again():
-            step = 0
+        print('Хорошо поиграли, удачи!')
+
+def game():
+    step = 0
+    random_number()
+    while True:
+        my_number = input('Введите любое 4-х значное число 1000-9999, числа которого не должны повторяться! ->')
+        if my_number == 'hack':
+            print('Не честная игра + 99 шагов:', *a_rand_number)
+            step = 99
             continue
-        break
+        print('############################################')
+        if not valid_number(my_number):
+            print('Число не правильное! и ещё раз..')
+            continue
+        else:
+            games = check_number(my_number)
+            step += 1
+            print(f"шаг номер - {step}, посмотрим...\nБыков - {games['Быков']}, а Коров -{games['Коров']}")
+            print('############################################')
+        if games['Быков'] == 4:
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            print(f'Поздравляем вы отгадали число {my_number} за {step} попыток')
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            play_again()
+            break
+
+game()
+
