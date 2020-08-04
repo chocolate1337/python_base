@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from mastermind_engine import random_number, check_number, valid_number, a_rand_number
 
+
 # Игра «Быки и коровы»
 # https://goo.gl/Go2mb9
 #
@@ -47,9 +48,12 @@ from mastermind_engine import random_number, check_number, valid_number, a_rand_
 def play_again():
     again = input('Хотите еще партию? 1 - Да, 2 - Нет ->')
     if again == '1':
+        # TODO так делать плохо, это типа рекурсия, только ещё запутаннее)
+        #  Такое лучше не использовать, т.к. хранится контекст прошлых ф-ий, и может быть переполнение памяти, если будет очень много итераций.
         game()
     else:
         print('Хорошо поиграли, удачи!')
+
 
 def game():
     step = 0
@@ -76,5 +80,5 @@ def game():
             play_again()
             break
 
-game()
 
+game()
