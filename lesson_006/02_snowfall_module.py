@@ -16,8 +16,9 @@ while True:
     move_snowflake()
     draw_snowflake(sd.COLOR_WHITE)
     sd.finish_drawing()
-    number_low_snowflake()
-    delete_snowflake()
+    fallen = number_low_snowflake()
+    if fallen != None:
+        delete_snowflake(fallen)
     sd.sleep(0.01)
     if sd.user_want_exit(sleep_time=0.1):
         break

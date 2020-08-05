@@ -1,6 +1,6 @@
 import simple_draw as sd
 
-global number_flakes
+global number_fallen
 # сделать модуль snowfall.py в котором реализовать следующие функции
 #  создать_снежинки(N) - создает N снежинок
 #  нарисовать_снежинки_цветом(color) - отрисовывает все снежинки цветом color
@@ -11,13 +11,11 @@ global number_flakes
 
 sd.resolution = [600, 600]
 points = {}
-N = 10
 
-# TODO n - маленькую надо писать, это же не константа тут
-def create_snowflake(N):
-    for snow in range(1, N + 1, 1):
-        # TODO желательно, чтобы снежинки шли сверху)
-        points[snow] = sd.random_point()
+
+def create_snowflake(n):
+    for snow in range(1, n + 1, 1):
+        points[snow] = sd.Point(x=sd.random_number(0, 600), y=sd.random_number(500, 600))
 
 
 def draw_snowflake(colors):
@@ -27,21 +25,20 @@ def draw_snowflake(colors):
 
 def move_snowflake():
     for point in points.values():
-        point.y -= 5
+        point.y -= 25
         point.x -= sd.random_number(-5, 5)
         sd.snowflake(center=point, length=30)
 
 
 def number_low_snowflake():
+    global numbers_fallen
     for number, point in points.items():
         if point.y < 0:
             print(f'снежинка {number} упала')
+            numbers_fallen = number
+            return numbers_fallen
 
 
-def delete_snowflake():
-    for number, point in points.items():
-        # TODO надо сделать ф-ию, которая будет возвращать индексы снежинок,
-        #  которые упали и в этой уже принимать его и удалять.
-        if point.y < 0:
-            sd.snowflake(center=point, color=sd.background_color, length=30)
-            points[number] = sd.random_point()
+def delete_snowflake(numbers_fallen):
+    sd.snowflake(center=points[numbers_fallen], color=sd.background_color, length=30)
+    points[numbers_fallen] = sd.Point(x=sd.random_number(0, 600), y=sd.random_number(500, 600))
