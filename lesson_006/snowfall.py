@@ -31,14 +31,17 @@ def move_snowflake():
 
 
 def number_low_snowflake():
+    # TODO зачем тут numbers_fallen - глобальная переменная?
     global numbers_fallen
     for number, point in points.items():
         if point.y < 0:
             print(f'снежинка {number} упала')
             numbers_fallen = number
+            # TODO сейчас получается, что у тебя ф-ия возвращает первую попавшуюся упавшую снежитнку,
+            #  а должна возвращать массив упавших снежинок.
             return numbers_fallen
 
-
+# TODO а эта ф-ия должна получать список упавших снежинок и удалять их.
 def delete_snowflake(numbers_fallen):
     sd.snowflake(center=points[numbers_fallen], color=sd.background_color, length=30)
     points[numbers_fallen] = sd.Point(x=sd.random_number(0, 600), y=sd.random_number(500, 600))

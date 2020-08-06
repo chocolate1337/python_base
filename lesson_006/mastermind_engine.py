@@ -14,14 +14,13 @@ def random_number():
     return a_rand_number
 
 
-
-
 def valid_number(my_number):
-    if len(my_number) == len(set(my_number)) and my_number[0] != 0 and len(my_number) == 4:
-        return True
+    # TODO тут можно так сделать, т.к. у тебя ф-ия возвращала либо true, либо none.
+    return len(my_number) == len(set(my_number)) and my_number[0] != 0 and len(my_number) == 4
 
 
 def check_number(my_number):
+    # TODO зачем эти глобальные переменные?
     global bulls, cows
     bulls = 0
     cows = 0
