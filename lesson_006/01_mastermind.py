@@ -57,10 +57,6 @@ def play_again():
         return False
 
 
-
-
-
-
 while True:
     my_number = input('Введите любое 4-х значное число 1000-9999, числа которого не должны повторяться! ->')
     if my_number == 'hack':
@@ -86,3 +82,4 @@ while True:
         else:
             break
 
+# зачет!

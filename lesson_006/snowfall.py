@@ -34,10 +34,16 @@ def number_low_snowflake():
         if point.y < 0:
             print(f'снежинка {number} упала')
             numbers_fallen.append(number)
+            # TODO в итоге опять ты возвращаешь в списке только одну снежинку,
+            #  и не надо её делать глобальной, объяви список в начале ф-ии,
+            #  заполни упавшими снежинками и верни его. Почему так надо сделать,
+            #  дело в том, что у тебя может упасть несколько снежинок,
+            #  не обязательно одна.
             return numbers_fallen
 
 
 def delete_snowflake(numbers_fallen):
+    print(numbers_fallen)
     for number in numbers_fallen:
         sd.snowflake(center=points[number], color=sd.background_color, length=30)
         points[number] = sd.Point(x=sd.random_number(0, 600), y=sd.random_number(500, 600))
