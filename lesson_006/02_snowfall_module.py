@@ -19,6 +19,7 @@ while True:
     fallen = number_low_snowflake()
     if fallen != None:
         delete_snowflake(fallen)
+        fallen.clear()
     sd.sleep(0.01)
     if sd.user_want_exit(sleep_time=0.1):
         break
