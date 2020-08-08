@@ -18,7 +18,7 @@ while True:
     draw_snowflake(sd.COLOR_WHITE)
     sd.finish_drawing()
     fallen = number_low_snowflake()
-    if len(fallen) == n and len(fallen) != None:
+    if fallen:
         delete_snowflake(fallen)
         fallen.clear()
     sd.sleep(0.01)
