@@ -31,7 +31,7 @@ def move_snowflake():
 def number_low_snowflake():
     numbers_fallen = []
     for number, point in points.items():
-        if point.y < 0:
+        if point.y < 10:
             numbers_fallen.append(number)
     return numbers_fallen
 
@@ -39,5 +39,4 @@ def number_low_snowflake():
 def delete_snowflake(numbers_fallen):
     print(f'Снежинки под номерами: {numbers_fallen} упали')
     for number in numbers_fallen:
-        sd.snowflake(center=points[number], color=sd.background_color, length=30)
         points[number] = sd.Point(x=sd.random_number(0, 600), y=sd.random_number(500, 600))
