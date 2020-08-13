@@ -45,10 +45,8 @@ class Man:
             self.fullness += 10
             self.house.food -= 10
         else:
-            # TODO а если не получилось поесть? тут надо уменьшить сытость или что-то ещё сделать,
-            #  иначе может быть так, что человек ввесь год будет пытаться есть, не есть, но при этом жить)
-            #  Посмотри, где ещё такой недочет.
             cprint('{} нет еды'.format(self.name), color='red')
+            self.fullness -= 20
 
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
@@ -66,7 +64,7 @@ class Man:
         if self.house.money >= 50:
             cprint('{} сходил в магазин за едой себе и коту'.format(self.name), color='magenta')
             self.house.money -= 100
-            self.house.food += 50
+            self.house.food += 10
             self.house.cat_food += 50
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
@@ -107,6 +105,7 @@ class Cat:
             self.house.cat_food -= 10
         else:
             cprint('{} нет еды'.format(self.name), color='red')
+            self.fullness -= 20
 
     def take_cat_in_to_the_house(self, house):
         self.house = house

@@ -29,23 +29,18 @@ class Snowflake:
         if self.y > self.length:
             self.y -= self.delta_y
             if self.y <= self.length:
-                # странно, что true - это если не сдвинулась, я поменял
                 return False
             self.x += sd.random_number(-10, +10)
         return True
 
-
-# TODO как параметр ф-ии, надо использовать строчные буквы
-def snowfall(N):
-    flakes = [Snowflake() for _ in range(N)]
+def snowfall(n):
+    flakes = [Snowflake() for _ in range(n)]
     while True:
         sd.start_drawing()
         for flake in flakes:
             flake.draw_snow(color=sd.background_color)
             if not flake.move():
-                # TODO ф почему не append? insert тяжелее - вот тут можно посмотреть
-                #  сложность ф-ий https://pythonz.net/references/named/slozhnost-operatsii-so-spiskami/
-                flakes.insert(0, Snowflake())
+                flakes.append(Snowflake())
                 flake.save_low_snow(color=sd.COLOR_WHITE)
                 flakes.remove(flake)
             flake.draw_snow(color=sd.COLOR_WHITE)

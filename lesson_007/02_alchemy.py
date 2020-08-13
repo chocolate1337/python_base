@@ -28,8 +28,6 @@
 #   Огонь + Земля = Лава
 
 class Storm:
-    # TODO не надо переопределять конструктор, в __str__ надо просто выводить название элемента,
-    #  без того, из чего он состоит и тд. И так каждый элемент.
     def __init__(self, part1, part2):
         self.part1 = part1
         self.part2 = part2
@@ -39,7 +37,7 @@ class Storm:
             return Water_Elemental()
 
     def __str__(self):
-        return 'Шторм. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+        return 'Шторм'
 
 
 class Steam:
@@ -48,7 +46,7 @@ class Steam:
         self.part2 = part2
 
     def __str__(self):
-        return 'Пар. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+        return 'Пар'
 
 
 class Dirt:
@@ -61,7 +59,7 @@ class Dirt:
             return Rock_Elemental()
 
     def __str__(self):
-        return 'Грязь. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+        return 'Грязь'
 
 
 class Light:
@@ -74,7 +72,7 @@ class Light:
             return Fire_Elemental()
 
     def __str__(self):
-        return 'Молния. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+        return 'Молния'
 
 
 class Dust:
@@ -83,7 +81,7 @@ class Dust:
         self.part2 = part2
 
     def __str__(self):
-        return 'Пыль. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+        return 'Пыль'
 
 
 class Lava:
@@ -92,7 +90,7 @@ class Lava:
         self.part2 = part2
 
     def __str__(self):
-        return 'Лава. Состит из ' + str(self.part1) + ' и ' + str(self.part2)
+        return 'Лава'
 
 
 class Water:
@@ -136,18 +134,17 @@ class Earth:
 
 class Rock_Elemental:
     def __str__(self):
-        # TODO тут тоже просто название элемента. и дальше - тоже.
-        return f'Я Каменный элементаль. Состою из: {Water()}, {Earth()}, {Fire()}'
+        return 'Каменный элементаль'
 
 
 class Water_Elemental:
     def __str__(self):
-        return f'Я Водяной элементаль. Состою из: {Water()}, {Air()}, {Earth()}'
+        return 'Водяной элементаль'
 
 
 class Fire_Elemental:
     def __str__(self):
-        return f'Я Огненный элементаль. Состою из: {Air()}, {Earth()}, {Fire()}'
+        return 'Огненный элементаль'
 
 
 #   Вода + Воздух = Шторм
