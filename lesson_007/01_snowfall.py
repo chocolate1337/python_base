@@ -2,6 +2,7 @@
 
 import simple_draw as sd
 
+
 # Шаг 1: Реализовать падение снежинки через класс. Внести в методы:
 #  - создание снежинки с нужными параметрами
 #  - отработку изменений координат
@@ -34,6 +35,7 @@ class Snowflake:
         return True
 
 
+# TODO как параметр ф-ии, надо использовать строчные буквы
 def snowfall(N):
     flakes = [Snowflake() for _ in range(N)]
     while True:
@@ -41,6 +43,8 @@ def snowfall(N):
         for flake in flakes:
             flake.draw_snow(color=sd.background_color)
             if not flake.move():
+                # TODO ф почему не append? insert тяжелее - вот тут можно посмотреть
+                #  сложность ф-ий https://pythonz.net/references/named/slozhnost-operatsii-so-spiskami/
                 flakes.insert(0, Snowflake())
                 flake.save_low_snow(color=sd.COLOR_WHITE)
                 flakes.remove(flake)
@@ -49,6 +53,7 @@ def snowfall(N):
         sd.sleep(0.1)
         if sd.user_want_exit(sleep_time=0.1):
             break
+
 
 snowfall(25)
 

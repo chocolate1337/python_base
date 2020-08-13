@@ -30,7 +30,6 @@ print(robot.name, robot_2.name)
 print(robot, robot_2)
 print(robot == robot_2, robot is robot_2)
 
-
 # Полезные функции для работы с атрибутами
 # hasattr(object, name) - проверка существования
 # setattr(object, name, value) - установка
@@ -46,7 +45,7 @@ print(robot.model)
 delattr(robot, attr_name)
 
 # то есть можно устанавливать атрибуты динамически, по именам
-for attr_name in ('weight', 'height', ):
+for attr_name in ('weight', 'height',):
     setattr(robot, attr_name, 42)
 print(hasattr(robot, 'weight'))
 print(robot.weight)
@@ -54,6 +53,3 @@ print(robot.weight)
 # getattr(object, name, default=None) - получение атрибута
 print(getattr(robot, 'weight'))
 print(getattr(robot, 'speed', 10))
-
-
-

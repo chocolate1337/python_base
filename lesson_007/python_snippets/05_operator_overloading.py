@@ -77,6 +77,7 @@ son_backpack = Backpack(gift='банан')
 new_backpack = my_backpack + son_backpack
 print(new_backpack)
 
+
 # other_backpack = my_backpack + ['яблоко', 'апельсин', ]
 # print(other_backpack)
 

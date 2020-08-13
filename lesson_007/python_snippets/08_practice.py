@@ -2,7 +2,6 @@
 
 from random import randint
 
-
 # Реализуем модель человека.
 # Человек может есть, работать, играть, ходить в магазин.
 # У человека есть степень сытости, немного еды и денег.
@@ -87,7 +86,6 @@ citizens = [
     Man(name='Батхед'),
     Man(name='Кенни'),
 ]
-
 
 my_sweet_home = House()
 for citisen in citizens:

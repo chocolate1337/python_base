@@ -28,14 +28,20 @@
 #   Огонь + Земля = Лава
 
 class Storm:
+    # TODO не надо переопределять конструктор, в __str__ надо просто выводить название элемента,
+    #  без того, из чего он состоит и тд. И так каждый элемент.
     def __init__(self, part1, part2):
         self.part1 = part1
         self.part2 = part2
+
     def __add__(self, other):
-        if isinstance(other,Earth):
+        if isinstance(other, Earth):
             return Water_Elemental()
+
     def __str__(self):
         return 'Шторм. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+
+
 class Steam:
     def __init__(self, part1, part2):
         self.part1 = part1
@@ -43,25 +49,34 @@ class Steam:
 
     def __str__(self):
         return 'Пар. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+
+
 class Dirt:
     def __init__(self, part1, part2):
         self.part1 = part1
         self.part2 = part2
+
     def __add__(self, other):
-        if isinstance(other,Fire):
+        if isinstance(other, Fire):
             return Rock_Elemental()
 
     def __str__(self):
         return 'Грязь. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+
+
 class Light:
     def __init__(self, part1, part2):
         self.part1 = part1
         self.part2 = part2
+
     def __add__(self, other):
-        if isinstance(other,Earth):
+        if isinstance(other, Earth):
             return Fire_Elemental()
+
     def __str__(self):
         return 'Молния. Состоит из ' + str(self.part1) + ' и ' + str(self.part2)
+
+
 class Dust:
     def __init__(self, part1, part2):
         self.part1 = part1
@@ -78,6 +93,8 @@ class Lava:
 
     def __str__(self):
         return 'Лава. Состит из ' + str(self.part1) + ' и ' + str(self.part2)
+
+
 class Water:
     def __str__(self):
         return 'Вода'
@@ -86,10 +103,9 @@ class Water:
         if isinstance(other, Air):
             return Storm(part1=self, part2=other)
         elif isinstance(other, Fire):
-            return Steam(part1=Water(),part2=Fire())
+            return Steam(part1=Water(), part2=Fire())
         elif isinstance(other, Earth):
-            return Dirt(part1=Water(),part2=Earth())
-
+            return Dirt(part1=Water(), part2=Earth())
 
 
 class Fire:
@@ -100,25 +116,35 @@ class Fire:
         if isinstance(other, Earth):
             return Lava(part1=self, part2=other)
 
+
 class Air:
     def __str__(self):
         return 'Воздух'
 
     def __add__(self, other):
         if isinstance(other, Earth):
-            return Dust(part1 = self, part2 = other)
+            return Dust(part1=self, part2=other)
 
         elif isinstance(other, Fire):
             return Light(part1=self, part2=other)
+
+
 class Earth:
     def __str__(self):
         return 'Земля'
+
+
 class Rock_Elemental:
     def __str__(self):
+        # TODO тут тоже просто название элемента. и дальше - тоже.
         return f'Я Каменный элементаль. Состою из: {Water()}, {Earth()}, {Fire()}'
+
+
 class Water_Elemental:
     def __str__(self):
-        return  f'Я Водяной элементаль. Состою из: {Water()}, {Air()}, {Earth()}'
+        return f'Я Водяной элементаль. Состою из: {Water()}, {Air()}, {Earth()}'
+
+
 class Fire_Elemental:
     def __str__(self):
         return f'Я Огненный элементаль. Состою из: {Air()}, {Earth()}, {Fire()}'
@@ -133,7 +159,7 @@ class Fire_Elemental:
 #   Вода + Земля + Огонь = Каменный элементаль:)
 #   Вода + Воздух + Земля = Водяной элементаль
 #   Воздух + Огонь + Земля = Огненный элементаль
-print(Water()+Earth())
+print(Water() + Earth())
 print(Water() + Air())
 print(Water() + Fire())
 print(Water() + Earth())

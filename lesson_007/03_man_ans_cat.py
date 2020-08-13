@@ -4,6 +4,7 @@ from random import randint
 
 from termcolor import cprint
 
+
 # Доработать практическую часть урока lesson_007/python_snippets/08_practice.py
 
 # Необходимо создать класс кота. У кота есть аттрибуты - сытость и дом (в котором он живет).
@@ -44,6 +45,9 @@ class Man:
             self.fullness += 10
             self.house.food -= 10
         else:
+            # TODO а если не получилось поесть? тут надо уменьшить сытость или что-то ещё сделать,
+            #  иначе может быть так, что человек ввесь год будет пытаться есть, не есть, но при этом жить)
+            #  Посмотри, где ещё такой недочет.
             cprint('{} нет еды'.format(self.name), color='red')
 
     def work(self):
@@ -71,6 +75,7 @@ class Man:
         self.house = house
         self.fullness -= 10
         cprint('{} Вьехал в дом'.format(self.name), color='cyan')
+
     def act(self):
         if self.fullness <= 0:
             cprint('{} умер...'.format(self.name), color='red')
@@ -90,6 +95,7 @@ class Cat:
         self.name = name
         self.fullness = 50
         self.house = None
+
     def __str__(self):
         return 'Я - {}, сытость {}'.format(
             self.name, self.fullness)
@@ -101,29 +107,35 @@ class Cat:
             self.house.cat_food -= 10
         else:
             cprint('{} нет еды'.format(self.name), color='red')
+
     def take_cat_in_to_the_house(self, house):
         self.house = house
         cprint('Человек взял кота и назвал его: {}'.format(self.name), color='cyan')
+
     def sleep(self):
         cprint('{} спал целый день'.format(self.name), color='green')
         self.fullness -= 10
+
     def tear_up(self):
         cprint('{} драл обои'.format(self.name), color='green')
         self.fullness -= 10
         self.house.dirt += 5
+
     def act(self):
         if self.fullness <= 10:
             cprint('{} умер...'.format(self.name), color='red')
             return
-        if self.house.dirt >150:
+        if self.house.dirt > 150:
             cprint('{} сбежал из дома, в доме очень грязно!...'.format(self.name), color='red')
-        dice = randint(1,3)
+        dice = randint(1, 3)
         if self.fullness <= 20:
             self.eat()
         elif dice == 1:
             self.tear_up()
         else:
             self.sleep()
+
+
 class House:
 
     def __init__(self):
@@ -134,7 +146,8 @@ class House:
 
     def __str__(self):
         return 'В доме еды осталось {}, Кошачей еды {}, денег осталось {}, грязь {}'.format(
-            self.food,self.cat_food, self.money, self.dirt)
+            self.food, self.cat_food, self.money, self.dirt)
+
 
 my_house = House()
 

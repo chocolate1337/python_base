@@ -139,6 +139,5 @@ if my_backpack:
 else:
     print('Вот рюкзак пустой, он предмет простой...')
 
-
 # все специальные методы перечислены в
 #   https://docs.python.org/3/reference/datamodel.html#special-method-names

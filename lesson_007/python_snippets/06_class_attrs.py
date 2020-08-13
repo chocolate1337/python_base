@@ -44,7 +44,6 @@ while len(family) < family_size:
     family.append(new_lemming)
 print(Lemming.total)
 
-
 # или даже
 burrow = []
 burrow_depth = randint(90, 100)
@@ -88,4 +87,3 @@ print('Lemming.names_count', Lemming.names_count)
 print('Lemming.some_text', Lemming.some_text)
 print('Lemming.some_var', Lemming.some_var)
 new_lemming.check_class_attrs()
-

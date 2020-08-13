@@ -31,9 +31,6 @@ my_son_backpack.add(item='учебник')
 print(Backpack.add)
 print(my_backpack.add)
 
-
 # то есть следующие два вызова аналогичны
 my_backpack.add(item='ноутбук')
 Backpack.add(self=my_backpack, item='ноутбук')
-
-

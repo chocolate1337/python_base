@@ -65,6 +65,8 @@ while produced < plan:
     new_car = Toyota()
     stock.append(new_car)
     produced += 1
+
+
 # мы можем произвести сколько угодно объектов
 
 

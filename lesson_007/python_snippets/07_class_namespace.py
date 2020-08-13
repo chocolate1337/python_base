@@ -84,6 +84,7 @@ class SomeClass:
         def func_one():
             # x = 56
             print('func_one', x)
+
         func_one()
         print('method_two', x)
 
