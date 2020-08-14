@@ -67,6 +67,7 @@ class Man:
             self.house.food += 10
             self.house.cat_food += 50
         else:
+            # TODO тут тоже пропустил.
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
     def go_to_the_house(self, house):

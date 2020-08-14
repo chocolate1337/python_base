@@ -53,3 +53,5 @@ def snowfall(n):
 snowfall(25)
 
 sd.pause()
+
+# зачет!

@@ -76,6 +76,7 @@ class Light:
 
 
 class Dust:
+    # TODO зачем переопределяешь конструктор и зачем эти part1, part2?
     def __init__(self, part1, part2):
         self.part1 = part1
         self.part2 = part2
@@ -122,7 +123,6 @@ class Air:
     def __add__(self, other):
         if isinstance(other, Earth):
             return Dust(part1=self, part2=other)
-
         elif isinstance(other, Fire):
             return Light(part1=self, part2=other)
 
