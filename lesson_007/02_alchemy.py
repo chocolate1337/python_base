@@ -76,7 +76,6 @@ class Light:
 
 
 class Dust:
-    # TODO зачем переопределяешь конструктор и зачем эти part1, part2?
     def __init__(self, part1, part2):
         self.part1 = part1
         self.part2 = part2
