@@ -28,9 +28,6 @@
 #   Огонь + Земля = Лава
 
 class Storm:
-    def __init__(self, part1, part2):
-        self.part1 = part1
-        self.part2 = part2
 
     def __add__(self, other):
         if isinstance(other, Earth):
@@ -41,20 +38,12 @@ class Storm:
 
 
 class Steam:
-    def __init__(self, part1, part2):
-        # TODO эти части не нужны нигде и переопределять конструктор тоже нигде не надо в этом задании,
-        #  удали пожалуйста везде, где необъодимо.
-        self.part1 = part1
-        self.part2 = part2
 
     def __str__(self):
         return 'Пар'
 
 
 class Dirt:
-    def __init__(self, part1, part2):
-        self.part1 = part1
-        self.part2 = part2
 
     def __add__(self, other):
         if isinstance(other, Fire):
@@ -65,9 +54,6 @@ class Dirt:
 
 
 class Light:
-    def __init__(self, part1, part2):
-        self.part1 = part1
-        self.part2 = part2
 
     def __add__(self, other):
         if isinstance(other, Earth):
@@ -78,18 +64,13 @@ class Light:
 
 
 class Dust:
-    def __init__(self, part1, part2):
-        self.part1 = part1
-        self.part2 = part2
 
     def __str__(self):
         return 'Пыль'
 
 
 class Lava:
-    def __init__(self, part1, part2):
-        self.part1 = part1
-        self.part2 = part2
+
 
     def __str__(self):
         return 'Лава'
@@ -101,11 +82,11 @@ class Water:
 
     def __add__(self, other):
         if isinstance(other, Air):
-            return Storm(part1=self, part2=other)
+            return Storm()
         elif isinstance(other, Fire):
-            return Steam(part1=Water(), part2=Fire())
+            return Steam()
         elif isinstance(other, Earth):
-            return Dirt(part1=Water(), part2=Earth())
+            return Dirt()
 
 
 class Fire:
@@ -114,7 +95,7 @@ class Fire:
 
     def __add__(self, other):
         if isinstance(other, Earth):
-            return Lava(part1=self, part2=other)
+            return Lava()
 
 
 class Air:
@@ -123,9 +104,9 @@ class Air:
 
     def __add__(self, other):
         if isinstance(other, Earth):
-            return Dust(part1=self, part2=other)
+            return Dust()
         elif isinstance(other, Fire):
-            return Light(part1=self, part2=other)
+            return Light()
 
 
 class Earth:
@@ -160,7 +141,6 @@ class Fire_Elemental:
 print(Water() + Earth())
 print(Water() + Air())
 print(Water() + Fire())
-print(Water() + Earth())
 print(Air() + Fire())
 print(Air() + Earth())
 print(Fire() + Earth())

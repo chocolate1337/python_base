@@ -74,6 +74,9 @@ class Man:
         self.house = house
         self.fullness -= 10
         cprint('{} Вьехал в дом'.format(self.name), color='cyan')
+    def take_cat_in_to_the_house(self, house):
+        self.house = house
+        cprint('Человек взял кота и назвал его: {}'.format(self.name), color='cyan')
 
     def act(self):
         if self.fullness <= 0:
@@ -107,10 +110,6 @@ class Cat:
         else:
             cprint('{} нет еды'.format(self.name), color='red')
             self.fullness -= 20
-    # TODO кот подбирает сам себя?) Это должен делать человек.
-    def take_cat_in_to_the_house(self, house):
-        self.house = house
-        cprint('Человек взял кота и назвал его: {}'.format(self.name), color='cyan')
 
     def sleep(self):
         cprint('{} спал целый день'.format(self.name), color='green')
@@ -159,7 +158,7 @@ cats = [Cat(name='Кроша'),
 
 me.go_to_the_house(house=my_house)
 for cat in cats:
-    cat.take_cat_in_to_the_house(house=my_house)
+    Man.take_cat_in_to_the_house(self=cat, house=my_house)
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
     me.act()
