@@ -107,7 +107,7 @@ class Cat:
         else:
             cprint('{} нет еды'.format(self.name), color='red')
             self.fullness -= 20
-
+    # TODO кот подбирает сам себя?) Это должен делать человек.
     def take_cat_in_to_the_house(self, house):
         self.house = house
         cprint('Человек взял кота и назвал его: {}'.format(self.name), color='cyan')

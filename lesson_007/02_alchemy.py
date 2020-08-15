@@ -42,6 +42,8 @@ class Storm:
 
 class Steam:
     def __init__(self, part1, part2):
+        # TODO эти части не нужны нигде и переопределять конструктор тоже нигде не надо в этом задании,
+        #  удали пожалуйста везде, где необъодимо.
         self.part1 = part1
         self.part2 = part2
 
