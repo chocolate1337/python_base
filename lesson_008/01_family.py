@@ -69,6 +69,8 @@ class Mans:
 
     def eat(self):
         if self.house.food > 0:
+            # TODO может быть тебе в if-е только вычислять, сколько еды будет съедено, а все остальное вне if-а через переменную, 
+            #  потому, что тут идет дублирование кода
             if self.house.food > 60:
                 cprint('{} поел'.format(self.name), color='yellow')
                 self.fullness += 30
@@ -82,6 +84,7 @@ class Mans:
                 cprint('{} поел'.format(self.name), color='yellow')
         else:
             cprint('{} нет еды'.format(self.name), color='red')
+            # TODO тут молодец
             self.fullness -= 10
 
     def act(self):
@@ -97,7 +100,7 @@ class Mans:
         if self.fullness <= 20:
             self.eat()
             return False
-        return True
+        return True # TODO то есть true - если не было действия, тогда если умер - тоже надо возвращать false
 
     def __str__(self):
         return '{}, сытость - {}, счастье - {}'.format(self.name, self.fullness, self.happiness)
@@ -105,14 +108,15 @@ class Mans:
 
 class Husband(Mans):
     money = 0
-
+    # TODO не надо переопределять метод, если ты в нем только вызываешь супер. home надо передавать в параметрах тут или сделать метод go_to_home отдельный
     def __init__(self, name):
         super().__init__(name=name, home=home)
-
+    # TODO этот метод тоже не надо переопределять.
     def __str__(self):
         return super().__str__()
 
     def act(self):
+        # TODO тут можно уменьшить вложенность, типа если акт был, то сразу ретурн, а потом уже все остальные условия.
         if super().act():
             if self.house.money < 150:
                 self.work()
@@ -143,6 +147,7 @@ class Wife(Mans):
         return super().__str__()
 
     def act(self):
+         # TODO тут тоже можно уменьшить вложенность
         if super().act():
             if self.house.food <= 60:
                 self.shopping()
@@ -155,6 +160,7 @@ class Wife(Mans):
 
     def shopping(self):
         if self.house.money >= 100:
+            # TODO тут тоже вынеси общие строки за if
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
             self.house.money -= 60
             self.house.food += 60
