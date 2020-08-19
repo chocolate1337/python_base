@@ -42,8 +42,6 @@ from random import randint
 # Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
 
 
-from termcolor import cprint
-from random import randint
 
 
 class House:
@@ -68,39 +66,32 @@ class Mans:
         self.house = home
 
     def eat(self):
-        if self.house.food > 0:
-            # TODO может быть тебе в if-е только вычислять, сколько еды будет съедено, а все остальное вне if-а через переменную, 
-            #  потому, что тут идет дублирование кода
-            if self.house.food > 60:
-                cprint('{} поел'.format(self.name), color='yellow')
-                self.fullness += 30
-                self.house.food -= 30
-                Mans.food += 30
-            else:
-                need_food = abs(self.fullness - 30)
-                self.fullness += need_food
-                self.house.food -= need_food
-                Mans.food += need_food
-                cprint('{} поел'.format(self.name), color='yellow')
+        if 0 < self.house.food <= 60:
+            need_food = abs(self.fullness - 30)
+        elif self.house.food > 60:
+            need_food = 30
         else:
             cprint('{} нет еды'.format(self.name), color='red')
-            # TODO тут молодец
             self.fullness -= 10
+            return
+        self.fullness += need_food
+        self.house.food -= need_food
+        Mans.food += need_food
 
     def act(self):
         self.house.dirt += 5 / 2
         if self.fullness <= 0:
             cprint('{} умер от голода...'.format(self.name), color='red')
-            return
+            return True
         if self.happiness < 10:
             cprint('{} умер от депрессии...'.format(self.name), color='red')
-            return
+            return True
         if self.house.dirt > 90:
             self.happiness -= 10
         if self.fullness <= 20:
             self.eat()
-            return False
-        return True # TODO то есть true - если не было действия, тогда если умер - тоже надо возвращать false
+            return True
+        return False
 
     def __str__(self):
         return '{}, сытость - {}, счастье - {}'.format(self.name, self.fullness, self.happiness)
@@ -108,22 +99,15 @@ class Mans:
 
 class Husband(Mans):
     money = 0
-    # TODO не надо переопределять метод, если ты в нем только вызываешь супер. home надо передавать в параметрах тут или сделать метод go_to_home отдельный
-    def __init__(self, name):
-        super().__init__(name=name, home=home)
-    # TODO этот метод тоже не надо переопределять.
-    def __str__(self):
-        return super().__str__()
-
     def act(self):
-        # TODO тут можно уменьшить вложенность, типа если акт был, то сразу ретурн, а потом уже все остальные условия.
         if super().act():
-            if self.house.money < 150:
-                self.work()
-            elif self.happiness < 20:
-                self.gaming()
-            else:
-                self.work()
+            return
+        if self.house.money < 150:
+            self.work()
+        elif self.happiness < 20:
+            self.gaming()
+        else:
+            self.work()
 
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
@@ -140,39 +124,32 @@ class Husband(Mans):
 class Wife(Mans):
     coat = 0
 
-    def __init__(self, name):
-        super().__init__(name=name, home=home)
-
-    def __str__(self):
-        return super().__str__()
-
     def act(self):
-         # TODO тут тоже можно уменьшить вложенность
         if super().act():
-            if self.house.food <= 60:
-                self.shopping()
-            elif self.happiness <= 20:
-                self.buy_fur_coat()
-            elif self.house.dirt > 90:
-                self.clean_house()
-            else:
-                self.shopping()
+            return
+        if self.house.food <= 60:
+            self.shopping()
+        elif self.happiness <= 20:
+            self.buy_fur_coat()
+        elif self.house.dirt > 90:
+            self.clean_house()
+        else:
+            self.shopping()
 
     def shopping(self):
         if self.house.money >= 100:
-            # TODO тут тоже вынеси общие строки за if
-            cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
-            self.house.money -= 60
-            self.house.food += 60
-            self.fullness -= 10
-        elif self.house.money <= 50:
-            self.house.money -= 20
-            self.house.food += 20
-            self.fullness -= 10
+            need_buy_food = 60
+
+        elif 0 < self.house.money <= 50:
+            need_buy_food = 20
         else:
             cprint('{} хотела купить еды, но дома нет денег'.format(self.name), color='red')
             self.fullness -= 10
-
+            return
+        cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
+        self.house.money -= need_buy_food
+        self.house.food += need_buy_food
+        self.fullness -= 10
     def buy_fur_coat(self):
         if self.house.money > 350:
             cprint('{} сходила в магазин и купила шубу!'.format(self.name), color='magenta')
@@ -191,8 +168,8 @@ class Wife(Mans):
 
 
 home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
+serge = Husband(name='Сережа', home=home)
+masha = Wife(name='Маша', home=home)
 
 for day in range(1, 366, 1):
     cprint('================== День {} =================='.format(day), color='red')
