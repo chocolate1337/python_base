@@ -241,23 +241,56 @@ class Cat:
 
 class Child:
 
-    def __init__(self):
-        pass
+    def __init__(self, name, home):
+        self.name = name
+        self.fullness = 50
+        self.happiness = 100
+        self.house = home
 
     def __str__(self):
-        return super().__str__()
+        return '{}, сытость - {}, счастье - {}'.format(self.name, self.fullness, self.happiness)
 
     def act(self):
-        pass
+        if self.fullness <= 0:
+            cprint('{} умер с голоду!'.format(self.name), color='red')
+            return
+        if self.fullness < 50:
+            self.eat()
+        else:
+            self.sleep()
+
 
     def eat(self):
-        pass
+        if self.house.food > 10:
+            cprint('{} покушал!'.format(self.name), color='magenta')
+            self.fullness += 10
+            self.house.food -= 10
+            Mans.food += 10
+        else:
+            self.fullness -= 10
 
     def sleep(self):
-        pass
+        cprint('{} спал целый день!'.format(self.name), color='magenta')
+        self.fullness -= 10
 
 
-# TODO приступай к второй части
+home = House()
+serge = Husband(name='Сережа', home=home)
+masha = Wife(name='Маша', home=home)
+kolya = Child(name='Коля', home=home)
+
+for day in range(1, 366, 1):
+    cprint('================== День {} =================='.format(day), color='red')
+    serge.act()
+    masha.act()
+    kolya.act()
+    cprint(serge, color='cyan')
+    cprint(masha, color='cyan')
+    cprint(kolya, color='cyan')
+    cprint(home, color='cyan')
+    if day == 365:
+        cprint(f'Итоги года: Всего денег заработано - {Husband.money}, '
+               f'Съедено еды - {Mans.food}, Куплено шуб - {Wife.coat}', color='green')
 
 
 ######################################################## Часть третья
