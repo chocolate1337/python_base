@@ -3,7 +3,8 @@
 from termcolor import cprint
 from random import randint
 
-######################################################## Часть первая
+
+# Часть первая
 #
 # Создать модель жизни небольшой семьи.
 #
@@ -40,8 +41,6 @@ from random import randint
 # Степень счастья не должна падать ниже 10, иначе чел умирает от депрессии.
 #
 # Подвести итоги жизни за год: сколько было заработано денег, сколько сьедено еды, сколько куплено шуб.
-
-
 
 
 class House:
@@ -182,8 +181,7 @@ class Wife(Mans):
         self.fullness -= 10
 
 
-
-######################################################## Часть вторая
+# Часть вторая
 #
 # После подтверждения учителем первой части надо
 # отщепить ветку develop и в ней начать добавлять котов в модель семьи
@@ -253,7 +251,7 @@ class Cat:
         self.fullness -= 10
 
 
-######################################################## Часть вторая бис
+# Часть вторая бис
 #
 # После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
 #
@@ -284,7 +282,6 @@ class Child:
         else:
             self.sleep()
 
-
     def eat(self):
         if self.house.food > 10:
             cprint('{} покушал!'.format(self.name), color='magenta')
@@ -299,9 +296,7 @@ class Child:
         self.fullness -= 10
 
 
-
-
-######################################################## Часть третья
+# Часть третья
 #
 # после подтверждения учителем второй части (обоих веток)
 # влить в мастер все коммиты из ветки develop и разрешить все конфликты
@@ -309,12 +304,12 @@ class Child:
 
 
 home = House()
-serge = Husband(name='Сережа', house= home)
-masha = Wife(name='Маша', house= home)
-kolya = Child(name='Коля', house= home)
-murzik = Cat(name='Мурзик', house= home)
+serge = Husband(name='Сережа', house=home)
+masha = Wife(name='Маша', house=home)
+kolya = Child(name='Коля', house=home)
+murzik = Cat(name='Мурзик', house=home)
 
-for day in range(365):
+for day in range(366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
