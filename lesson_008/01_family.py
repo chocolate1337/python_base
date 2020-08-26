@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from termcolor import cprint
 from random import randint
+
+from termcolor import cprint
 
 
 # Часть первая
@@ -344,3 +345,5 @@ for day in range(366):
 #       for salary in range(50, 401, 50):
 #           max_cats = life.experiment(salary)
 #           print(f'При зарплате {salary} максимально можно прокормить {max_cats} котов')
+
+# Зачёт!
