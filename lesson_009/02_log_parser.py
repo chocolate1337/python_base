@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import time
+import zipfile
+from collections import defaultdict
+import re
+
 
 # Имеется файл events.txt вида:
 #
@@ -23,8 +28,59 @@
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-# TODO здесь ваш код
+class DateTime:
 
+    def __init__(self, file_in, file_out):
+        self.file_in = file_in
+        self.file_out = file_out
+        self.date_count = defaultdict(int)
+
+    def unzip(self):
+        zfile = zipfile.ZipFile(self.file_in, 'r')
+        for filename in zfile.namelist():
+            zfile.extract(filename)
+        self.file_in = filename
+
+    def sorting(self):
+        print('Выберите режим сортировки 1 - по минутам')
+        print('Выберите режим сортировки 2 - по часам')
+        print('Выберите режим сортировки 3 - по месяцу')
+        print('Выберите режим сортировки 4 - по году')
+        mode = input()
+        if mode == '1':
+            self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).+\]')
+        elif mode == '2':
+            self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}).+\]')
+        elif mode == '3':
+            self.date_patterns = re.compile('\[(\d{4}-\d{2}).+\]')
+        elif mode == '4':
+            self.date_patterns = re.compile('\[(\d{4}).+\]')
+        else:
+            print('Режим по умолчанию - 1')
+            self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).+\]')
+
+    def collect(self):
+        self.sorting()
+        if self.file_in.endswith('.zip'):
+            self.unzip()
+        with open(self.file_in, 'r', encoding='utf8') as file:
+            for line in file:
+                if 'NOK' in line:
+                    catch = self.date_patterns.search(line)
+                    if catch:
+                        self.date = catch.group(1)
+                        self.date_count[self.date] += 1
+
+    def write(self):
+        with open(self.file_out, 'w', encoding='utf8') as file:
+            for date, cnt in self.date_count.items():
+                line = f'[{date}] {cnt} \n'
+                file.write(line)
+
+
+file = DateTime(file_in='events.txt', file_out='out.txt')
+file.collect()
+file.write()
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
 #  - по месяцу

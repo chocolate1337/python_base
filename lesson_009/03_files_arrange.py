@@ -3,6 +3,9 @@
 import os
 import time
 import shutil
+import glob
+import operator
+
 
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
 # Скрипт должен разложить файлы из одной папки по годам и месяцам в другую.
@@ -40,7 +43,32 @@ import shutil
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-# TODO здесь ваш код
+
+class SortFiles:
+
+    def __init__(self, dir_in, dir_out):
+        self.dir_in = os.path.normpath(dir_in)
+        self.dir_out = os.path.normpath(dir_out)
+        self.secs = {}
+
+    def read_path(self):
+        for root, dirs, files in os.walk(self.dir_in):
+            for file in files:
+                full_file_path = os.path.join(root, file)
+                self.secs[full_file_path] = time.gmtime(os.path.getmtime(full_file_path))
+        self.create_sorted_files()
+
+    def create_sorted_files(self):
+        sorted_by_value = sorted(self.secs.items(), key=lambda kv: kv[1])
+        for value in sorted_by_value:
+            new_dirs = (self.dir_out + "\\" + (time.strftime("%Y", value[1])) + "\\" + (time.strftime("%m", value[1])))
+            if not os.path.exists(new_dirs):
+                os.makedirs(new_dirs)
+            shutil.copy(value[0], new_dirs)
+
+
+files = SortFiles(dir_in=os.path.dirname(__file__) + '\\icons', dir_out=os.path.dirname(__file__) + '\\icons_by_year')
+files.read_path()
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
