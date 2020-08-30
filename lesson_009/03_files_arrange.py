@@ -52,6 +52,10 @@ class SortFiles:
         self.secs = {}
 
     def read_path(self):
+        # TODO Переменная с именем files существует не только внутри
+        #  функции, но и на уровне видимости модуля. Иногда подобное
+        #  совпадение имеён может привести к труднодиагностируемым ошибкам.
+        #  Нужно переименовать переменную либо в функции либо в цикле.
         for root, dirs, files in os.walk(self.dir_in):
             for file in files:
                 full_file_path = os.path.join(root, file)
@@ -67,6 +71,9 @@ class SortFiles:
             shutil.copy(value[0], new_dirs)
 
 
+# TODO Используйте os.path или pathlib для формирования
+#  корректных путей к файлам. Это позволит корректно работать
+#  в разных операционных системах без редактирования кода.
 files = SortFiles(dir_in=os.path.dirname(__file__) + '\\icons', dir_out=os.path.dirname(__file__) + '\\icons_by_year')
 files.read_path()
 

@@ -39,6 +39,8 @@ class DateTime:
         zfile = zipfile.ZipFile(self.file_in, 'r')
         for filename in zfile.namelist():
             zfile.extract(filename)
+        # TODO В следующей строке лучще добавить отступ и
+        #  устанавливать self.file_name в цикле.
         self.file_in = filename
 
     def sorting(self):
@@ -47,6 +49,10 @@ class DateTime:
         print('Выберите режим сортировки 3 - по месяцу')
         print('Выберите режим сортировки 4 - по году')
         mode = input()
+        # TODO Здесь можно сделать проще, если использовать срезы.
+        #  Для минут можно использовать строку 2018-05-14 19:44,
+        #  для часов 2018-05-14 19. Использование регулярных выражений
+        #  более ресурсозатратно, чем использование срезов строк.
         if mode == '1':
             self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).+\]')
         elif mode == '2':
@@ -77,6 +83,7 @@ class DateTime:
                 line = f'[{date}] {cnt} \n'
                 file.write(line)
 
+# TODO Попробуйте изменить задание, используя шаблонны метод, как написано в первом задании.
 
 file = DateTime(file_in='events.txt', file_out='out.txt')
 file.collect()
