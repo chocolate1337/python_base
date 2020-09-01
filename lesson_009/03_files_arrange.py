@@ -3,8 +3,6 @@
 import os
 import time
 import shutil
-import glob
-import operator
 
 
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
@@ -52,12 +50,8 @@ class SortFiles:
         self.secs = {}
 
     def read_path(self):
-        # TODO Переменная с именем files существует не только внутри
-        #  функции, но и на уровне видимости модуля. Иногда подобное
-        #  совпадение имеён может привести к труднодиагностируемым ошибкам.
-        #  Нужно переименовать переменную либо в функции либо в цикле.
-        for root, dirs, files in os.walk(self.dir_in):
-            for file in files:
+        for root, dirs, filenames in os.walk(self.dir_in):
+            for file in filenames:
                 full_file_path = os.path.join(root, file)
                 self.secs[full_file_path] = time.gmtime(os.path.getmtime(full_file_path))
         self.create_sorted_files()
@@ -66,15 +60,15 @@ class SortFiles:
         sorted_by_value = sorted(self.secs.items(), key=lambda kv: kv[1])
         for value in sorted_by_value:
             new_dirs = (self.dir_out + "\\" + (time.strftime("%Y", value[1])) + "\\" + (time.strftime("%m", value[1])))
+            new_dirs = os.path.normpath(new_dirs)
             if not os.path.exists(new_dirs):
                 os.makedirs(new_dirs)
             shutil.copy(value[0], new_dirs)
 
 
-# TODO Используйте os.path или pathlib для формирования
-#  корректных путей к файлам. Это позволит корректно работать
-#  в разных операционных системах без редактирования кода.
-files = SortFiles(dir_in=os.path.dirname(__file__) + '\\icons', dir_out=os.path.dirname(__file__) + '\\icons_by_year')
+path_in = os.path.dirname(__file__) + '\\icons'
+path_out = os.path.dirname(__file__) + '\\icons_by_year'
+files = SortFiles(dir_in=path_in, dir_out=path_out)
 files.read_path()
 
 # Усложненное задание (делать по желанию)

@@ -3,6 +3,7 @@ import time
 import zipfile
 from collections import defaultdict
 import re
+from datetime import datetime
 
 
 # Имеется файл events.txt вида:
@@ -28,66 +29,79 @@ import re
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-class DateTime:
+class GetData:
 
-    def __init__(self, file_in, file_out):
-        self.file_in = file_in
-        self.file_out = file_out
-        self.date_count = defaultdict(int)
+    def __init__(self, input_file, output_file):
+        self.input = input_file
+        self.output = output_file
 
-    def unzip(self):
-        zfile = zipfile.ZipFile(self.file_in, 'r')
-        for filename in zfile.namelist():
-            zfile.extract(filename)
-        # TODO В следующей строке лучще добавить отступ и
-        #  устанавливать self.file_name в цикле.
-        self.file_in = filename
+    def parse(self):
+        with open(self.input, 'r', encoding='utf-8') as file:
+            yield from file
 
-    def sorting(self):
-        print('Выберите режим сортировки 1 - по минутам')
-        print('Выберите режим сортировки 2 - по часам')
-        print('Выберите режим сортировки 3 - по месяцу')
-        print('Выберите режим сортировки 4 - по году')
-        mode = input()
-        # TODO Здесь можно сделать проще, если использовать срезы.
-        #  Для минут можно использовать строку 2018-05-14 19:44,
-        #  для часов 2018-05-14 19. Использование регулярных выражений
-        #  более ресурсозатратно, чем использование срезов строк.
-        if mode == '1':
-            self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).+\]')
-        elif mode == '2':
-            self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}).+\]')
-        elif mode == '3':
-            self.date_patterns = re.compile('\[(\d{4}-\d{2}).+\]')
-        elif mode == '4':
-            self.date_patterns = re.compile('\[(\d{4}).+\]')
-        else:
-            print('Режим по умолчанию - 1')
-            self.date_patterns = re.compile('\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}).+\]')
+    def write(self, str):
+        with open(self.output, 'a', encoding='utf-8') as file:
+            file.write(str)
 
-    def collect(self):
-        self.sorting()
-        if self.file_in.endswith('.zip'):
-            self.unzip()
-        with open(self.file_in, 'r', encoding='utf8') as file:
-            for line in file:
-                if 'NOK' in line:
-                    catch = self.date_patterns.search(line)
-                    if catch:
-                        self.date = catch.group(1)
-                        self.date_count[self.date] += 1
+    def filter(self, str):
+        if 'NOK' in str:
+            return str
 
-    def write(self):
-        with open(self.file_out, 'w', encoding='utf8') as file:
-            for date, cnt in self.date_count.items():
-                line = f'[{date}] {cnt} \n'
-                file.write(line)
+    def get_date(self, str):
+        date = datetime.strptime(str[1:str.index('.')], '%Y-%m-%d %H:%M:%S')
+        return date
 
-# TODO Попробуйте изменить задание, используя шаблонны метод, как написано в первом задании.
+    def start(self):
+        pass
 
-file = DateTime(file_in='events.txt', file_out='out.txt')
-file.collect()
-file.write()
+
+class Parser(GetData):
+
+    def __init__(self, input_file, output_file, mode=1):
+        super().__init__(input_file, output_file)
+        modes = {
+            0: ('second', '%Y-%m-%d %H:%M:%S'),
+            1: ('minute', '%Y-%m-%d %H:%M'),
+            2: ('hour', '%Y-%m-%d %H'),
+            3: ('day', '%Y-%m-%d'),
+            4: ('month', '%Y-%m'),
+            5: ('year', '%Y')
+        }
+        self.mode = mode
+        self.limit = modes[mode][0]
+        self.time_format = modes[mode][1]
+
+    def start(self):
+        data = self.parse()
+        count = 1
+        prev = None
+        while True:
+            try:
+                item = next(data)
+            except StopIteration:
+                if self.get_date(prev):
+                    self.write(self.get_date(prev).strftime(self.time_format) + ' NOK ' + str(count) + '\n')
+                break
+            if self.filter(item):
+                if prev is None:
+                    if self.get_date(item):
+                        prev = item
+                else:
+                    if self.get_date(item):
+                        if getattr(self.get_date(item), self.limit) == getattr(self.get_date(prev), self.limit):
+                            count += 1
+                            prev = item
+                        else:
+                            self.write(self.get_date(prev).strftime(self.time_format) + ' NOK ' + str(count) + '\n')
+                            count = 1
+                            prev = item
+
+
+# запуск в режиме по умолчанию
+parser = Parser('events.txt', 'out.txt', 1)
+parser.start()
+# режим (0 - секунды, 1 - минуты, 2 - часы, 3 - дни, 4 - месяцы, 5 - годы)
+
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
 #  - по месяцу
