@@ -55,6 +55,9 @@ class GetData:
         pass
 
 
+# TODO Не понятно, для чего функциональность класса была разделена на два.
+#  Реализация отдельных классов нужна при реализации шаблонного метода,
+#  когда в классах населедниках заменяются некоторые меотды или переменны.
 class Parser(GetData):
 
     def __init__(self, input_file, output_file, mode=1):
@@ -75,11 +78,14 @@ class Parser(GetData):
         data = self.parse()
         count = 1
         prev = None
+        # TODO Если вместо цикла while использовать цикл for, то не нужно будет считывать строки файла
+        #  с обработкой исключений.
         while True:
             try:
                 item = next(data)
             except StopIteration:
                 if self.get_date(prev):
+                    # TODO Запись в файл можно сделать отдельным методом, чтобы не дублировать код.
                     self.write(self.get_date(prev).strftime(self.time_format) + ' NOK ' + str(count) + '\n')
                 break
             if self.filter(item):
