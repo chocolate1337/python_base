@@ -48,6 +48,7 @@ class ReadData:
         if self.file_name.endswith('.zip'):
             self.unzip()
 
+    # TODO В следующей строке нужно исправить оформление, убравл лишние пробелы.
     def sorting(self, mode = 0, reverse = True):
         self.sort_char = sorted(self.chars.items(), key=operator.itemgetter(mode), reverse=reverse)
 
@@ -68,7 +69,12 @@ class ReadData:
 
 
 class CharStat(ReadData):
-
+    # TODO Нет необходимости в создании класса CharStat.
+    #  Создавать отдельные классы нужно для реализации разных типов сортировки.
+    #  В основном классе объявляются переменные класса mode и reverse и используются
+    #  в методе sorting вместо аргументов.
+    #  Про шаблонный метод можно почитать по ссылкам выше в задании.
+    #  В классах наследниках достаточно будет поменять эти переменные класса.
     def collect(self):
         with open(self.file_name, 'r', encoding='cp1251') as file:
             for line in file:

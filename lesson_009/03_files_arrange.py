@@ -59,6 +59,8 @@ class SortFiles:
     def create_sorted_files(self):
         sorted_by_value = sorted(self.secs.items(), key=lambda kv: kv[1])
         for value in sorted_by_value:
+            # TODO Вмето объединения частей пути через конкатенацию + "\\" +
+            #  используйте os.path.join.
             new_dirs = (self.dir_out + "\\" + (time.strftime("%Y", value[1])) + "\\" + (time.strftime("%m", value[1])))
             new_dirs = os.path.normpath(new_dirs)
             if not os.path.exists(new_dirs):
@@ -66,6 +68,8 @@ class SortFiles:
             shutil.copy(value[0], new_dirs)
 
 
+# TODO Вмето объединения частей пути через конкатенацию + "\\" +
+#  используйте os.path.join.
 path_in = os.path.dirname(__file__) + '\\icons'
 path_out = os.path.dirname(__file__) + '\\icons_by_year'
 files = SortFiles(dir_in=path_in, dir_out=path_out)
