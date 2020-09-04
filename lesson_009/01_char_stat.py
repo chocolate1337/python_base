@@ -30,6 +30,8 @@ import zipfile
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
 class ReadData:
+    mode = 0
+    reverse = True
 
     def __init__(self, file_name):
         self.file_name = file_name
@@ -45,12 +47,15 @@ class ReadData:
             self.file_name = filename
 
     def collect(self):
-        if self.file_name.endswith('.zip'):
-            self.unzip()
+        with open(self.file_name, 'r', encoding='cp1251') as file:
+            for line in file:
+                for char in line:
+                    if char.isalpha():
+                        self.chars[char] += 1
+                        self.count += 1
 
-    # TODO В следующей строке нужно исправить оформление, убравл лишние пробелы.
-    def sorting(self, mode = 0, reverse = True):
-        self.sort_char = sorted(self.chars.items(), key=operator.itemgetter(mode), reverse=reverse)
+    def sorting(self):
+        self.sort_char = sorted(self.chars.items(), key=operator.itemgetter(self.mode), reverse=self.reverse)
 
     def save(self):
         with open(self.file_name, 'wb') as ff:
@@ -68,25 +73,29 @@ class ReadData:
         return ''
 
 
-class CharStat(ReadData):
-    # TODO Нет необходимости в создании класса CharStat.
-    #  Создавать отдельные классы нужно для реализации разных типов сортировки.
-    #  В основном классе объявляются переменные класса mode и reverse и используются
-    #  в методе sorting вместо аргументов.
-    #  Про шаблонный метод можно почитать по ссылкам выше в задании.
-    #  В классах наследниках достаточно будет поменять эти переменные класса.
-    def collect(self):
-        with open(self.file_name, 'r', encoding='cp1251') as file:
-            for line in file:
-                for char in line:
-                    if char.isalpha():
-                        self.chars[char] += 1
-                        self.count += 1
+class SortMode1(ReadData):
+    mode = 0
+    reverse = True
 
 
-files = CharStat(file_name='voyna-i-mir.txt')
+class SortMode2(ReadData):
+    mode = 0
+    reverse = False
+
+
+class SortMode3(ReadData):
+    mode = 1
+    reverse = True
+
+
+class SortMode4(ReadData):
+    mode = 1
+    reverse = False
+
+
+files = SortMode4(file_name='voyna-i-mir.txt')
 files.collect()
-files.sorting(mode=1, reverse=False) # mode = 0 По буквам, 1 - по частоте
+files.sorting()
 print(files)
 
 # После зачета первого этапа нужно сделать упорядочивание статистики

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-import time
 import zipfile
 from collections import defaultdict
-import re
 from datetime import datetime
 
 
@@ -29,84 +27,71 @@ from datetime import datetime
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-class GetData:
+class DateTime:
+    mode = 1
+    get_data = {1: '%Y-%m-%d %H:%M',
+                2: '%Y-%m-%d %H',
+                3: '%Y-%m',
+                4: '%Y'
+                }
+    modes = {1: 17,
+             2: 14,
+             3: 8,
+             4: 5
 
-    def __init__(self, input_file, output_file):
-        self.input = input_file
-        self.output = output_file
+             }
 
-    def parse(self):
-        with open(self.input, 'r', encoding='utf-8') as file:
-            yield from file
+    def __init__(self, file_in, file_out):
+        self.file_in = file_in
+        self.file_out = file_out
+        self.date_count = defaultdict(int)
+        self.date = ''
 
-    def write(self, str):
-        with open(self.output, 'a', encoding='utf-8') as file:
-            file.write(str)
+    def unzip(self):
+        zfile = zipfile.ZipFile(self.file_in, 'r')
+        for filename in zfile.namelist():
+            zfile.extract(filename)
+            self.file_in = filename
 
-    def filter(self, str):
-        if 'NOK' in str:
-            return str
+    def collect(self):
 
-    def get_date(self, str):
-        date = datetime.strptime(str[1:str.index('.')], '%Y-%m-%d %H:%M:%S')
-        return date
+        if self.file_in.endswith('.zip'):
+            self.unzip()
+        with open(self.file_in, 'r', encoding='utf8') as ff:
+            for line in ff:
+                if 'NOK' in line:
+                    catch = datetime.strptime(line[1:self.modes[self.mode]], self.get_data[self.mode])
+                    if catch:
+                        self.date = catch
+                        self.date_count[self.date] += 1
 
-    def start(self):
-        pass
-
-
-# TODO Не понятно, для чего функциональность класса была разделена на два.
-#  Реализация отдельных классов нужна при реализации шаблонного метода,
-#  когда в классах населедниках заменяются некоторые меотды или переменны.
-class Parser(GetData):
-
-    def __init__(self, input_file, output_file, mode=1):
-        super().__init__(input_file, output_file)
-        modes = {
-            0: ('second', '%Y-%m-%d %H:%M:%S'),
-            1: ('minute', '%Y-%m-%d %H:%M'),
-            2: ('hour', '%Y-%m-%d %H'),
-            3: ('day', '%Y-%m-%d'),
-            4: ('month', '%Y-%m'),
-            5: ('year', '%Y')
-        }
-        self.mode = mode
-        self.limit = modes[mode][0]
-        self.time_format = modes[mode][1]
-
-    def start(self):
-        data = self.parse()
-        count = 1
-        prev = None
-        # TODO Если вместо цикла while использовать цикл for, то не нужно будет считывать строки файла
-        #  с обработкой исключений.
-        while True:
-            try:
-                item = next(data)
-            except StopIteration:
-                if self.get_date(prev):
-                    # TODO Запись в файл можно сделать отдельным методом, чтобы не дублировать код.
-                    self.write(self.get_date(prev).strftime(self.time_format) + ' NOK ' + str(count) + '\n')
-                break
-            if self.filter(item):
-                if prev is None:
-                    if self.get_date(item):
-                        prev = item
-                else:
-                    if self.get_date(item):
-                        if getattr(self.get_date(item), self.limit) == getattr(self.get_date(prev), self.limit):
-                            count += 1
-                            prev = item
-                        else:
-                            self.write(self.get_date(prev).strftime(self.time_format) + ' NOK ' + str(count) + '\n')
-                            count = 1
-                            prev = item
+    def write(self):
+        with open(self.file_out, 'w', encoding='utf8') as ff:
+            for date, cnt in self.date_count.items():
+                line = f'[{date}] {cnt} \n'
+                ff.write(line)
 
 
-# запуск в режиме по умолчанию
-parser = Parser('events.txt', 'out.txt', 1)
-parser.start()
-# режим (0 - секунды, 1 - минуты, 2 - часы, 3 - дни, 4 - месяцы, 5 - годы)
+class DateMode1(DateTime):
+    mode = 1
+
+
+class DateMode2(DateTime):
+    mode = 2
+
+
+class DateMode3(DateTime):
+    mode = 3
+
+
+class DateMode4(DateTime):
+    mode = 4
+
+
+file = DateMode1(file_in='events.txt', file_out='out.txt')
+file.collect()
+file.write()
+
 
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
