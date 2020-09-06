@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import random
 
 # День сурка
 #
@@ -18,7 +19,31 @@
 # базовых встроенных исключений.
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
+errors = ['IamGodError', 'DrunkError',
+          'CarCrashError', 'GluttonyError',
+          'DepressionError', 'SuicideError',
+          ]
+carma_level = 0
+days = 0
 
-# TODO здесь ваш код
 
+def one_day():
+    try:
+        carma = random.randint(1, 7)
+        bad_day = random.randint(1, 13)
+        if bad_day == 13:
+            rand = random.randint(0, 5)
+            error = errors[rand]
+            raise BaseException(error)
+        return carma
+    except BaseException:
+        print(f'В этот день случилось ужасное - {error} карма = 0')
+        return 0
+
+
+while carma_level < ENLIGHTENMENT_CARMA_LEVEL:
+    carma_level += one_day()
+    days += 1
+    print(f'День номер - {days}, уровень кармы - {carma_level}')
+print(f'За {days} - дня(ей,ень), герой достиг просветления!')
 # https://goo.gl/JnsDqu
