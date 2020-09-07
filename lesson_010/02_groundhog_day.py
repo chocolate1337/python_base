@@ -17,7 +17,7 @@ import random
 # кармы до уровня ENLIGHTENMENT_CARMA_LEVEL. Исключения обработать и записать в лог.
 # При создании собственных исключений максимально использовать функциональность
 # базовых встроенных исключений.
-
+# TODO создай классы своих ошибок, и их отлавливай
 ENLIGHTENMENT_CARMA_LEVEL = 777
 errors = ['IamGodError', 'DrunkError',
           'CarCrashError', 'GluttonyError',
@@ -28,6 +28,7 @@ days = 0
 
 
 def one_day():
+    # TODO в try помещай код, в котором мождет быть ошибка, и можно ещё пару строк, если так удобнее, но не такие блоки.
     try:
         carma = random.randint(1, 7)
         bad_day = random.randint(1, 13)
@@ -36,8 +37,9 @@ def one_day():
             error = errors[rand]
             raise BaseException(error)
         return carma
-    except BaseException:
+    except BaseException: # TODO обычно если хотят отловить вообще все ошибки, то отлавливают Exception
         print(f'В этот день случилось ужасное - {error} карма = 0')
+        # TODO чтобы в ф-ии не было 2 ретурна, можно тут сделать carma = 0 и в конце ф-ии вернуть carma
         return 0
 
 
