@@ -14,11 +14,10 @@
 # - IndexError - выход за границы списка
 # - остальные исключения
 # для каждого типа исключений написать на консоль соотв. сообщение
-# TODO в блок try заключаешь слишком много кода, первые 2 строки можно вынести перед try
-try:
-    BRUCE_WILLIS = 42
+BRUCE_WILLIS = 42
 
-    input_data = input('Если хочешь что-нибудь сделать, сделай это сам: ')
+input_data = input('Если хочешь что-нибудь сделать, сделай это сам: ')
+try:
     leeloo = int(input_data[4])
     result = BRUCE_WILLIS * leeloo
     print(f'- Leeloo Dallas! Multi-pass № {result}!')

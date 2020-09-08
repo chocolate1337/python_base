@@ -21,13 +21,28 @@
 # - поле емейл НЕ содержит @ и .(точку): NotEmailError (кастомное исключение)
 # - поле возраст НЕ является числом от 10 до 99: ValueError
 # Вызов метода обернуть в try-except.
-# TODO сделай базовый класс, от которого будут наследоваться твои ошибки, потом можешь отлавливать свой базовый класс и знать, что это  твоя ошибка.
-class NotNameError(Exception):
+class ParseError(ValueError):
     pass
 
 
-class NotEmailError(Exception):
-    pass
+class NotNameError(ParseError):
+    def __str__(self):
+        return 'поле имени содержит НЕ только буквы'
+
+
+class NotEmailError(ParseError):
+    def __str__(self):
+        return 'поле емейл НЕ содержит @ и .(точку)'
+
+
+class AgeError(ParseError):
+    def __str__(self):
+        return 'поле возраст НЕ является числом от 10 до 99'
+
+
+class InputError(ParseError):
+    def __str__(self):
+        return 'НЕ присутсвуют все три поля'
 
 
 number_line = 1
@@ -39,17 +54,23 @@ def parse(line):
         name, email, age = line.split(' ')
         age = int(age)
         if "@" not in email:
-            raise NotEmailError('Поле емейл НЕ содержит @ и .(точку)')
+            raise NotEmailError
         elif age < 10 or age > 99:
-            raise ValueError('Поле возраст НЕ является числом от 10 до 99')
+            raise AgeError
         for values in numbers:
             if values in name:
-                raise NotNameError('Поле имени содержит НЕ только буквы')
+                raise NotNameError
         return line
     elif line is None:
-        raise ValueError('НЕ присутсвуют все три поля')
+        raise InputError
     else:
         return line
+
+
+def write_log(write, number_line):
+    with open('registrations_bad.log', 'a') as f_bad:
+        line = f"Поле номер {number_line} -" + write + '\n'
+        f_bad.write(line)
 
 
 with open('registrations.txt', 'r') as ff:
@@ -58,18 +79,14 @@ with open('registrations.txt', 'r') as ff:
             line = line[:-1]
             write = parse(line=line)
         except NotEmailError:
-            # TODO много посторов, у тебя в f_bad и тд хранится текст ошибки, также можнно ещё добавить ф-ию логгирования, которая будет принимать название файла и строку для логгирования, тогда не надо будет дублировать код, а просто вызывать ф-ию
-            with open('registrations_bad.log', 'a') as f_bad:
-                write = f"Поле номер {number_line} - емейл НЕ содержит @ и .(точку)\n"
-                f_bad.write(write)
+            write_log(write=NotEmailError.__str__(NotEmailError), number_line=number_line)
         except NotNameError:
-            with open('registrations_bad.log', 'a') as f_bad:
-                write = f"Поле номер {number_line} - содержит НЕ только буквы\n"
-                f_bad.write(write)
-        except ValueError:
-            with open('registrations_bad.log', 'a') as f_bad:
-                write = f"Поле номер {number_line} - Неверные данные(Не верный возраст или пустое поле)\n"
-                f_bad.write(write)
+            write_log(write=NotNameError.__str__(NotNameError), number_line=number_line)
+        except AgeError:
+            write_log(write=AgeError.__str__(AgeError), number_line=number_line)
+        except (InputError, ValueError):
+            write_log(write=InputError.__str__(InputError), number_line=number_line)
+
         else:
             with open('registrations_good.log', 'a') as f_good:
                 write += '\n'

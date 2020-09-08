@@ -17,30 +17,59 @@ import random
 # кармы до уровня ENLIGHTENMENT_CARMA_LEVEL. Исключения обработать и записать в лог.
 # При создании собственных исключений максимально использовать функциональность
 # базовых встроенных исключений.
-# TODO создай классы своих ошибок, и их отлавливай
 ENLIGHTENMENT_CARMA_LEVEL = 777
-errors = ['IamGodError', 'DrunkError',
-          'CarCrashError', 'GluttonyError',
-          'DepressionError', 'SuicideError',
-          ]
+
+
+class IamGodError(Exception):
+    def __str__(self):
+        return 'IamGodError'
+
+
+class DrunkError(Exception):
+    def __str__(self):
+        return 'DrunkError'
+
+
+class CarCrashError(Exception):
+    def __str__(self):
+        return 'CarCrashError'
+
+
+class GluttonyError(Exception):
+    def __str__(self):
+        return 'GluttonyError'
+
+
+class DepressionError(Exception):
+    def __str__(self):
+        return 'DepressionError'
+
+
+class SuicideError(Exception):
+    def __str__(self):
+        return 'SuicideError'
+
+
 carma_level = 0
 days = 0
+errors = [IamGodError, DrunkError,
+          CarCrashError, GluttonyError,
+          DepressionError, SuicideError,
+          ]
 
 
 def one_day():
-    # TODO в try помещай код, в котором мождет быть ошибка, и можно ещё пару строк, если так удобнее, но не такие блоки.
-    try:
-        carma = random.randint(1, 7)
-        bad_day = random.randint(1, 13)
-        if bad_day == 13:
-            rand = random.randint(0, 5)
-            error = errors[rand]
-            raise BaseException(error)
-        return carma
-    except BaseException: # TODO обычно если хотят отловить вообще все ошибки, то отлавливают Exception
-        print(f'В этот день случилось ужасное - {error} карма = 0')
-        # TODO чтобы в ф-ии не было 2 ретурна, можно тут сделать carma = 0 и в конце ф-ии вернуть carma
-        return 0
+    carma = random.randint(1, 7)
+    bad_day = random.randint(1, 13)
+    rand = random.randint(0, 5)
+    error = errors[rand]
+    if bad_day == 13:
+        try:
+            raise Exception(error)
+        except Exception:
+            print(f'В этот день случилось ужасное - {error.__str__(self=error)} карма = 0')
+            carma = 0
+    return carma
 
 
 while carma_level < ENLIGHTENMENT_CARMA_LEVEL:
