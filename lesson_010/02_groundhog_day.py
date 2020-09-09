@@ -19,8 +19,9 @@ import random
 # базовых встроенных исключений.
 ENLIGHTENMENT_CARMA_LEVEL = 777
 
-
+# TODO сделай пожалуйста свой базовый класс, от которого будут наследоваться все твои ошибки, так ты сможешь отлавливать свой класс/блок ошибок.
 class IamGodError(Exception):
+    # TODO не надо переопределять методы в наследниках ошибок, обычто просто pass пишут. А сообщение передают при райзинге.
     def __str__(self):
         return 'IamGodError'
 
@@ -65,7 +66,7 @@ def one_day():
     error = errors[rand]
     if bad_day == 13:
         try:
-            raise Exception(error)
+            raise Exception(error) # TODO тут наверное надо писать error('сообщение'), но т.к. для каждой ошибки свое сообщение, то тут лучше кинуть кубик на 6 и в elif-ах райзить каждую ошибку отдельно.
         except Exception:
             print(f'В этот день случилось ужасное - {error.__str__(self=error)} карма = 0')
             carma = 0

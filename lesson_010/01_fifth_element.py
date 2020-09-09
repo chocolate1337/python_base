@@ -27,3 +27,5 @@ except IndexError:
     print('Выход за границы списка!!')
 except:
     print('Что-то пошло не так..')
+
+# зачет!
