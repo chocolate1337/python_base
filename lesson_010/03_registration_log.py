@@ -27,47 +27,59 @@ class ParseError(ValueError):
 
 
 class NotNameError(ParseError):
-    # TODO тут тоже лучше метод не переопределять, а передавать сообщение при райзинге.
-    def __str__(self):
-        return 'поле имени содержит НЕ только буквы'
+    pass
 
 
 class NotEmailError(ParseError):
-    def __str__(self):
-        return 'поле емейл НЕ содержит @ и .(точку)'
+    pass
 
 
 class AgeError(ParseError):
-    def __str__(self):
-        return 'поле возраст НЕ является числом от 10 до 99'
+    pass
 
 
 class InputError(ParseError):
-    def __str__(self):
-        return 'НЕ присутсвуют все три поля'
+    pass
 
 
 number_line = 1
 numbers = str([1234567890])
 
 
-def parse(line):
-    if line is not None:
-        name, email, age = line.split(' ')
-        age = int(age)
-        # TODO возможно лучше сделать каждую валидацию в отдельной ф-ии, чтобы при добавлении новых валидаций не надо было расширять эту ф-ию до бесконечности, тем более, что может потребоваться добавить более сложную проверку. Также это можно было бы оформить в класс, и в нем сделать ф-ию валидации, которая бы вызывала все ф-ии, для отдельных валидаций.
-        if "@" not in email:
-            raise NotEmailError
-        elif age < 10 or age > 99:
-            raise AgeError
+class Parse:
+
+    def __init__(self, line):
+        self.line = line
+        self.name_v, self.email_v, self.age_v = self.line.split(' ')
+        self.parse()
+
+    def parse(self):
+        if self.line is not None:
+            self.age()
+            self.email()
+            self.name()
+            return self.line
+        elif self.line is None:
+            raise InputError('НЕ присутсвуют все три поля')
+        else:
+            return self.line
+
+    def email(self):
+        if "@" not in self.email_v:
+            raise NotEmailError('поле емейл НЕ содержит @ и .(точку)')
+
+    def age(self):
+        self.age_v = int(self.age_v)
+        if self.age_v < 10 or self.age_v > 99:
+            raise NotEmailError('поле емейл НЕ содержит @ и .(точку)')
+
+    def name(self):
         for values in numbers:
-            if values in name:
-                raise NotNameError
-        return line
-    elif line is None:
-        raise InputError
-    else:
-        return line
+            if values in self.name_v:
+                raise NotNameError('поле имени содержит НЕ только буквы')
+
+    def __str__(self):
+        return self.line
 
 
 def write_log(write, number_line):
@@ -80,18 +92,19 @@ with open('registrations.txt', 'r') as ff:
     for line in ff:
         try:
             line = line[:-1]
-            write = parse(line=line)
+            parse = Parse
+            write = parse(line)
         except NotEmailError:
-            write_log(write=NotEmailError.__str__(NotEmailError), number_line=number_line)
+            write_log(write='поле емейл НЕ содержит @ и .(точку)', number_line=number_line)
         except NotNameError:
-            write_log(write=NotNameError.__str__(NotNameError), number_line=number_line)
+            write_log(write='поле имени содержит НЕ только буквы', number_line=number_line)
         except AgeError:
-            write_log(write=AgeError.__str__(AgeError), number_line=number_line)
+            write_log(write='поле возраст НЕ является числом от 10 до 99', number_line=number_line)
         except (InputError, ValueError):
-            write_log(write=InputError.__str__(InputError), number_line=number_line)
+            write_log(write='НЕ присутсвуют все три поля', number_line=number_line)
 
         else:
             with open('registrations_good.log', 'a') as f_good:
-                write += '\n'
-                f_good.write(write)
+                f_good.write(str(write))
+                f_good.write('\n')
         number_line += 1

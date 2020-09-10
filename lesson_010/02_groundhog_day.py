@@ -19,36 +19,33 @@ import random
 # базовых встроенных исключений.
 ENLIGHTENMENT_CARMA_LEVEL = 777
 
-# TODO сделай пожалуйста свой базовый класс, от которого будут наследоваться все твои ошибки, так ты сможешь отлавливать свой класс/блок ошибок.
-class IamGodError(Exception):
-    # TODO не надо переопределять методы в наследниках ошибок, обычто просто pass пишут. А сообщение передают при райзинге.
-    def __str__(self):
-        return 'IamGodError'
+
+class BadDayError(Exception):
+    pass
 
 
-class DrunkError(Exception):
-    def __str__(self):
-        return 'DrunkError'
+class IamGodError(BadDayError):
+    pass
 
 
-class CarCrashError(Exception):
-    def __str__(self):
-        return 'CarCrashError'
+class DrunkError(BadDayError):
+    pass
 
 
-class GluttonyError(Exception):
-    def __str__(self):
-        return 'GluttonyError'
+class CarCrashError(BadDayError):
+    pass
 
 
-class DepressionError(Exception):
-    def __str__(self):
-        return 'DepressionError'
+class GluttonyError(BadDayError):
+    pass
 
 
-class SuicideError(Exception):
-    def __str__(self):
-        return 'SuicideError'
+class DepressionError(BadDayError):
+    pass
+
+
+class SuicideError(BadDayError):
+    pass
 
 
 carma_level = 0
@@ -62,13 +59,24 @@ errors = [IamGodError, DrunkError,
 def one_day():
     carma = random.randint(1, 7)
     bad_day = random.randint(1, 13)
-    rand = random.randint(0, 5)
-    error = errors[rand]
+
     if bad_day == 13:
         try:
-            raise Exception(error) # TODO тут наверное надо писать error('сообщение'), но т.к. для каждой ошибки свое сообщение, то тут лучше кинуть кубик на 6 и в elif-ах райзить каждую ошибку отдельно.
-        except Exception:
-            print(f'В этот день случилось ужасное - {error.__str__(self=error)} карма = 0')
+            rand = random.randint(0, 5)
+            error = errors[rand]
+            if rand == 0:
+                raise error('IamGodError карма = 0')
+            elif rand == 1:
+                raise error('DrunkError карма = 0')
+            elif rand == 2:
+                raise error('CarCrashError карма = 0')
+            elif rand == 3:
+                raise error('GluttonyError карма = 0')
+            elif rand == 4:
+                raise error('DepressionError карма = 0')
+            elif rand == 5:
+                raise error('SuicideError карма = 0')
+        except BadDayError:
             carma = 0
     return carma
 
