@@ -22,6 +22,7 @@
 # - поле возраст НЕ является числом от 10 до 99: ValueError
 # Вызов метода обернуть в try-except.
 # тут хорошо
+# TODO почему тут ValueError?
 class ParseError(ValueError):
     pass
 

@@ -87,3 +87,5 @@ while carma_level < ENLIGHTENMENT_CARMA_LEVEL:
     print(f'День номер - {days}, уровень кармы - {carma_level}')
 print(f'За {days} - дня(ей,ень), герой достиг просветления!')
 # https://goo.gl/JnsDqu
+
+# зачет!
