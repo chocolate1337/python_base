@@ -108,3 +108,5 @@ with open('registrations.txt', 'r') as ff:
                 f_good.write(str(write))
                 f_good.write('\n')
         number_line += 1
+
+# зачет!
