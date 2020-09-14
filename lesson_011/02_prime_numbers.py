@@ -4,15 +4,15 @@
 # Есть функция генерации списка простых чисел
 
 
-def get_prime_numbers(n):
-    prime_numbers = []
-    for number in range(2, n + 1):
-        for prime in prime_numbers:
-            if number % prime == 0:
-                break
-        else:
-            prime_numbers.append(number)
-    return prime_numbers
+# def get_prime_numbers(n):
+#     prime_numbers = []
+#     for number in range(2, n + 1):
+#         for prime in prime_numbers:
+#             if number % prime == 0:
+#                 break
+#         else:
+#             prime_numbers.append(number)
+#     return prime_numbers
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -22,13 +22,35 @@ def get_prime_numbers(n):
 
 
 class PrimeNumbers:
-    pass
-    # TODO здесь ваш код
+
+    def __init__(self, n):
+        self.i = 2
+        self.n = n
+        self.a = [x for x in range(self.n + 1)]
+        self.number = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.a[self.i] != 0:
+            self.number = (self.a[self.i])
+            for j in range(self.i, self.n + 1, self.i):
+                self.a[j] = 0
+            return self.number
+        self.i += 1
+        if self.i > self.n:
+            raise StopIteration()
 
 
-prime_number_iterator = PrimeNumbers(n=10000)
-for number in prime_number_iterator:
-    print(number)
+
+
+
+
+# prime_number_iterator = PrimeNumbers(n=1000)
+# for number in prime_number_iterator:
+#     if number is not None:
+#         print(number)
 
 
 # TODO после подтверждения части 1 преподователем, можно делать
@@ -38,9 +60,14 @@ for number in prime_number_iterator:
 
 
 def prime_numbers_generator(n):
-    pass
-    # TODO здесь ваш код
-
+    prime_numbers = []
+    for number in range(2, n + 1):
+        for prime in prime_numbers:
+            if not number % prime:
+                break
+        else:
+            prime_numbers.append(number)
+            yield number
 
 for number in prime_numbers_generator(n=10000):
     print(number)

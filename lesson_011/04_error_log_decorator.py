@@ -7,10 +7,36 @@
 # Формат лога: <имя функции> <параметры вызова> <тип ошибки> <текст ошибки>
 # Лог файл открывать каждый раз при ошибке в режиме 'a'
 
+class ParseError(Exception):
+    pass
+
+
+class NotNameError(ParseError):
+    pass
+
+
+class NotEmailError(ParseError):
+    pass
+
+
+class AgeError(ParseError):
+    pass
+
+
+class InputError(ParseError):
+    pass
+
 
 def log_errors(func):
-    pass
-    # TODO здесь ваш код
+    def error(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except (ValueError, ParseError, ZeroDivisionError) as exc:
+            with open('function_errors.log', 'a') as f_bad:
+                write = f'Invalid format: {exc} \n'
+                f_bad.write(write)
+    return error
+
 
 
 # Проверить работу на следующих функциях
@@ -23,11 +49,11 @@ def perky(param):
 def check_line(line):
     name, email, age = line.split(' ')
     if not name.isalpha():
-        raise ValueError("it's not a name")
+        raise NotNameError("it's not a name")
     if '@' not in email or '.' not in email:
-        raise ValueError("it's not a email")
+        raise NotEmailError("it's not a email")
     if not 10 <= int(age) <= 99:
-        raise ValueError('Age not in 10..99 range')
+        raise AgeError('Age not in 10..99 range')
 
 
 lines = [
@@ -40,9 +66,10 @@ lines = [
 ]
 for line in lines:
     try:
-        check_line(line)
+        check_line(line=line)
     except Exception as exc:
         print(f'Invalid format: {exc}')
+
 perky(param=42)
 
 
