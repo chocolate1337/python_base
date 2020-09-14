@@ -33,7 +33,7 @@ def log_errors(func):
             return func(*args, **kwargs)
         except (ValueError, ParseError, ZeroDivisionError) as exc:
             with open('function_errors.log', 'a') as f_bad:
-                write = f'Invalid format: {exc} \n'
+                write = f'Name: {func.__name__}, Args:{str(*args)} Error:{type(exc)} Invalid format: {exc} \n'
                 f_bad.write(write)
     return error
 
@@ -66,11 +66,11 @@ lines = [
 ]
 for line in lines:
     try:
-        check_line(line=line)
+        check_line(line)
     except Exception as exc:
         print(f'Invalid format: {exc}')
 
-perky(param=42)
+perky(42)
 
 
 # Усложненное задание (делать по желанию).

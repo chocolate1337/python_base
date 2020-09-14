@@ -47,13 +47,12 @@ class PrimeNumbers:
 
 
 
-# prime_number_iterator = PrimeNumbers(n=1000)
-# for number in prime_number_iterator:
-#     if number is not None:
-#         print(number)
+prime_number_iterator = PrimeNumbers(n=1000)
+for number in prime_number_iterator:
+    if number is not None:
+        print(number)
 
 
-# TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
 # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
 # Распечатать все простые числа до 10000 в столбик
