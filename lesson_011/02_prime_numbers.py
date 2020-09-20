@@ -30,9 +30,11 @@ class PrimeNumbers:
         self.number = 0
 
     def __iter__(self):
+        # TODO тут забыл привести все переменные к первоначальным состояниям, чтобы при следующем вызове как итератора, все работало.
         return self
 
     def __next__(self):
+        # TODO а попробуй тут сделать тоже по типу, как в ф-ии get_prime_numbers
         if self.a[self.i] != 0:
             self.number = (self.a[self.i])
             for j in range(self.i, self.n + 1, self.i):

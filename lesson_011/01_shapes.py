@@ -29,3 +29,5 @@ draw_triangle(point=sd.get_point(200, 200), angle=1, length=50)
 
 
 sd.pause()
+
+# зачет!

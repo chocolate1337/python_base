@@ -48,3 +48,5 @@ for k, v in date:
     date_count[k] = v
 for k, v in date_count.items():
     print(k, v)
+
+# зачет!
