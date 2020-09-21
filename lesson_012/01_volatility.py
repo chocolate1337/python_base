@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+from collections import defaultdict
 
+import pandas as pd
+import numpy as np
 
 # Описание предметной области:
 #
@@ -73,4 +77,45 @@
 #     def run(self):
 #         <обработка данных>
 
-# TODO написать код в однопоточном/однопроцессорном стиле
+
+
+class Volatility:
+
+    def __init__(self, dir_in):
+        self.dir_in = os.path.normpath(dir_in)
+        self.prices = defaultdict(float)
+        self.list_prices = []
+
+    def collect_prices(self):
+        for root, dirs, filenames in os.walk(self.dir_in):
+            for file in filenames:
+                full_file_path = os.path.join(root, file)
+                names = file[7:11]
+                df = pd.read_csv(full_file_path, dtype={'PRICE': np.float32})
+                new_date = df['PRICE'].describe(include='number')
+                half_sum = (new_date.loc['max'] + new_date.loc['min']) / 2
+                volatility = ((new_date.loc['max'] - new_date.loc['min']) / half_sum) * 100
+                self.prices[names] = volatility
+
+    def run(self):
+        self.collect_prices()
+        self.list_prices = list(self.prices.items())
+        self.list_prices.sort(key=lambda i: i[1])
+        cnt = 1
+        print('Минимальная волатильность:')
+        for number in self.list_prices:
+            if number[1] > 0 and cnt <= 3:
+                print(f"{number[0]} - {'{:.2f}'.format(number[1])} %")
+                cnt += 1
+        print('Максимальная волатильность:')
+        print(f"{self.list_prices[-1][0]} - {'{:.2f}'.format(self.list_prices[-1][1])} %")
+        print(f"{self.list_prices[-2][0]} - {'{:.2f}'.format(self.list_prices[-2][1])} %")
+        print(f"{self.list_prices[-3][0]} - {'{:.2f}'.format(self.list_prices[-3][1])} %")
+        print('Нулевая волатильность:')
+        for number in self.list_prices:
+            if number[1] == 0.0:
+                print(number[0])
+
+path = os.path.join(os.path.dirname(__file__), 'trades')
+get_violatity = Volatility(dir_in=path)
+get_violatity.run()
