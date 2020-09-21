@@ -24,24 +24,23 @@
 class PrimeNumbers:
 
     def __init__(self, n):
-        self.i = 2
+        self.i = 0
         self.n = n
-        self.a = [x for x in range(self.n + 1)]
+        self.a = [x for x in range(2, self.n + 1)]
         self.number = 0
 
     def __iter__(self):
-        # TODO тут забыл привести все переменные к первоначальным состояниям, чтобы при следующем вызове как итератора, все работало.
+        self.i = 0
         return self
 
     def __next__(self):
-        # TODO а попробуй тут сделать тоже по типу, как в ф-ии get_prime_numbers
-        if self.a[self.i] != 0:
-            self.number = (self.a[self.i])
-            for j in range(self.i, self.n + 1, self.i):
-                self.a[j] = 0
-            return self.number
         self.i += 1
-        if self.i > self.n:
+        for number in self.a:
+            if self.i % number == 0:
+                break
+            else:
+                return self.i
+        if self.i == self.n:
             raise StopIteration()
 
 

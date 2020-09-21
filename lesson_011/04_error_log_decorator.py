@@ -26,26 +26,26 @@ class AgeError(ParseError):
 class InputError(ParseError):
     pass
 
-
-def log_errors(func):
-    def error(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except (ValueError, ParseError, ZeroDivisionError) as exc:
-            with open('function_errors.log', 'a') as f_bad:
-                write = f'Name: {func.__name__}, Args:{str(*args)} Error:{type(exc)} Invalid format: {exc} \n'
-                f_bad.write(write)
-    return error
-
+def logs(file):
+    def log_errors(func):
+        def error(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except (ValueError, ParseError, ZeroDivisionError) as exc:
+                with open(str(file), 'a') as f_bad:
+                    write = f'Name: {func.__name__}, Args:{str(*args)} Error:{type(exc)} Invalid format: {exc} \n'
+                    f_bad.write(write)
+        return error
+    return log_errors
 
 
 # Проверить работу на следующих функциях
-@log_errors
+@logs('function_errorss.log')
 def perky(param):
     return param / 0
 
 
-@log_errors
+@logs('function_errorss.log')
 def check_line(line):
     name, email, age = line.split(' ')
     if not name.isalpha():
@@ -72,7 +72,6 @@ for line in lines:
 
 perky(42)
 
-# TODO молодец, если есть желание, то можешь немного доделать до усложненного задания.
 # Усложненное задание (делать по желанию).
 # Написать декоратор с параметром - именем файла
 #
