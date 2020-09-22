@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from operator import eq
 
 
 # Есть функция генерации списка простых чисел
@@ -21,37 +22,37 @@
 # Распечатать все простые числа до 10000 в столбик
 
 
-class PrimeNumbers:
-
-    def __init__(self, n):
-        self.i = 0
-        self.n = n
-        self.a = [x for x in range(2, self.n + 1)]
-        self.number = 0
-
-    def __iter__(self):
-        self.i = 0
-        return self
-
-    def __next__(self):
-        self.i += 1
-        for number in self.a:
-            if self.i % number == 0:
-                break
-            else:
-                return self.i
-        if self.i == self.n:
-            raise StopIteration()
-
-
-
-
-
-
-prime_number_iterator = PrimeNumbers(n=1000)
-for number in prime_number_iterator:
-    if number is not None:
-        print(number)
+# class PrimeNumbers:
+#
+#     def __init__(self, n):
+#         self.i = 0
+#         self.n = n
+#         self.a = [x for x in range(2, self.n + 1)]
+#         self.number = 0
+#
+#     def __iter__(self):
+#         self.i = 0
+#         return self
+#
+#     def __next__(self):
+#         self.i += 1
+#         for number in self.a:
+#             if self.i % number == 0:
+#                 break
+#             else:
+#                 return self.i
+#         if self.i == self.n:
+#             raise StopIteration()
+#
+#
+#
+#
+#
+#
+# prime_number_iterator = PrimeNumbers(n=1000)
+# for number in prime_number_iterator:
+#     if number is not None:
+#         print(number)
 
 
 # Часть 2
@@ -59,20 +60,20 @@ for number in prime_number_iterator:
 # Распечатать все простые числа до 10000 в столбик
 
 
-def prime_numbers_generator(n):
-    prime_numbers = []
-    for number in range(2, n + 1):
-        for prime in prime_numbers:
-            if not number % prime:
-                break
-        else:
-            prime_numbers.append(number)
-            yield number
+# def prime_numbers_generator(n):
+#     prime_numbers = []
+#     for number in range(2, n + 1):
+#         for prime in prime_numbers:
+#             if not number % prime:
+#                 break
+#         else:
+#             prime_numbers.append(number)
+#             yield number
+#
+# for number in prime_numbers_generator(n=10000):
+#     print(number)
 
-for number in prime_numbers_generator(n=10000):
-    print(number)
 
-# TODO отлично, приступай к третьей части
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
 # 1) "счастливое" в обыденном пониманиии - сумма первых цифр равна сумме последних
@@ -89,3 +90,29 @@ for number in prime_numbers_generator(n=10000):
 #
 # Подсказка: возможно, нужно будет добавить параметр в итератор/генератор.
 
+def prime_numbers_generator(n):
+    prime_numbers = []
+    for number in range(2, n + 1):
+        for prime in prime_numbers:
+            if not number % prime:
+                break
+        else:
+            prime_numbers.append(number)
+            yield number
+
+
+def eq_sum(string_value, *slices):
+    return eq(*map(lambda s: sum(map(int, s)), map(string_value.__getitem__, slices)))
+
+
+def luck_value(value):
+    string_value = str(value)
+    if len(string_value) < 2:
+        return True
+    else:
+        middle = len(string_value) // 2
+        return eq_sum(string_value, slice(middle), slice(-middle, None))
+
+
+for number in filter(luck_value, prime_numbers_generator(100000)):
+    print(number)
