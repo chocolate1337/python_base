@@ -84,7 +84,8 @@ class Volatility:
     def __init__(self, dir_in):
         self.dir_in = os.path.normpath(dir_in)
         self.prices = defaultdict(float)
-        self.list_prices = [] # TODO тут лучше list убрать из названия, структуры данных обычно не используют в названиях, можно следать доку к ф-ии, например
+        self.l_prices = []
+        self.zero_volatility = []
 
     def collect_prices(self):
         for root, dirs, filenames in os.walk(self.dir_in):
@@ -95,26 +96,21 @@ class Volatility:
                 new_date = df['PRICE'].describe(include='number')
                 half_sum = (new_date.loc['max'] + new_date.loc['min']) / 2
                 volatility = ((new_date.loc['max'] - new_date.loc['min']) / half_sum) * 100
-                self.prices[names] = volatility
+                if volatility == 0:
+                    self.zero_volatility.append(names)
+                else:
+                    self.prices[names] = volatility
 
     def run(self):
         self.collect_prices()
-        self.list_prices = list(self.prices.items())
-        self.list_prices.sort(key=lambda i: i[1])
-        cnt = 1
-        print('Минимальная волатильность:')
-        for number in self.list_prices: # TODO почему бы не взять просто срез из списка первых 3-х и последних 3-х элементов?
-            if number[1] > 0 and cnt <= 3:
-                print(f"{number[0]} - {'{:.2f}'.format(number[1])} %")
-                cnt += 1
+        self.l_prices = list(self.prices.items())
+        self.l_prices.sort(key=lambda i: i[1])
         print('Максимальная волатильность:')
-        print(f"{self.list_prices[-1][0]} - {'{:.2f}'.format(self.list_prices[-1][1])} %")
-        print(f"{self.list_prices[-2][0]} - {'{:.2f}'.format(self.list_prices[-2][1])} %")
-        print(f"{self.list_prices[-3][0]} - {'{:.2f}'.format(self.list_prices[-3][1])} %")
+        print(self.l_prices[-3:])
+        print('Минимальная волатильность:')
+        print(self.l_prices[:3])
         print('Нулевая волатильность:')
-        for number in self.list_prices:
-            if number[1] == 0.0:
-                print(number[0])
+        print(self.zero_volatility)
 
 path = os.path.join(os.path.dirname(__file__), 'trades')
 get_violatity = Volatility(dir_in=path)
