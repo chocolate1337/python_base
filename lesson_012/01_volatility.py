@@ -84,7 +84,7 @@ class Volatility:
     def __init__(self, dir_in):
         self.dir_in = os.path.normpath(dir_in)
         self.prices = defaultdict(float)
-        self.list_prices = []
+        self.list_prices = [] # TODO тут лучше list убрать из названия, структуры данных обычно не используют в названиях, можно следать доку к ф-ии, например
 
     def collect_prices(self):
         for root, dirs, filenames in os.walk(self.dir_in):
@@ -103,7 +103,7 @@ class Volatility:
         self.list_prices.sort(key=lambda i: i[1])
         cnt = 1
         print('Минимальная волатильность:')
-        for number in self.list_prices:
+        for number in self.list_prices: # TODO почему бы не взять просто срез из списка первых 3-х и последних 3-х элементов?
             if number[1] > 0 and cnt <= 3:
                 print(f"{number[0]} - {'{:.2f}'.format(number[1])} %")
                 cnt += 1
