@@ -116,3 +116,5 @@ def luck_value(value):
 
 for number in filter(luck_value, prime_numbers_generator(100000)):
     print(number)
+
+# зачет!
