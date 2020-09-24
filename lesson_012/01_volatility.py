@@ -115,3 +115,5 @@ class Volatility:
 path = os.path.join(os.path.dirname(__file__), 'trades')
 get_violatity = Volatility(dir_in=path)
 get_violatity.run()
+
+# зачет!
