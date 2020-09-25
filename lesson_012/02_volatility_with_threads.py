@@ -26,12 +26,13 @@ from threading import Thread
 
 class Volatility(Thread):
 
-    def __init__(self, dir_in, *args, **kwargs):
+    def __init__(self, dir_in, mode, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.dir_in = os.path.normpath(dir_in)
         self.prices = defaultdict(float)
         self.l_prices = []
         self.zero_volatility = []
+        self.mode = mode
 
     def collect_prices(self):
         for root, dirs, filenames in os.walk(self.dir_in):
@@ -51,17 +52,20 @@ class Volatility(Thread):
         self.collect_prices()
         self.l_prices = list(self.prices.items())
         self.l_prices.sort(key=lambda i: i[1])
-        print('Максимальная волатильность:')
-        print(self.l_prices[-3:])
-        print('Минимальная волатильность:')
-        print(self.l_prices[:3])
-        print('Нулевая волатильность:')
-        print(self.zero_volatility)
+        if self.mode == 'max':
+            print('Максимальная волатильность:')
+            print(self.l_prices[-3:])
+        if self.mode == 'min':
+            print('Минимальная волатильность:')
+            print(self.l_prices[:3])
+        if self.mode == 'zero':
+            print('Нулевая волатильность:')
+            print(self.zero_volatility)
 
 path = os.path.join(os.path.dirname(__file__), 'trades')
-get_violatity = Volatility(dir_in=path)
-get_violatity.run()
-volatility = [Volatility(dir_in=path), Volatility(dir_in=path)]
+volatility = [Volatility(dir_in=path,mode='max'),
+              Volatility(dir_in=path,mode= 'min'),
+              Volatility(dir_in=path,mode= 'zero')]
 
 def run_in_threads(volatility):
     for vol in volatility:
