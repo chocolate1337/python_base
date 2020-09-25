@@ -61,6 +61,7 @@ class Volatility(Thread):
 path = os.path.join(os.path.dirname(__file__), 'trades')
 get_violatity = Volatility(dir_in=path)
 get_violatity.run()
+# TODO тут не совсем верно, тебе же надо в каждый поток отправить другой файл, а тут получается, что ты в 2 потока отправляешь одно и то же
 volatility = [Volatility(dir_in=path), Volatility(dir_in=path)]
 
 def run_in_threads(volatility):
