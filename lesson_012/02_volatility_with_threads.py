@@ -18,58 +18,85 @@
 # Волатильности указывать в порядке убывания. Тикеры с нулевой волатильностью упорядочить по имени.
 #
 import os
-from collections import defaultdict
-import pandas as pd
-import numpy as np
-from threading import Thread
+import threading
 
 
-class Volatility(Thread):
-
-    def __init__(self, dir_in, mode, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.dir_in = os.path.normpath(dir_in)
-        self.prices = defaultdict(float)
-        self.l_prices = []
-        self.zero_volatility = []
-        self.mode = mode
-
-    def collect_prices(self):
-        for root, dirs, filenames in os.walk(self.dir_in):
-            for file in filenames:
-                full_file_path = os.path.join(root, file)
-                names = file[7:11]
-                df = pd.read_csv(full_file_path, dtype={'PRICE': np.float32})
-                new_date = df['PRICE'].describe(include='number')
-                half_sum = (new_date.loc['max'] + new_date.loc['min']) / 2
-                volatility = ((new_date.loc['max'] - new_date.loc['min']) / half_sum) * 100
-                if volatility == 0:
-                    self.zero_volatility.append(names)
-                else:
-                    self.prices[names] = volatility
+class FileTreatment(threading.Thread):
+    def __init__(self, path, lock, not_zero_volatility, zero_volatility, *args, **kwargs):
+        super(FileTreatment, self).__init__(*args, **kwargs)
+        self.path = path
+        self.volatility = None
+        self.ticker = None
+        self.lock_flow = lock
+        self.not_zero_volatility_list = not_zero_volatility
+        self.zero_volatility_list = zero_volatility
 
     def run(self):
-        self.collect_prices()
-        self.l_prices = list(self.prices.items())
-        self.l_prices.sort(key=lambda i: i[1])
-        if self.mode == 'max':
-            print('Максимальная волатильность:')
-            print(self.l_prices[-3:])
-        if self.mode == 'min':
-            print('Минимальная волатильность:')
-            print(self.l_prices[:3])
-        if self.mode == 'zero':
-            print('Нулевая волатильность:')
-            print(self.zero_volatility)
+        with open(self.path) as read_file:
+            self.unpacking_file(read_file)
+        with self.lock_flow:
+            if self.volatility == 0:
+                self.zero_volatility_list.append(self.ticker)
+            else:
+                self.not_zero_volatility_list.append((self.volatility, self.ticker))
 
-path = os.path.join(os.path.dirname(__file__), 'trades')
-volatility = [Volatility(dir_in=path,mode='max'),
-              Volatility(dir_in=path,mode= 'min'),
-              Volatility(dir_in=path,mode= 'zero')]
+    def unpacking_file(self, read_file):
+        minimum_value = None
+        maximum_value = None
+        is_first_line = True
+        for _, line in enumerate(read_file):
+            if is_first_line:
+                is_first_line = False
+            else:
+                self.ticker, trade_time, price, quantity = line.split(",")
+                check_price = float(price)
+                if minimum_value is None:
+                    minimum_value = check_price
+                    maximum_value = check_price
+                elif minimum_value > check_price:
+                    minimum_value = check_price
+                elif maximum_value < check_price:
+                    maximum_value = check_price
+        self.calculations_file_and_sorted(maximum_value, minimum_value)
 
-def run_in_threads(volatility):
-    for vol in volatility:
-        vol.start()
-    for vol in volatility:
-        vol.join()
-run_in_threads(volatility)
+    def calculations_file_and_sorted(self, maximum_value, minimum_value):
+        if maximum_value is None or minimum_value is None:
+            raise ValueError("ошибка расчета формулы. Одно из значений равно нулю")
+        else:
+            average_price = (maximum_value + minimum_value) / 2
+            self.volatility = round(((maximum_value - minimum_value) / average_price) * 100, 2)
+
+
+def main():
+    zero_volatility = []
+    all_volatility = []
+    flows = []
+    lock = threading.Lock()
+    for dirpath, _, filenames in os.walk("trades"):
+        for file in filenames:
+            path = os.path.join(dirpath, file)
+            flow = FileTreatment(path, lock, all_volatility, zero_volatility)
+            flows.append(flow)
+
+    for elem in flows:
+        elem.start()
+
+    for elem in flows:
+        elem.join()
+
+    all_volatility.sort(reverse=True)
+    zero_volatility.sort()
+    max_volatility = all_volatility[0:3]
+    min_volatility = all_volatility[-3::]
+    print('максимальная волотилитильность:')
+    for element in max_volatility:
+        print(element)
+    print('минимальная волотилитильность:')
+    for element in min_volatility:
+        print(element)
+    print("нулевая волотильность:")
+    print(zero_volatility)
+
+
+if __name__ == '__main__':
+    main()
