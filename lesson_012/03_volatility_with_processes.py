@@ -86,7 +86,7 @@ def main():
         except queue.Empty:
             if not any(elem.is_alive() for elem in flows):
                 break
-    # здесь ок, к этому моменту все процессы остановлены
+
     for elem in flows:
         elem.join()
 
@@ -106,3 +106,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# зачет!
