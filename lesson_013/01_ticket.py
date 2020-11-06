@@ -20,9 +20,10 @@ parser.add_argument('-to','--to',type=str,help='Куда летим')
 parser.add_argument('-d','--date', type=str, help='Когда летим')
 args = parser.parse_args()
 numbers = '1234567890'
-
+# TODO тут идет проверка если подстрока '1234567890' в args.fio
 if numbers in args.fio:
     parser.error('-fio маска Фамилия И.О')
+# TODO а тут проверка просто не число ли это? Надо получить дату и проверить, что она не на прошлое время. Также лучше сделать это все в классах и сделать метод валидация,  вкотором будут вызываться все методы валидации по очереди.
 if str.isalpha(args.date):
     parser.error('-d маска ##.##.####')
 
