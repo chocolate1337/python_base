@@ -3,7 +3,7 @@
 import os
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 import argparse
-
+from datetime import datetime
 
 # Заполнить все поля в билете на самолет.
 # Создать функцию, принимающую параметры: ФИО, откуда, куда, дата вылета,
@@ -20,13 +20,32 @@ parser.add_argument('-to','--to',type=str,help='Куда летим')
 parser.add_argument('-d','--date', type=str, help='Когда летим')
 args = parser.parse_args()
 numbers = '1234567890'
-# TODO тут идет проверка если подстрока '1234567890' в args.fio
-if numbers in args.fio:
-    parser.error('-fio маска Фамилия И.О')
-# TODO а тут проверка просто не число ли это? Надо получить дату и проверить, что она не на прошлое время. Также лучше сделать это все в классах и сделать метод валидация,  вкотором будут вызываться все методы валидации по очереди.
-if str.isalpha(args.date):
-    parser.error('-d маска ##.##.####')
 
+class Validation:
+
+    def __init__(self, date, fio):
+        self.date = date
+        self.fio = fio
+
+    def validate(self):
+        self.v_data()
+        self.v_fio()
+
+    def v_data(self):
+
+        valid_date = datetime.strptime(self.date, '%d.%m.%Y')
+        now = datetime.now()
+        if valid_date < now:
+            parser.error('-d не верная дата')
+
+
+    def v_fio(self):
+        for number in numbers:
+            if number in self.fio:
+                parser.error('-fio маска Фамилия И.О')
+
+valid = Validation(date=args.date,fio=args.fio)
+valid.validate()
 
 def make_ticket(fio, from_ , to, data):
     image = os.path.join('images', 'ticket_template.png')
