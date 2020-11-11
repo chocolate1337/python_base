@@ -43,10 +43,11 @@ class Validation:
         for number in numbers:
             if number in self.fio:
                 parser.error('-fio маска Фамилия И.О')
-
+# TODO тут по кодингстайлу сначала идут классы/ф-ии потом код, который с ними работает.
 valid = Validation(date=args.date,fio=args.fio)
 valid.validate()
 
+# TODO почему бы не создать класс с атрибутами полей билета и методами получить билет итд? Также можно создать файл сеттингсов с шрифтом и тд, и оттуда подтягивать данные
 def make_ticket(fio, from_ , to, data):
     image = os.path.join('images', 'ticket_template.png')
     fonts = os.path.join('fonts', 'ofont.ru_Cyntho Next Slab.ttf')
