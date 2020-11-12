@@ -43,6 +43,9 @@ class Photo:
 
 
     def make_ticket(self):
+        # TODO супер, теперь сделай файл с сеттингсами, можно просто файл settings.py, в котором будут глобальные 
+        #  переменные капсом, и тут их подтягивай. Это для того, чтобы можно было залезть в цивилизованный 
+        #  файл настроик и изменить какие-то параметры, шрифт под хеллоуин итд.)
         image = os.path.join('images', 'ticket_template.png')
         fonts = os.path.join('fonts', 'ofont.ru_Cyntho Next Slab.ttf')
         im = Image.open(image)
