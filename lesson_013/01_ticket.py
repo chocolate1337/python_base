@@ -2,7 +2,7 @@
 
 import os
 from PIL import Image, ImageDraw, ImageFont, ImageColor
-import argparse
+import argparse, configparser
 from datetime import datetime
 
 
@@ -14,7 +14,10 @@ from datetime import datetime
 # Подходящий шрифт искать на сайте ofont.ru
 
 numbers = '1234567890'
-
+config = configparser.ConfigParser()
+base_dir = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(base_dir, 'config.ini')
+config.read(config_path)
 
 class Photo:
 
@@ -43,11 +46,8 @@ class Photo:
 
 
     def make_ticket(self):
-        # TODO супер, теперь сделай файл с сеттингсами, можно просто файл settings.py, в котором будут глобальные 
-        #  переменные капсом, и тут их подтягивай. Это для того, чтобы можно было залезть в цивилизованный 
-        #  файл настроик и изменить какие-то параметры, шрифт под хеллоуин итд.)
         image = os.path.join('images', 'ticket_template.png')
-        fonts = os.path.join('fonts', 'ofont.ru_Cyntho Next Slab.ttf')
+        fonts = os.path.join('fonts', config.get('Fonts','font'))
         im = Image.open(image)
         draw = ImageDraw.Draw(im)
         font = ImageFont.truetype(fonts, size=20)
