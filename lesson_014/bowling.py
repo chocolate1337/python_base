@@ -46,7 +46,7 @@ class Game:
         self.frame = 1
         self.total_score = 0
         self.game_result = game_result
-
+    # TODO хорошо справился, единственное этот метод рызбить бы на парочку
     def calculate_result(self):
 
         first_throw = FirstThrow()
@@ -104,7 +104,9 @@ class Game:
             logging.info(f' Итого: {self.total_score}')
         logging.info(f' FRAME_{self.frame} {throw} - "{throw_symbol}" -> {throw_score}')
 
-
+# TODO интересное решение, а как тебе вариант, чтобы в качестве состояний использовать Страйк, Спэйр, и Сумму, 
+#  и у всех этих состояний будет метод получить_счет. Далее, когда будешь разбирать заданную строку, то если первый элемент Х, 
+#  то ты его отрезаешь (или перескакиваешь через 1 элемент) и получаешь очки - 20, если не Х, то отрезаешь 2 элемента и по условиям ставишь нужный статус.
 class Throw(ABC):
 
     def process(self, symbol):
