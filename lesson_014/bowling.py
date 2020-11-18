@@ -160,3 +160,5 @@ if __name__ == '__main__':
         print(game.calculate_result())
     except (BowlingError, BaseException) as exc:
         print(f'ошибка {exc}')
+
+# зачет!
