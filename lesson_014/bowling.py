@@ -46,17 +46,17 @@ class Game:
         self.frame = 1
         self.total_score = 0
         self.game_result = game_result
-    # TODO хорошо справился, единственное этот метод рызбить бы на парочку
-    def calculate_result(self):
 
-        first_throw = FirstThrow()
-        second_throw = SecondThrow()
-        first_hit, second_hit = 0, 0
+    def frames(self):
+
+        self.first_throw = FirstThrow()
+        self.second_throw = SecondThrow()
+        self.first_hit, self.second_hit = 0, 0
 
         logging.info(f' >> NEW GAME')
         logging.info(f' < {self.game_result} >')
 
-        throw = first_throw
+        self.throw = self.first_throw
         for throw_symbol in self.game_result:
 
             if self.frame > FRAME_COUNT:
@@ -64,35 +64,37 @@ class Game:
                 raise MaxFrameError(f' Превышено кол-во фреймов ! (максимально возможно {FRAME_COUNT})')
 
             try:
-                throw_score = throw.process(symbol=throw_symbol)
+                self.throw_score = self.throw.process(symbol=throw_symbol)
             except BowlingError as exc:
                 logging.critical(f' {exc}')
                 raise exc
 
-            self.print_frame_results(throw, throw_symbol, throw_score)
+            self.print_frame_results(self.throw, throw_symbol, self.throw_score)
 
-            if isinstance(throw, FirstThrow):
-                if throw_score == STRIKE_SCORE:
-                    throw = first_throw
-                    self.total_score += STRIKE_SCORE
-                    self.frame += 1
-                else:
-                    first_hit = throw_score
-                    throw = second_throw
-            else:
-                if throw_score == SPARE_SCORE:
-                    self.total_score += SPARE_SCORE
-                else:
-                    second_hit = throw_score
-                    total_skittle_hits = first_hit + second_hit
-                    if total_skittle_hits < SKITTLE_COUNT:
-                        self.total_score += total_skittle_hits
-                    else:
-                        logging.critical('введены результаты бросков превышающие кол-во кеглей !')
-                        raise AttributeError('введены результаты бросков превышающие кол-во кеглей !')
-
+    def calculate_result(self):
+        self.frames()
+        if isinstance(self.throw, FirstThrow):
+            if self.throw_score == STRIKE_SCORE:
+                self.throw = self.first_throw
+                self.total_score += STRIKE_SCORE
                 self.frame += 1
-                throw = first_throw
+            else:
+                self.first_hit = self.throw_score
+                self.throw = self.second_throw
+        else:
+            if self.throw_score == SPARE_SCORE:
+                self.total_score += SPARE_SCORE
+            else:
+                second_hit = self.throw_score
+                total_skittle_hits = self.first_hit + second_hit
+                if total_skittle_hits < SKITTLE_COUNT:
+                    self.total_score += total_skittle_hits
+                else:
+                    logging.critical('введены результаты бросков превышающие кол-во кеглей !')
+                    raise AttributeError('введены результаты бросков превышающие кол-во кеглей !')
+
+            self.frame += 1
+            self.throw = self.first_throw
 
             logging.info(f' TOTAL SCORE < {self.total_score} >')
             logging.info(f' >> END GAME')
@@ -104,9 +106,7 @@ class Game:
             logging.info(f' Итого: {self.total_score}')
         logging.info(f' FRAME_{self.frame} {throw} - "{throw_symbol}" -> {throw_score}')
 
-# TODO интересное решение, а как тебе вариант, чтобы в качестве состояний использовать Страйк, Спэйр, и Сумму, 
-#  и у всех этих состояний будет метод получить_счет. Далее, когда будешь разбирать заданную строку, то если первый элемент Х, 
-#  то ты его отрезаешь (или перескакиваешь через 1 элемент) и получаешь очки - 20, если не Х, то отрезаешь 2 элемента и по условиям ставишь нужный статус.
+
 class Throw(ABC):
 
     def process(self, symbol):
@@ -120,7 +120,6 @@ class Throw(ABC):
             return int(symbol)
         else:
             raise InputValueError(f'Введен неверный символ "{symbol}"')
-
 
     @abstractmethod
     def strike(self):
@@ -157,7 +156,7 @@ class SecondThrow(Throw):
 
 if __name__ == '__main__':
     try:
-        game = Game(game_result='d12', need_log=False)
+        game = Game(game_result='X', need_log=False)
         print(game.calculate_result())
     except (BowlingError, BaseException) as exc:
         print(f'ошибка {exc}')
