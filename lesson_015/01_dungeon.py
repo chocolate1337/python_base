@@ -375,7 +375,8 @@ class Game:
     def __write_log(self):
         with open('dungeon.csv', 'w') as log_file:
             for step in self.log:
-                # TODO хм, если csv файл, почему не через запятую?
+                # TODO хм, если csv файл, почему не через запятую? И у тебя не совсем правильно формируются столбцы,
+                #  если открыть этот файл в экселе, то должны быть колонки, как описано выше.
                 step_info = ''.join([f'{key}: {val}\n' for key, val in step.items()])
                 log_file.write(step_info)
                 log_file.write('\n')
