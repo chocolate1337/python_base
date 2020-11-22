@@ -375,6 +375,7 @@ class Game:
     def __write_log(self):
         with open('dungeon.csv', 'w') as log_file:
             for step in self.log:
+                # TODO хм, если csv файл, почему не через запятую?
                 step_info = ''.join([f'{key}: {val}\n' for key, val in step.items()])
                 log_file.write(step_info)
                 log_file.write('\n')
