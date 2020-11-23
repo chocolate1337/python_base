@@ -104,7 +104,7 @@ remaining_time = '123456.0987654321'
 # если изначально не писать число в виде строки - теряется точность!
 
 
-field_names = ['current_location', 'current_experience', 'current_date']
+field_names = 'current_location,current_experience,current_date\n'
 
 
 class Location:
@@ -267,8 +267,7 @@ class Game:
         self.log.append({
             'current_loc': self.player.current_location.name,
             'current_exp': self.player.current_experience,
-            'remaining_time': self.player.remaining_time,
-            'game_time': datetime.strftime(datetime.now(), '%Y.%m.%d %H:%M:%S')
+            'current_date': datetime.strftime(datetime.now(), '%Y.%m.%d %H:%M:%S')
         })
 
         time.sleep(self.__settings['delay'])
@@ -374,10 +373,9 @@ class Game:
 
     def __write_log(self):
         with open('dungeon.csv', 'w') as log_file:
+            log_file.write(field_names)
             for step in self.log:
-                # TODO хм, если csv файл, почему не через запятую? И у тебя не совсем правильно формируются столбцы,
-                #  если открыть этот файл в экселе, то должны быть колонки, как описано выше.
-                step_info = ''.join([f'{key}: {val}\n' for key, val in step.items()])
+                step_info = ','.join([f'{val}' for val in step.values()])
                 log_file.write(step_info)
                 log_file.write('\n')
 
