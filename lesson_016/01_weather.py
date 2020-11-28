@@ -57,9 +57,9 @@ import cv2
 import numpy as np
 import os.path as path
 import sys
-import fire
+# import fire # TODO а что это за модуль?
 import os
-from db import DatabaseUpdater
+from .db import DatabaseUpdater
 
 BASE_PATH = path.dirname(__file__)
 BASE_PATH = path.normpath(BASE_PATH)
