@@ -57,7 +57,7 @@ import cv2
 import numpy as np
 import os.path as path
 import sys
-# import fire # TODO а что это за модуль?
+import fire
 import os
 from .db import DatabaseUpdater
 
