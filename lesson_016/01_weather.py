@@ -59,10 +59,11 @@ import os.path as path
 import sys
 import fire
 import os
+
 from db import DatabaseUpdater
 
 BASE_PATH = path.dirname(__file__)
-BASE_PATH = path.normpath(BASE_PATH)
+
 
 class WeatherMaker:
     """
@@ -97,7 +98,7 @@ class WeatherMaker:
         month_list = list(map(str.lower, calendar.month_name[period_from_month:period_to_month + 1]))
 
         for month in month_list:
-            base_url = 'https://pogoda.mail.ru/prognoz/sankt_peterburg/'
+            base_url = 'https://pogoda.mail.ru/prognoz/moskva/'
             period_from_url = urljoin(base_url, f'{month}-{period_from_year}')
             response = requests.get(period_from_url).text
             month_soup_data = BeautifulSoup(response, features='html.parser')
@@ -127,12 +128,8 @@ class WeatherMaker:
 
             # parse weather
             day_info = self.data[date] = {}
-
-            # TODO у тебя тут случайно нет ошибки? У меня возникает на какой-то итерации, т.к.
-            #  re.search(r'[+\-]\d{1,2}',day_div.find('div', class_='day__temperature').text)
-            #  в какой-то момент возвращает None
-            day_info['day_temperature'] = re.search(r'[+\-]\d{1,2}',day_div.find('div', class_='day__temperature').text)[0]
-
+            day_info['day_temperature'] = re.search(r'[+\-]\d{1,2}',
+                                                    day_div.find('div', class_='day__temperature').text)[0]
             day_info['night_temperature'] = day_div.find('span', class_='day__temperature__night').text
             day_info['day_description'] = day_div.find_next('div', {'class': 'day__description'}).find('span').text
             day_info['pressure'] = day_div.find('span', title=re.compile('Давление')).text.strip()
@@ -323,7 +320,7 @@ class WeatherCLI(object):
             weather = self.load_from_base(from_, to_)
 
         if 'postcards' not in os.listdir():
-            os.makedirs('postcards')
+            os.mkdir('postcards')
 
         for i, elem in enumerate(weather):
             img_path = os.path.join('postcards', f'day_{i}.jpg')
